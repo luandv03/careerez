@@ -1,0 +1,53 @@
+.container {
+    height: 530px;
+    color: #fff;
+    display: flex;
+}
+
+.information {
+    flex: 1;
+    background-color: rgb(40, 89, 182);
+    color: #fff;
+    padding: 50px;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+}
+
+.address {
+    margin-top: 40px;
+}
+
+.contact h1 {
+    margin-top: 10px;
+}
+
+.divide {
+    max-width: 300px;
+    border: 1px solid #fff;
+}
+
+.socialMediaList {
+    list-style: none;
+    display: flex;
+}
+
+.socialMediaList li {
+    margin-right: 10px;
+}
+
+.brand {
+    width: 370px;
+    background-color: rgb(242, 242, 242);
+    padding: 50px;
+    display: flex;
+    align-items: center;
+}
+
+.logo {
+    width: 100%;
+}
+
+.logo img {
+    width: 100%;
+}

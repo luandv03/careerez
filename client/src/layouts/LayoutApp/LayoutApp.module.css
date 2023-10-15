@@ -1,0 +1,16 @@
+.header {
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    padding: 0 50px;
+}
+
+.content {
+    width: 100%;
+    min-height: calc(100vh - 165px);
+}
+
+.footer {
+    width: 100%;
+    padding: 50px;
+}
