@@ -1,0 +1,263 @@
+.container {
+    width: 100%;
+}
+
+.avatar {
+    width: 100%;
+    position: relative;
+}
+
+.avatar img {
+    width: 100%;
+    height: 492px;
+    object-fit: cover;
+    object-position: 50% 50%;
+}
+
+.title {
+    position: absolute;
+    bottom: 0;
+    width: 80%;
+    left: 50%;
+    transform: translateX(-50%);
+    height: 110px;
+    bottom: 0;
+    background-color: #fff;
+    display: flex;
+    justify-content: center;
+    align-items: flex-end;
+    font-size: 24px;
+}
+
+.about {
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    margin-top: 60px;
+}
+
+.aboutContentText {
+    max-width: 667px;
+}
+
+.aboutContentText p {
+    text-align: center;
+}
+
+.aboutOptions {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.aboutOptionsList {
+    display: flex;
+    list-style: none;
+    justify-content: space-between;
+    margin-top: 36px;
+}
+
+.aboutOptionsItem {
+    width: 260px;
+    height: 60px;
+    margin-left: 30px;
+}
+
+.aboutOptionsItem button {
+    height: 100%;
+    width: 100%;
+    outline: none;
+    background-color: #2859b6;
+    border: none;
+    color: #fff;
+    font-size: 20px;
+    font-weight: 600;
+}
+
+.aboutOptionsItem button:hover {
+    background-color: rgb(255, 222, 89);
+    cursor: pointer;
+}
+
+.version {
+    display: flex;
+    margin-top: 145px;
+}
+
+.versionAvatar {
+    flex-basis: 50%;
+}
+
+.versionAbout {
+    flex-basis: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.versionAboutContent {
+    max-width: 485px;
+}
+
+.versionAbout h1 {
+    font-size: 46px;
+    text-align: center;
+}
+
+.versionAbout p {
+    margin-top: 60px;
+    text-align: center;
+    font-size: 18px;
+}
+
+.versionAvatar img {
+    width: 100%;
+}
+
+.missionAboutContentTitle {
+    font-size: 46px;
+    text-align: center;
+}
+
+.missionAboutContentList {
+    margin-top: 60px;
+    font-size: 18px;
+    font-weight: 400;
+    padding: 0 20px;
+}
+
+.missionAboutContentList li {
+    margin-top: 20px;
+}
+
+.mission {
+    display: flex;
+}
+
+.missionAbout {
+    flex-basis: 50%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.missionAboutContent {
+    max-width: 485px;
+}
+
+.missionAvatar {
+    flex: 0 0 50%;
+}
+
+.missionAvatar img {
+    width: 100%;
+}
+
+.adviser {
+    display: flex;
+    justify-content: center;
+    margin-top: 50px;
+}
+
+.adviserContent {
+    width: 980px;
+}
+
+.adviserContent h1 {
+    text-align: center;
+    font-size: 46px;
+}
+
+.adviserContent p {
+    margin-top: 20px;
+    font-size: 18px;
+    text-align: center;
+}
+
+.adviserList {
+    margin-top: 50px;
+    width: 100%;
+    display: grid;
+    grid-template-columns: auto auto;
+    gap: 50px;
+    text-align: center;
+    padding: 0 60px;
+}
+
+.adviserItem {
+    width: 405px;
+    height: 805px;
+    background-color: rgba(201, 214, 237, 0.8);
+}
+
+.adviserItemAvatar {
+    height: 335px;
+    width: 100%;
+}
+
+.adviserItemAvatar img {
+    height: 100%;
+}
+
+.adviserItemContent {
+    width: 100%;
+    padding: 20px;
+}
+
+.adviserItemContent ul {
+    width: 100%;
+    padding: 0 20px;
+}
+
+.adviserItemContent li p {
+    text-align: left;
+}
+
+.socialMediaList {
+    margin-top: 20px;
+    list-style: none;
+    display: flex;
+}
+
+.socialMediaList li {
+    margin-right: 10px;
+}
+
+.socialMediaList li:hover {
+    cursor: pointer;
+}
+
+.baseValue {
+    width: 100%;
+    margin-top: 40px;
+    text-align: center;
+}
+
+.baseValue h1 {
+    font-size: 46px;
+}
+
+.baseValueContent {
+    display: flex;
+    justify-content: center;
+}
+
+.baseValueContentList {
+    width: 100%;
+    margin-top: 20px;
+    display: grid;
+    grid-template-columns: 30% 30% 30%;
+    column-gap: 20px;
+    list-style: none;
+    justify-content: center;
+}
+
+.baseValueContentItem svg {
+    width: 140px;
+}
+
+.baseValueContentList p {
+    font-size: 20px;
+    font-weight: 700;
+    white-space: wrap;
+}

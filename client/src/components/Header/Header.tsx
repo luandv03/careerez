@@ -45,7 +45,7 @@ export const Header = () => {
                         </Link>
                     </li>
                     <li>
-                        <Link to="/">
+                        <Link to="/about">
                             <h4>Về CareerEZ</h4>
                         </Link>
                     </li>
