@@ -1,0 +1,40 @@
+.container {
+    width: 100%;
+    display: flex;
+    justify-content: center;
+}
+
+.content {
+    margin-top: 40px;
+    text-align: center;
+}
+
+.google {
+    margin-top: 20px;
+}
+
+.google button {
+    height: 58px;
+    display: flex;
+    justify-self: space-between;
+    align-items: center;
+    font-size: 20px;
+    background-color: #fff;
+    padding: 16px 24px;
+    border-radius: 100rem;
+    border: 1px solid rgb(200, 200, 200);
+    color: rgb(63, 63, 63);
+    min-width: 280px;
+}
+
+.google button:hover {
+    background-color: #f7eaea;
+    cursor: pointer;
+}
+
+.google button svg {
+    height: 18px;
+    width: 18px;
+    align-self: flex-end;
+    margin-right: 10px;
+}

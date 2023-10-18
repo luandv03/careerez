@@ -1,11 +1,28 @@
-const express = require("express");
-const { PrismaClient } = require("@prisma/client");
+import express from "express";
+import cors from "cors";
+import { PrismaClient } from "@prisma/client";
+import { config } from "dotenv";
+config();
+
+import routerApp from "./src/routes/index.route.js";
+
 const prisma = new PrismaClient();
-
-require("dotenv").config();
-
 const PORT = process.env.PORT || 8000;
 const app = express();
+
+app.use(
+    cors({
+        origin: ["http://localhost:5173"],
+    })
+);
+
+app.use(express.json());
+app.use(
+    express.urlencoded({
+        extended: true,
+    })
+);
+app.use("/", routerApp);
 
 app.get("/", async (req, res) => {
     res.send("Hello world");
@@ -20,12 +37,12 @@ app.get("/user_create", async (req, res) => {
             method_auth: "system",
         },
     });
-
     res.json(user);
 });
 
 app.get("/users", async (req, res) => {
     const users = await prisma.user.findMany();
+
     res.json(users);
 });
 

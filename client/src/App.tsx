@@ -4,6 +4,7 @@ import { AuthLayout } from "./layouts/AuthLayout/AuthLayout";
 import { Home } from "./components/Home";
 import { About } from "./components/About";
 import { Personality } from "./components/Personality";
+import { Signin } from "./components/Signin/Signin";
 
 export default function App() {
     return (
@@ -14,7 +15,9 @@ export default function App() {
                     <Route path="/about" element={<About />} />
                     <Route path="/personality_test" element={<Personality />} />
                 </Route>
-                <Route path="/signin" element={<AuthLayout />}></Route>
+                <Route path="/signin" element={<AuthLayout />}>
+                    <Route path="/signin" element={<Signin />} />
+                </Route>
             </Routes>
         </>
     );
