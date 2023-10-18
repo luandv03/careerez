@@ -1,4 +1,4 @@
-import { Link } from "react-router-dom";
+import { Link, NavLink } from "react-router-dom";
 import { IconUserCircle } from "@tabler/icons-react";
 
 import styles from "./Header.module.css";
@@ -24,7 +24,7 @@ export const Header = () => {
                 </div>
                 <div className={styles.authentication}>
                     <div className={styles.signup}>
-                        <Link to="/">
+                        <Link to="/sigup">
                             <button>
                                 <h4>Đăng ký</h4>
                             </button>
@@ -40,39 +40,102 @@ export const Header = () => {
             <div className={styles.footer}>
                 <ul className={styles.menu}>
                     <li>
-                        <Link to="/">
+                        <NavLink
+                            to="/"
+                            className={({ isActive, isPending }) =>
+                                isPending
+                                    ? styles.pending
+                                    : isActive
+                                    ? styles.active
+                                    : ""
+                            }
+                        >
                             <h4>Trang chủ</h4>
-                        </Link>
+                        </NavLink>
                     </li>
                     <li>
-                        <Link to="/about">
+                        <NavLink
+                            to="/about"
+                            className={({ isActive, isPending }) =>
+                                isPending
+                                    ? styles.pending
+                                    : isActive
+                                    ? styles.active
+                                    : ""
+                            }
+                        >
                             <h4>Về CareerEZ</h4>
-                        </Link>
+                        </NavLink>
                     </li>
                     <li>
-                        <Link to="/">
+                        <NavLink
+                            to="/personality_test"
+                            className={({ isActive, isPending }) =>
+                                isPending
+                                    ? styles.pending
+                                    : isActive
+                                    ? styles.active
+                                    : ""
+                            }
+                        >
                             <h4>Bài kiểm tra tính cách</h4>
-                        </Link>
+                        </NavLink>
                     </li>
                     <li>
-                        <Link to="/">
+                        <NavLink
+                            to="/career_experience"
+                            className={({ isActive, isPending }) =>
+                                isPending
+                                    ? styles.pending
+                                    : isActive
+                                    ? styles.active
+                                    : ""
+                            }
+                        >
                             <h4>Trải nghiệm nghề nghiệp</h4>
-                        </Link>
+                        </NavLink>
                     </li>
                     <li>
-                        <Link to="/">
+                        <NavLink
+                            to="/internship_online"
+                            className={({ isActive, isPending }) =>
+                                isPending
+                                    ? styles.pending
+                                    : isActive
+                                    ? styles.active
+                                    : ""
+                            }
+                        >
                             <h4>Thực tập trực tuyến</h4>
-                        </Link>
+                        </NavLink>
                     </li>
                     <li>
-                        <Link to="/">
+                        <NavLink
+                            to="/member_register"
+                            className={({ isActive, isPending }) =>
+                                isPending
+                                    ? styles.pending
+                                    : isActive
+                                    ? styles.active
+                                    : ""
+                            }
+                        >
                             <h4>Đăng ký thành viên</h4>
-                        </Link>
+                        </NavLink>
                     </li>
                     <li>
-                        <Link to="/">
-                            <h4>FAQS</h4>
-                        </Link>
+                        <NavLink
+                            to="/faqs"
+                            className={({ isActive, isPending }) =>
+                                isPending
+                                    ? styles.pending
+                                    : isActive
+                                    ? styles.active
+                                    : ""
+                            }
+                        >
+                            <h4>FAQs</h4>
+                        </NavLink>
                     </li>
                 </ul>
             </div>

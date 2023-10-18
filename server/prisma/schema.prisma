@@ -1,0 +1,126 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+model User {
+  user_id     Int      @id @default(autoincrement())
+  username    String   @db.VarChar(50)
+  email       String   @unique @db.VarChar(200)
+  role        String   @db.VarChar(10)
+  method_auth String   @db.VarChar(10)
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+
+  GoogleAccount GoogleAccount?
+  SystemAccount SystemAccount?
+  Course        Course[]
+  UserLesson    UserLesson[]
+}
+
+model GoogleAccount {
+  goole_account_id Int    @id @default(autoincrement())
+  google_id        String @db.VarChar(200)
+  email            String @unique @db.VarChar(200)
+  user_id          Int    @unique
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+
+
+  User User @relation(fields: [user_id], references: [user_id])
+}
+
+model SystemAccount {
+  system_account_id Int    @id @default(autoincrement())
+  email             String @db.VarChar(200)
+  password          String @db.VarChar(60)
+  user_id           Int    @unique
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+
+
+  User User @relation(fields: [user_id], references: [user_id])
+}
+
+model Category {
+  category_id   Int    @id @default(autoincrement())
+  category_name String @db.VarChar(40)
+  category_des  String
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  Major Major[]
+}
+
+model Major {
+  major_id    Int      @id @default(autoincrement())
+  category_id Int
+  major_name  String   @db.VarChar(40)
+  major_des   String
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+
+  Course   Course[]
+  Category Category @relation(fields: [category_id], references: [category_id])
+}
+
+model Course {
+  course_id         Int      @id @default(autoincrement())
+  course_name       String   @db.VarChar(255)
+  course_des        String
+  major_id          Int
+  author_id         Int
+  course_avatar_url String
+  is_public         Boolean  @default(false)
+  createdAt         DateTime @default(now())
+  updatedAt         DateTime @updatedAt
+
+  Major   Major     @relation(fields: [major_id], references: [major_id])
+  Chapter Chapter[]
+  Author  User      @relation(fields: [author_id], references: [user_id])
+}
+
+model Chapter {
+  chapter_id   Int      @id @default(autoincrement())
+  chapter_name String   @db.VarChar(200)
+  chapter_des  String
+  course_id    Int
+  createdAt    DateTime @default(now())
+  updatedAt    DateTime @updatedAt
+
+  Course Course @relation(fields: [course_id], references: [course_id])
+}
+
+model Lesson {
+  lesson_id        Int      @id @default(autoincrement())
+  lesson_name      String   @db.VarChar(255)
+  lesson_des       String
+  lesson_video_url String   @db.VarChar(255)
+  createdAt        DateTime @default(now())
+  updatedAt        DateTime @updatedAt
+
+  UserLesson UserLesson[]
+}
+
+model UserLesson {
+  user_id        Int
+  lesson_id      Int
+  is_completed   Boolean  @default(false)
+  is_public      Boolean  @default(false)
+  next_lesson_id Int
+  createdAt      DateTime @default(now())
+  updatedAt      DateTime @updatedAt
+
+  User   User   @relation(fields: [user_id], references: [user_id])
+  Lesson Lesson @relation(fields: [lesson_id], references: [lesson_id])
+
+  @@id([user_id, lesson_id])
+}

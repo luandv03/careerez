@@ -93,3 +93,11 @@
 .menu li:hover {
     color: rgb(255, 222, 89);
 }
+
+.active {
+    color: rgb(255, 222, 89);
+}
+
+.pending {
+    color: red;
+}
