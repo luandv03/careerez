@@ -1,17 +1,40 @@
 import { IconHash, IconClockCheck } from "@tabler/icons-react";
 import { useState, useEffect } from "react";
+// import { useSearchParams, useNavigate } from "react-router-dom";
 
 import { courseService } from "../../services/course.service";
 import styles from "./CareerExperience.module.css";
 
+interface Major {
+    major_id: number;
+    major_name: string;
+}
+
+interface Category {
+    category_id: number;
+    category_name: string;
+    majors: Major[];
+}
+
 export const CareerExperience = () => {
-    const [category, setCategory] = useState("");
-    const [major, setMajor] = useState("");
+    const [category, setCategory] = useState<Category[] | []>([]);
+    // const [searchParams] = useSearchParams();
+    // console.log(searchParams.get("sort")); // 'name'
+    const [major, setMajor] = useState<Major[] | []>([]);
 
     const handleGetAllCategories = async () => {
         const res = await courseService.getAllCategories();
 
-        console.log(res);
+        setCategory(res.data.categories);
+        setMajor(res.data.categories[0].majors);
+    };
+
+    const handleSelectCategory = async (e: { target: { value: string } }) => {
+        const selectedCategory = category.filter(
+            (item) => item.category_name === e.target.value
+        );
+
+        setMajor(selectedCategory[0].majors);
     };
 
     useEffect(() => {
@@ -64,26 +87,32 @@ export const CareerExperience = () => {
                             <select
                                 name="pets"
                                 id="pet-select"
-                                onChange={(e) => console.log(e.target.value)}
+                                onChange={handleSelectCategory}
                             >
-                                <option value="dog">Công nghệ thông tin</option>
-                                <option value="cat">Kinh doanh</option>
-                                <option value="hamster">Tài chính</option>
-                                <option value="parrot">Giáo dục</option>
-                                <option value="spider">Y tế</option>
-                                <option value="goldfish">Kỹ thuật</option>
+                                {category.length > 0 &&
+                                    category.map((item) => (
+                                        <option
+                                            key={item.category_id}
+                                            value={item.category_name}
+                                        >
+                                            {item.category_name}
+                                        </option>
+                                    ))}
                             </select>
                         </div>
                         <div className={styles.footerOptionItem}>
                             <label htmlFor="pet-select">Chuyên ngành:</label>
                             <br />
                             <select name="pets" id="pet-select">
-                                <option value="dog">Backend Engineer</option>
-                                <option value="cat">Mobile Engineer</option>
-                                <option value="hamster">Data Engineer</option>
-                                <option value="parrot">Data science</option>
-                                <option value="spider">Embedded</option>
-                                <option value="goldfish">Web Developer</option>
+                                {major.length > 0 &&
+                                    major.map((item) => (
+                                        <option
+                                            key={item.major_id}
+                                            value={item.major_name}
+                                        >
+                                            {item.major_name}
+                                        </option>
+                                    ))}
                             </select>
                         </div>
                     </div>
