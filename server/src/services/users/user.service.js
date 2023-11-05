@@ -1,8 +1,7 @@
-import { PrismaClient } from "@prisma/client";
-const prisma = new PrismaClient();
 import { OAuth2Client } from "google-auth-library";
 import https from "https";
 
+import { query } from "../../db/index.db.js";
 import { HttpStatusCode } from "../../configs/httpStatusCode.js";
 import { createToken } from "../../helpers/createToken.helper.js";
 
@@ -29,22 +28,34 @@ class UserService {
                     resp.on("end", async () => {
                         data = JSON.parse(data);
 
-                        let user = await prisma.user.findFirst({
-                            where: {
-                                email: data?.email,
-                            },
-                        });
+                        // let user = await prisma.user.findFirst({
+                        //     where: {
+                        //         email: data?.email,
+                        //     },
+                        // });
 
-                        if (!user) {
-                            user = await prisma.user.create({
-                                data: {
-                                    email: data.email,
-                                    username: data.name,
-                                    method_auth: "google",
-                                    role: "user",
-                                },
-                            });
+                        let result = await query(
+                            `SELECT * FROM "User" WHERE email = $1`,
+                            [data?.email]
+                        );
+
+                        if (!result.rowCount) {
+                            // user = await prisma.user.create({
+                            //     data: {
+                            //         email: data.email,
+                            //         username: data.name,
+                            //         method_auth: "google",
+                            //         role: "user",
+                            //     },
+                            // });
+
+                            result = await query(
+                                `INSERT INTO "USER" VALUES(DEFAULT, $1, 'user', 'google', now(), now(), $2) RETURNING *`,
+                                [data.name, data.email]
+                            );
                         }
+
+                        const user = result.rows[0];
 
                         const access_token = createToken(
                             { user_id: user.user_id },
@@ -69,7 +80,7 @@ class UserService {
             res.on("error", (err) => {
                 reject({
                     message: "Have error",
-                    statusCode: 500,
+                    statusCode: HttpStatusCode.INTERNAL_SERVER_ERROR,
                 });
             });
 
