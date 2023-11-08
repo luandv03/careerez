@@ -1,27 +1,98 @@
 import { IconClockFilled, IconArticle, IconX } from "@tabler/icons-react";
-import { useState } from "react";
+import { useState, useEffect } from "react";
+import { useParams } from "react-router-dom";
 
 import { Dropdown } from "../Dropdown";
 import styles from "./CourseDetail.module.css";
+import { courseService } from "../../services/course.service";
+
+interface ILesson {
+    lesson_id: number;
+    lesson_name: string;
+    lesson_number: number;
+}
+
+interface IChapter {
+    chapter_id: number;
+    chapter_name: string;
+    chapter_number: number;
+    lessons: ILesson[] | [];
+}
+
+interface ICourseItem {
+    course_id: number;
+    course_name: string;
+    course_des: string;
+    major_id: number;
+    author_id: number;
+    course_avatar_url: string;
+    is_public: boolean;
+    createdAt: string;
+    updatedAt: string;
+    chapters: IChapter[] | [];
+}
 
 export const CourseDetail = () => {
+    const [courseDetail, setCourseDetail] = useState<ICourseItem | null>({
+        course_id: 1,
+        course_name: "Backend Nodejs Tutorial",
+        course_des:
+            "Why learn Node.js in 2020? Master the fundamentals of Node in 7 easy steps, then build a fullstack web app and deploy it to a cloud server.",
+        major_id: 5,
+        author_id: 2,
+        course_avatar_url:
+            "https://res.cloudinary.com/dlbpgaw8k/image/upload/v1698914711/nodejs_backend_bon7ye.png",
+        is_public: true,
+        createdAt: "2023-11-02T08:46:04.020Z",
+        updatedAt: "2023-11-02T08:46:04.020Z",
+        chapters: [
+            {
+                lessons: [
+                    {
+                        lesson_id: 1,
+                        lesson_name: "Lời khuyên trước khóa học",
+                        lesson_number: 1,
+                    },
+                ],
+                chapter_id: 1,
+                chapter_name: "Intro",
+                chapter_number: 0,
+            },
+        ],
+    });
+    const [loading, setLoading] = useState(false);
+    const location = useParams();
+
     const [openModal, setOpenModal] = useState(false);
 
     const handleTonggleModal = () => {
         setOpenModal(!openModal);
     };
 
-    return (
+    const handleGetCourseDetail = async () => {
+        setLoading(true);
+        const res = await courseService.getCourseDetailById(
+            Number(location.courseId)
+        );
+        setLoading(false);
+
+        if (res.statusCode === 200) setCourseDetail(res.data.course);
+    };
+
+    useEffect(() => {
+        handleGetCourseDetail();
+        // eslint-disable-next-line react-hooks/exhaustive-deps
+    }, []);
+
+    return loading ? (
+        <div>Loading...</div>
+    ) : (
         <div className={styles.container}>
             <div className={styles.content}>
                 <div className={styles.contentLeft}>
                     <div>
-                        <h1>Node & ExpressJS</h1>
-                        <span>
-                            Học Back-end với Node & ExpressJS framework, hiểu
-                            các khái niệm khi làm Back-end và xây dựng RESTful
-                            API cho trang web.
-                        </span>
+                        <h1>{courseDetail?.course_name}</h1>
+                        <span>{courseDetail?.course_des}</span>
                     </div>
 
                     <div className={styles.course}>
@@ -42,7 +113,13 @@ export const CourseDetail = () => {
                         </div>
 
                         <ul>
-                            <Dropdown />
+                            {courseDetail?.chapters &&
+                                courseDetail?.chapters.length > 0 &&
+                                courseDetail?.chapters.map(
+                                    (chapter: IChapter) => (
+                                        <Dropdown chapter={chapter} />
+                                    )
+                                )}
                         </ul>
                     </div>
                 </div>

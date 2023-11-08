@@ -55,6 +55,10 @@
     padding-right: 40px;
 }
 
+.footerContent {
+    width: 100%;
+}
+
 .footerOption {
     display: flex;
 }
@@ -84,9 +88,9 @@
 
 .footerCourseList {
     width: 100%;
-    display: flex;
-    flex-wrap: wrap;
-    justify-content: space-between;
+    display: grid;
+    grid-template-columns: auto auto auto;
+    gap: 20px;
 }
 
 .footerCourseItem {
@@ -99,6 +103,21 @@
 
 .footerCourseItem:hover {
     box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
+}
+
+.footerCourseItemInit {
+    animation: skeleton-loading 1s linear infinite alternate;
+}
+
+@keyframes skeleton-loading {
+    0% {
+        background-color: #fff;
+        color: #fff;
+    }
+    100% {
+        background-color: #f4f1f1;
+        color: #f4f1f1;
+    }
 }
 
 .footerCourseItemAvatar {

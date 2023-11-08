@@ -3,7 +3,20 @@ import { useState } from "react";
 
 import styles from "./Dropdown.module.css";
 
-export const Dropdown = () => {
+interface ILesson {
+    lesson_id: number;
+    lesson_name: string;
+    lesson_number: number;
+}
+
+interface IChapter {
+    chapter_id: number;
+    chapter_name: string;
+    chapter_number: number;
+    lessons: ILesson[] | [];
+}
+
+export const Dropdown = ({ chapter }: { chapter: IChapter }) => {
     const [dropdown, setDropdown] = useState(false);
 
     const handleTonggleDropdown = () => {
@@ -18,7 +31,9 @@ export const Dropdown = () => {
             >
                 <div className={styles.headerLeft}>
                     <span>{!dropdown ? <IconPlus /> : <IconMinus />}</span>
-                    <p style={{ fontWeight: 500 }}>1. Mở đầu</p>
+                    <p style={{ fontWeight: 500 }}>
+                        {chapter.chapter_number}. {chapter.chapter_name}
+                    </p>
                 </div>
                 <span>8 bài học</span>
             </div>
@@ -28,18 +43,22 @@ export const Dropdown = () => {
                 style={{ display: dropdown ? "block" : "none" }}
             >
                 <ul className={styles.courseList}>
-                    <li className={styles.courseItem}>
-                        <div className={styles.courseItemLeft}>
-                            <IconCaretRight />
-                            <span className={styles.courseItemName}>
-                                1. Gioi thieu chung ve khoa hoc
-                            </span>
-                        </div>
+                    {chapter.lessons.length > 0 &&
+                        chapter.lessons.map((lesson: ILesson) => (
+                            <li className={styles.courseItem}>
+                                <div className={styles.courseItemLeft}>
+                                    <IconCaretRight />
+                                    <span className={styles.courseItemName}>
+                                        {lesson.lesson_number}.{" "}
+                                        {lesson.lesson_name}
+                                    </span>
+                                </div>
 
-                        <div className={styles.courseItemTime}>
-                            <span>08:09</span>
-                        </div>
-                    </li>
+                                <div className={styles.courseItemTime}>
+                                    <span>08:09</span>
+                                </div>
+                            </li>
+                        ))}
                 </ul>
             </div>
         </div>

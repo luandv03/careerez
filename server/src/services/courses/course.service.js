@@ -64,8 +64,36 @@ class CourseService {
     }
 
     async getCourseDetailById(courseId) {
-        const courseRes = await query(
+        const courseDetail = await query(
             `SELECT * FROM "Course" WHERE course_id = $1`,
+            [courseId]
+        );
+
+        const courseRes = await query(
+            `SELECT jsonb_pretty(jsonb_agg(js_object)) result
+            FROM (
+                select 
+                    jsonb_build_object(
+                        'chapter_id', chapter_id,
+                        'chapter_name', chapter_name,
+                        'chapter_number', chapter_number,
+                        'lessons', jsonb_agg(lesson)
+                    ) js_object
+                from (
+                    select 
+                        c.*, 
+                        jsonb_build_object(
+                            'lesson_id', lesson_id,
+                            'lesson_name', lesson_name,
+                            'lesson_number', lesson_number
+                        ) lesson
+                    from "Chapter" c
+                    join "Lesson" l on c.chapter_id = l.chapter_id
+                    WHERE c.course_id = $1
+                    ) l
+            group by chapter_id, chapter_name, chapter_number
+            ) l
+            `,
             [courseId]
         );
 
@@ -73,7 +101,12 @@ class CourseService {
             message: "Get course detail successfull",
             statusCode: HttpStatusCode.OK,
             data: {
-                course: courseRes.rows,
+                course: {
+                    ...courseDetail.rows[0],
+                    chapters: !!courseRes.rows[0].result
+                        ? JSON.parse(courseRes.rows[0].result)
+                        : [],
+                },
             },
         };
     }
