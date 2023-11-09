@@ -1,5 +1,6 @@
 import { IconHash, IconClockCheck } from "@tabler/icons-react";
 import { useState, useEffect } from "react";
+import { Link } from "react-router-dom";
 
 import { courseService } from "../../services/course.service";
 import styles from "./CareerExperience.module.css";
@@ -241,9 +242,10 @@ export const CareerExperience = () => {
                                                   styles.footerCourseItemAvatar
                                               }
                                           >
-                                              <img
-                                                  src={item.course_avatar_url}
-                                                  alt={item.course_name}
+                                              <div
+                                                  className={
+                                                      styles.footerCourseItemAvatarBox
+                                                  }
                                               />
                                           </div>
 
@@ -284,7 +286,8 @@ export const CareerExperience = () => {
                                   ))
                                 : listCourses.length > 0 &&
                                   listCourses.map((item: ICourseItem) => (
-                                      <div
+                                      <Link
+                                          to={`/course/detail/${item.course_id}`}
                                           className={styles.footerCourseItem}
                                           key={item.course_id}
                                       >
@@ -332,10 +335,10 @@ export const CareerExperience = () => {
                                               <IconClockCheck />
                                               <span>3-4 hours</span>
                                           </div>
-                                      </div>
+                                      </Link>
                                   ))}
 
-                            {COURSE_INIT.map((item: ICourseItem) => (
+                            {/* {COURSE_INIT.map((item: ICourseItem) => (
                                 <div
                                     className={`${styles.footerCourseItem} ${styles.footerCourseItemInit}`}
                                     key={item.course_id}
@@ -345,9 +348,10 @@ export const CareerExperience = () => {
                                             styles.footerCourseItemAvatar
                                         }
                                     >
-                                        <img
-                                            src={item.course_avatar_url}
-                                            alt={item.course_name}
+                                        <div
+                                            className={
+                                                styles.footerCourseItemAvatarBox
+                                            }
                                         />
                                     </div>
 
@@ -379,7 +383,7 @@ export const CareerExperience = () => {
                                         <span>3-4 hours</span>
                                     </div>
                                 </div>
-                            ))}
+                            ))} */}
                         </div>
                     </div>
                 </div>

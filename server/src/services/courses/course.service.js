@@ -85,7 +85,8 @@ class CourseService {
                         jsonb_build_object(
                             'lesson_id', lesson_id,
                             'lesson_name', lesson_name,
-                            'lesson_number', lesson_number
+                            'lesson_number', lesson_number,
+                            'lesson_video_url', lesson_video_url
                         ) lesson
                     from "Chapter" c
                     join "Lesson" l on c.chapter_id = l.chapter_id

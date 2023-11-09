@@ -10,6 +10,7 @@ interface ILesson {
     lesson_id: number;
     lesson_name: string;
     lesson_number: number;
+    lesson_video_url?: string;
 }
 
 interface IChapter {
@@ -133,8 +134,7 @@ export const CourseDetail = () => {
                                 <div
                                     className={styles.bg}
                                     style={{
-                                        backgroundImage:
-                                            'url("https://files.fullstack.edu.vn/f8-prod/courses/6.png")',
+                                        backgroundImage: `url("${courseDetail?.course_avatar_url}")`,
                                     }}
                                 ></div>
                                 <svg
@@ -209,12 +209,18 @@ export const CourseDetail = () => {
                             </span>
                         </div>
                         <div>
-                            <h3>Node & ExpressJS</h3>
+                            <h3>{courseDetail?.course_name}</h3>
                         </div>
                     </div>
 
                     <div className={styles.videoIntroIframe}>
-                        <iframe src="https://www.youtube.com/embed/tgbNymZ7vqY"></iframe>
+                        <iframe
+                            src="https://www.youtube.com/embed/tgbNymZ7vqY"
+                            // src={
+                            //     courseDetail?.chapters[0]?.lessons[0]
+                            //         .lesson_video_url
+                            // }
+                        ></iframe>
                     </div>
                 </div>
             </div>

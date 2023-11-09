@@ -1,0 +1,21 @@
+.container {
+    display: flex;
+    width: 100%;
+    justify-content: center;
+}
+
+.content {
+    width: 996px;
+    box-shadow: 0px 0px 20px rgba(98, 85, 165, 0.1);
+    padding: 20px;
+    text-align: center;
+}
+
+.content p {
+    font-size: 20px;
+    font-weight: 500;
+}
+
+.avatar {
+    width: 100%;
+}
