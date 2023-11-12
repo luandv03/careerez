@@ -1,0 +1,402 @@
+.container {
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    width: 100%;
+}
+
+.avatar {
+    width: 100%;
+    padding: 0 50px;
+}
+
+.avatar img {
+    width: 100%;
+}
+
+.slogan {
+    width: 100%;
+    text-align: center;
+    position: absolute;
+    bottom: 0;
+    transform: translateX(-50%);
+    left: 50%;
+    display: flex;
+    justify-content: center;
+}
+
+.sloganText p:first-child {
+    font: normal normal normal 35px/1.4em oswald-medium, oswald, sans-serif;
+    font-size: 35px;
+    font-weight: 600;
+    color: rgb(255, 222, 89);
+}
+
+.sloganText p:last-child {
+    font-size: 45px;
+    font-weight: 700;
+    color: #fff;
+}
+
+.sloganButton {
+    width: 100%;
+    display: flex;
+    justify-content: center;
+}
+
+.sloganButtonBox {
+    width: 300px;
+    height: 50px;
+    border: 2px solid #fff;
+    background-color: rgb(40, 89, 182);
+    padding: 2px;
+}
+
+.sloganButtonBox button {
+    height: 100%;
+    width: 100%;
+    outline: none;
+    border: 2px solid #fff;
+    background-color: rgb(40, 89, 182);
+    font-size: 22px;
+    font-weight: 700;
+    color: #fff;
+    align-self: flex-end;
+}
+
+.sloganButtonBox:hover {
+    background-color: #ffff;
+}
+
+.sloganButtonBox button:hover {
+    cursor: pointer;
+    background-color: #ffff;
+    color: rgb(40, 89, 182);
+    border: 1px solid rgb(40, 89, 182);
+}
+
+.company {
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    padding: 0 20px;
+}
+
+.companyList {
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.companyItem:not(:first-child) {
+    max-width: 210px;
+    margin-left: 20px;
+}
+
+.companyItem img {
+    width: 100%;
+}
+
+/* Advertisement */
+
+.advertisementHeader {
+    width: 100%;
+    height: 839px;
+    display: flex;
+    justify-content: center;
+    padding: 0 50px;
+}
+
+.advertisementHeaderContent {
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+}
+
+.advertisementHeaderContentCareerExperience {
+    position: relative;
+    width: 40%;
+    height: 100%;
+}
+
+.advertisementHeaderContentCareerExperienceImg {
+    width: 100%;
+    height: 100%;
+}
+
+.advertisementHeaderContentCareerExperience img {
+    width: 100%;
+    height: 100%;
+}
+
+.advertisementHeaderContentCareerExperienceText {
+    position: absolute;
+    left: 0;
+    top: 100px;
+    width: 286px;
+    background-color: #fff;
+    padding: 40px;
+    border-top: 4px solid rgb(40, 89, 182);
+    border-bottom: 4px solid rgb(40, 89, 182);
+}
+
+.advertisementHeaderContentCareerExperienceText h2 {
+    font-size: 30px;
+}
+
+.advertisementHeaderContentCareerExperienceText p {
+    margin-top: 20px;
+    line-height: 30px;
+}
+
+.advertisementHeaderContentCareerExperienceText button {
+    margin-top: 30px;
+    color: rgb(255, 222, 89);
+    background-color: #fff;
+    border: none;
+    font-size: 18px;
+    font-weight: 600;
+}
+
+.advertisementHeaderContentCareerExperienceText button:hover {
+    color: rgb(40, 89, 182);
+    cursor: pointer;
+}
+
+.advertisementHeaderContentOnlineInternship {
+    width: 60%;
+    height: 100%;
+    margin-left: 30px;
+    position: relative;
+}
+
+.advertisementHeaderContentOnlineInternshipImg {
+    width: 100%;
+    height: 100%;
+}
+
+.advertisementHeaderContentOnlineInternship img {
+    width: 100%;
+    height: 100%;
+}
+
+.advertisementHeaderContentOnlineInternshipText {
+    position: absolute;
+    left: 80px;
+    top: 0;
+    width: 286px;
+    background-color: #fff;
+    padding: 40px;
+    border-top: 4px solid rgb(40, 89, 182);
+    border-bottom: 4px solid rgb(40, 89, 182);
+}
+
+.advertisementHeaderContentOnlineInternshipText h2 {
+    font-size: 30px;
+}
+
+.advertisementHeaderContentOnlineInternshipText p {
+    margin-top: 20px;
+    line-height: 30px;
+}
+
+.advertisementHeaderContentOnlineInternshipText button {
+    margin-top: 30px;
+    color: rgb(255, 222, 89);
+    background-color: #fff;
+    border: none;
+    font-size: 18px;
+    font-weight: 600;
+}
+
+/* //footer */
+.advertisementFooter {
+    width: 100%;
+    height: 706px;
+    display: flex;
+    justify-content: center;
+    padding: 0 50px;
+    margin-top: 20px;
+}
+
+.advertisementFooterContent {
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+}
+
+.advertisementFooterContentCareerExperience {
+    position: relative;
+    width: 60%;
+    height: 100%;
+}
+
+.advertisementFooterContentCareerExperienceImg {
+    width: 100%;
+    height: 100%;
+}
+
+.advertisementFooterContentCareerExperience img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+.advertisementFooterContentCareerExperienceText {
+    position: absolute;
+    transform: translate(-50%, -50%);
+    left: 60%;
+    top: 55%;
+    width: 286px;
+    background-color: #fff;
+    padding: 40px;
+    border-top: 4px solid rgb(40, 89, 182);
+    border-bottom: 4px solid rgb(40, 89, 182);
+}
+
+.advertisementFooterContentCareerExperienceText h2 {
+    font-size: 30px;
+}
+
+.advertisementFooterContentCareerExperienceText p {
+    margin-top: 20px;
+    line-height: 30px;
+}
+
+.advertisementFooterContentCareerExperienceText button {
+    margin-top: 30px;
+    color: rgb(255, 222, 89);
+    background-color: #fff;
+    border: none;
+    font-size: 18px;
+    font-weight: 600;
+}
+
+.advertisementFooterContentCareerExperienceText button:hover {
+    color: rgb(40, 89, 182);
+    cursor: pointer;
+}
+
+.advertisementFooterContentOnlineInternship {
+    width: 40%;
+    height: 100%;
+    margin-left: 30px;
+    position: relative;
+}
+
+.advertisementFooterContentOnlineInternshipImg {
+    width: 100%;
+    height: 100%;
+}
+
+.advertisementFooterContentOnlineInternship img {
+    width: 100%;
+    height: 100%;
+}
+
+.advertisementFooterContentOnlineInternshipText {
+    position: absolute;
+    left: 80px;
+    top: -10%;
+    width: 286px;
+    background-color: #fff;
+    padding: 40px;
+    border-top: 4px solid rgb(40, 89, 182);
+    border-bottom: 4px solid rgb(40, 89, 182);
+}
+
+.advertisementFooterContentOnlineInternshipText h2 {
+    font-size: 30px;
+}
+
+.advertisementFooterContentOnlineInternshipText p {
+    margin-top: 20px;
+    line-height: 30px;
+}
+
+.advertisementFooterContentOnlineInternshipText button {
+    margin-top: 30px;
+    color: rgb(255, 222, 89);
+    background-color: #fff;
+    border: none;
+    font-size: 18px;
+    font-weight: 600;
+}
+
+/* achievement */
+.achievement {
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    padding: 0 20px;
+}
+
+.achievementContent {
+    width: 100%;
+}
+
+.achievementTitle {
+    text-align: center;
+    font-size: 50px;
+}
+
+.achievementList {
+    width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.achievementItem {
+    position: relative;
+}
+
+.achievementItem h1 {
+    color: rgb(255, 222, 89);
+    font-size: 80px;
+}
+
+.achievementItem h2 {
+    font-size: 35px;
+    text-align: right;
+}
+
+.achievementItemDivide {
+    width: 160px;
+    height: 5px;
+    background-color: rgb(255, 222, 89);
+    position: absolute;
+    right: 0;
+}
+
+/* feedback */
+.feedback {
+    width: 100%;
+    padding: 0 50px;
+    display: flex;
+    justify-content: center;
+    margin-top: 60px;
+}
+
+.feedbackContent {
+    width: 100%;
+    height: 585px;
+    padding: 45px;
+    background-color: rgb(40, 89, 182);
+    color: #fff;
+    text-align: center;
+}
+
+.feedbackContentSlide {
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    margin-top: 20px;
+}
+
+.feedbackContentSlideList {
+    width: 100%;
+    display: flex;
+    justify-content: center;
+}
