@@ -1,0 +1,120 @@
+.container {
+    width: 100%;
+}
+
+.avatar {
+    width: 100%;
+    position: relative;
+}
+
+.avatar img {
+    width: 100%;
+    height: 492px;
+    object-fit: cover;
+    object-position: 50% 50%;
+}
+
+.title {
+    position: absolute;
+    bottom: 0;
+    width: 80%;
+    left: 50%;
+    transform: translateX(-50%);
+    height: 110px;
+    bottom: 0;
+    background-color: #fff;
+    display: flex;
+    justify-content: center;
+    align-items: flex-end;
+    font-size: 24px;
+}
+
+.about {
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    margin-top: 60px;
+    padding-bottom: 40px;
+}
+
+.aboutContent {
+    width: 100%;
+    display: flex;
+    justify-content: center;
+}
+
+.aboutContentText {
+    max-width: 667px;
+}
+
+.aboutContentText p {
+    text-align: center;
+    font-size: 20px;
+}
+
+.aboutProgress {
+    width: 100%;
+    padding: 20px;
+    margin-top: 30px;
+}
+
+.aboutProgressContainer {
+    width: 100%;
+    position: relative;
+}
+
+.aboutProgressContainerCircleList {
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+    z-index: 1;
+}
+
+.aboutProgressContainerCircleBox {
+    text-align: center;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.aboutProgressContainerCircleBox p {
+    font-size: 18px;
+    font-weight: 500;
+    max-width: 330px;
+    margin-top: 15px;
+}
+
+.aboutProgressContainerCircleBox:not(:first-child) {
+    margin-left: 20px;
+}
+
+.aboutProgressContainerCircleItem {
+    width: 50px;
+    height: 50px;
+    border-radius: 50rem;
+    overflow: hidden;
+}
+
+.aboutProgressContainerCircleItem button {
+    width: 100%;
+    height: 100%;
+    border: none;
+    background-color: rgb(40, 89, 182);
+}
+
+.aboutProgressContainerCircleItem button span {
+    font-size: 24px;
+    font-weight: 600;
+    color: #fff;
+}
+
+.aboutProgressDivide {
+    position: absolute;
+    width: 100%;
+    transform: translate(-50%, -50%);
+    top: 50%;
+    left: 50%;
+    height: 1px;
+    width: 100%;
+    background-color: rgb(40, 89, 182);
+}

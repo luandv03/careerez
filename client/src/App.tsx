@@ -9,6 +9,7 @@ import { Personality, MBTITest, MBTIResult } from "./components/Personality";
 import { Signin } from "./components/Signin/Signin";
 import { CareerExperience } from "./components/CareerExperience";
 import { CourseDetail } from "./components/Course/CourseDetail";
+import { OnlineInternShip } from "./components/OnlineInternShip";
 
 export default function App() {
     const { pathname } = useLocation();
@@ -33,6 +34,10 @@ export default function App() {
                     <Route
                         path="/course/detail/:courseId"
                         element={<CourseDetail />}
+                    />
+                    <Route
+                        path="/internship_online"
+                        element={<OnlineInternShip />}
                     />
                 </Route>
                 <Route path="/signin" element={<AuthLayout />}>
