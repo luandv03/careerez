@@ -6,7 +6,7 @@ import styles from "./LayoutApp.module.css";
 
 export default function LayoutApp() {
     return (
-        <div>
+        <div className={styles.container}>
             <header className={styles.header}>
                 <Header />
             </header>

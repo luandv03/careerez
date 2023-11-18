@@ -1,0 +1,20 @@
+.container {
+    text-align: center;
+    margin: auto;
+    /* justify-content: space-evenly; */
+    max-width: 30rem;
+}
+
+.geeks {
+    color: inherit;
+}
+
+.text {
+    display: inline;
+    width: 90%;
+}
+
+.readOrHide {
+    color: inherit;
+    cursor: pointer;
+}

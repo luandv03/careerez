@@ -59,8 +59,14 @@
     width: 100%;
 }
 
+.footerContentBox {
+    width: 100%;
+    text-align: center;
+}
+
 .footerOption {
     display: flex;
+    justify-content: center;
 }
 
 .footerOptionItem {
@@ -78,6 +84,7 @@
     outline: none;
     padding-left: 10px;
     padding-right: 10px;
+    color: inherit;
 }
 
 .footerCourse {

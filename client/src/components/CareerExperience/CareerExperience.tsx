@@ -177,55 +177,59 @@ export const CareerExperience = () => {
 
             <div className={styles.footer}>
                 <div className={styles.footerContent}>
-                    <div className={styles.footerHeader}>
-                        <h2 className={styles.footerTitle}>
-                            Discover the right job simulation for you
-                        </h2>
-                        <p className={styles.footerText}>
-                            Each simulation is free and you can complete it in
-                            your own time.
-                        </p>
-                    </div>
-
-                    <div className={styles.footerOption}>
-                        <div className={styles.footerOptionItem}>
-                            <label htmlFor="pet-select">Lĩnh vực:</label>
-                            <br />
-
-                            <select
-                                name="pets"
-                                id="pet-select"
-                                onChange={handleSelectCategory}
-                            >
-                                {category.length > 0 &&
-                                    category.map((item) => (
-                                        <option
-                                            key={item.category_id}
-                                            value={item.category_name}
-                                        >
-                                            {item.category_name}
-                                        </option>
-                                    ))}
-                            </select>
+                    <div className={styles.footerContentBox}>
+                        <div className={styles.footerHeader}>
+                            <h2 className={styles.footerTitle}>
+                                Đa dạng khóa học đào tạo trực tuyến
+                            </h2>
+                            <p className={styles.footerText}>
+                                Hãy lựa chọn khóa học mà bạn quan tâm và đăng ký
+                                ngay
+                            </p>
                         </div>
-                        <div className={styles.footerOptionItem}>
-                            <label htmlFor="pet-select">Chuyên ngành:</label>
-                            <br />
-                            <select
-                                name="pets"
-                                id="pet-select"
-                                onChange={handleSelectMajor}
-                            >
-                                {major.length > 0 &&
-                                    major.map((item) => (
-                                        <option
-                                            key={item.major_id}
-                                            value={item.major_name}
-                                        >
-                                            {item.major_name}
-                                        </option>
-                                    ))}
-                            </select>
+
+                        <div className={styles.footerOption}>
+                            <div className={styles.footerOptionItem}>
+                                <label htmlFor="pet-select">Lĩnh vực:</label>
+                                <br />
+
+                                <select
+                                    name="pets"
+                                    id="pet-select"
+                                    onChange={handleSelectCategory}
+                                >
+                                    {category.length > 0 &&
+                                        category.map((item) => (
+                                            <option
+                                                key={item.category_id}
+                                                value={item.category_name}
+                                            >
+                                                {item.category_name}
+                                            </option>
+                                        ))}
+                                </select>
+                            </div>
+                            <div className={styles.footerOptionItem}>
+                                <label htmlFor="pet-select">
+                                    Chuyên ngành:
+                                </label>
+                                <br />
+                                <select
+                                    name="pets"
+                                    id="pet-select"
+                                    onChange={handleSelectMajor}
+                                >
+                                    {major.length > 0 &&
+                                        major.map((item) => (
+                                            <option
+                                                key={item.major_id}
+                                                value={item.major_name}
+                                            >
+                                                {item.major_name}
+                                            </option>
+                                        ))}
+                                </select>
+                            </div>
                         </div>
                     </div>
 
@@ -337,53 +341,6 @@ export const CareerExperience = () => {
                                           </div>
                                       </Link>
                                   ))}
-
-                            {/* {COURSE_INIT.map((item: ICourseItem) => (
-                                <div
-                                    className={`${styles.footerCourseItem} ${styles.footerCourseItemInit}`}
-                                    key={item.course_id}
-                                >
-                                    <div
-                                        className={
-                                            styles.footerCourseItemAvatar
-                                        }
-                                    >
-                                        <div
-                                            className={
-                                                styles.footerCourseItemAvatarBox
-                                            }
-                                        />
-                                    </div>
-
-                                    <div
-                                        className={styles.footerCourseItemName}
-                                    >
-                                        <span>{item.course_name}</span>
-                                    </div>
-
-                                    <div
-                                        className={
-                                            styles.footerCourseItemDescription
-                                        }
-                                    >
-                                        <span>{item.course_des}</span>
-                                    </div>
-
-                                    <div
-                                        className={styles.footerCourseItemMajor}
-                                    >
-                                        <IconHash />
-                                        <span>data</span>
-                                    </div>
-
-                                    <div
-                                        className={styles.footerCourseItemTime}
-                                    >
-                                        <IconClockCheck />
-                                        <span>3-4 hours</span>
-                                    </div>
-                                </div>
-                            ))} */}
                         </div>
                     </div>
                 </div>
