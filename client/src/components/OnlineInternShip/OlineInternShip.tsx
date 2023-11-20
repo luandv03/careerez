@@ -62,73 +62,73 @@ interface IJobSimulation {
 //     "🍫 Facebook",
 // ];
 
-const JOB_INIT = [
-    {
-        job_simulation_id: 1,
-        company_logo:
-            "https://res.cloudinary.com/dlbpgaw8k/image/upload/v1700277137/careerez/google_logo_labso4.png",
-        company_name: "Google",
-        job_simulation_name: "Back-End Engineering",
-        job_simulation_category: "Software Engineer",
-        job_simulation_thumnail:
-            "https://res.cloudinary.com/dlbpgaw8k/image/upload/v1698914711/nodejs_backend_bon7ye.png",
-        job_simulation_time_spaced: "3-4 giờ",
-        job_simulation_des:
-            "A risk-free way to experience work on the job. Practice your skills with example tasks and build your confidence to ace your applications.",
-    },
-    {
-        job_simulation_id: 2,
-        company_logo:
-            "https://res.cloudinary.com/dlbpgaw8k/image/upload/v1700277137/careerez/google_logo_labso4.png",
-        company_name: "Google",
-        job_simulation_name: "Back-End Engineering",
-        job_simulation_category: "Software Engineer",
-        job_simulation_thumnail:
-            "https://res.cloudinary.com/dlbpgaw8k/image/upload/v1698914711/nodejs_backend_bon7ye.png",
-        job_simulation_time_spaced: "3-4 giờ",
-        job_simulation_des:
-            "A risk-free way to experience work on the job. Practice your skills with example tasks and build your confidence to ace your applications.",
-    },
-    {
-        job_simulation_id: 3,
-        company_logo:
-            "https://res.cloudinary.com/dlbpgaw8k/image/upload/v1700277137/careerez/google_logo_labso4.png",
-        company_name: "Google",
-        job_simulation_name: "Back-End Engineering",
-        job_simulation_category: "Software Engineer",
-        job_simulation_thumnail:
-            "https://res.cloudinary.com/dlbpgaw8k/image/upload/v1698914711/nodejs_backend_bon7ye.png",
-        job_simulation_time_spaced: "3-4 giờ",
-        job_simulation_des:
-            "A risk-free way to experience work on the job. Practice your skills with example tasks and build your confidence to ace your applications.",
-    },
-    {
-        job_simulation_id: 4,
-        company_logo:
-            "https://res.cloudinary.com/dlbpgaw8k/image/upload/v1700277137/careerez/google_logo_labso4.png",
-        company_name: "Google",
-        job_simulation_name: "Back-End Engineering",
-        job_simulation_category: "Software Engineer",
-        job_simulation_thumnail:
-            "https://res.cloudinary.com/dlbpgaw8k/image/upload/v1698914711/nodejs_backend_bon7ye.png",
-        job_simulation_time_spaced: "3-4 giờ",
-        job_simulation_des:
-            "A risk-free way to experience work on the job. Practice your skills with example tasks and build your confidence to ace your applications.",
-    },
-    {
-        job_simulation_id: 5,
-        company_logo:
-            "https://res.cloudinary.com/dlbpgaw8k/image/upload/v1700277137/careerez/google_logo_labso4.png",
-        company_name: "Google",
-        job_simulation_name: "Back-End Engineering",
-        job_simulation_category: "Software Engineer",
-        job_simulation_thumnail:
-            "https://res.cloudinary.com/dlbpgaw8k/image/upload/v1698914711/nodejs_backend_bon7ye.png",
-        job_simulation_time_spaced: "3-4 giờ",
-        job_simulation_des:
-            "A risk-free way to experience work on the job. Practice your skills with example tasks and build your confidence to ace your applications.",
-    },
-];
+// const JOB_INIT = [
+//     {
+//         job_simulation_id: 1,
+//         company_logo:
+//             "https://res.cloudinary.com/dlbpgaw8k/image/upload/v1700277137/careerez/google_logo_labso4.png",
+//         company_name: "Google",
+//         job_simulation_name: "Back-End Engineering",
+//         job_simulation_category: "Software Engineer",
+//         job_simulation_thumnail:
+//             "https://res.cloudinary.com/dlbpgaw8k/image/upload/v1698914711/nodejs_backend_bon7ye.png",
+//         job_simulation_time_spaced: "3-4 giờ",
+//         job_simulation_des:
+//             "A risk-free way to experience work on the job. Practice your skills with example tasks and build your confidence to ace your applications.",
+//     },
+//     {
+//         job_simulation_id: 2,
+//         company_logo:
+//             "https://res.cloudinary.com/dlbpgaw8k/image/upload/v1700277137/careerez/google_logo_labso4.png",
+//         company_name: "Google",
+//         job_simulation_name: "Back-End Engineering",
+//         job_simulation_category: "Software Engineer",
+//         job_simulation_thumnail:
+//             "https://res.cloudinary.com/dlbpgaw8k/image/upload/v1698914711/nodejs_backend_bon7ye.png",
+//         job_simulation_time_spaced: "3-4 giờ",
+//         job_simulation_des:
+//             "A risk-free way to experience work on the job. Practice your skills with example tasks and build your confidence to ace your applications.",
+//     },
+//     {
+//         job_simulation_id: 3,
+//         company_logo:
+//             "https://res.cloudinary.com/dlbpgaw8k/image/upload/v1700277137/careerez/google_logo_labso4.png",
+//         company_name: "Google",
+//         job_simulation_name: "Back-End Engineering",
+//         job_simulation_category: "Software Engineer",
+//         job_simulation_thumnail:
+//             "https://res.cloudinary.com/dlbpgaw8k/image/upload/v1698914711/nodejs_backend_bon7ye.png",
+//         job_simulation_time_spaced: "3-4 giờ",
+//         job_simulation_des:
+//             "A risk-free way to experience work on the job. Practice your skills with example tasks and build your confidence to ace your applications.",
+//     },
+//     {
+//         job_simulation_id: 4,
+//         company_logo:
+//             "https://res.cloudinary.com/dlbpgaw8k/image/upload/v1700277137/careerez/google_logo_labso4.png",
+//         company_name: "Google",
+//         job_simulation_name: "Back-End Engineering",
+//         job_simulation_category: "Software Engineer",
+//         job_simulation_thumnail:
+//             "https://res.cloudinary.com/dlbpgaw8k/image/upload/v1698914711/nodejs_backend_bon7ye.png",
+//         job_simulation_time_spaced: "3-4 giờ",
+//         job_simulation_des:
+//             "A risk-free way to experience work on the job. Practice your skills with example tasks and build your confidence to ace your applications.",
+//     },
+//     {
+//         job_simulation_id: 5,
+//         company_logo:
+//             "https://res.cloudinary.com/dlbpgaw8k/image/upload/v1700277137/careerez/google_logo_labso4.png",
+//         company_name: "Google",
+//         job_simulation_name: "Back-End Engineering",
+//         job_simulation_category: "Software Engineer",
+//         job_simulation_thumnail:
+//             "https://res.cloudinary.com/dlbpgaw8k/image/upload/v1698914711/nodejs_backend_bon7ye.png",
+//         job_simulation_time_spaced: "3-4 giờ",
+//         job_simulation_des:
+//             "A risk-free way to experience work on the job. Practice your skills with example tasks and build your confidence to ace your applications.",
+//     },
+// ];
 
 export const OnlineInternShip = () => {
     const [listJobCategory, setListJobCategory] = useState<IJobCategory[] | []>(

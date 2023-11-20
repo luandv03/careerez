@@ -65,12 +65,22 @@ class UserService {
                             }
                         );
 
+                        const refresh_token = createToken(
+                            { user_id: user.user_id },
+                            process.env.SECRET_KEY_REFRESH_TOKEN,
+                            {
+                                expiresIn: 60 * 60 * 24 * 30,
+                            }
+                        );
+
                         resolve({
                             message: "Login successfull",
                             statusCode: HttpStatusCode.OK,
                             data: {
                                 access_token,
+                                refresh_token,
                                 EXPIRES_ACCESS_TOKEN: 60 * 60 * 24 * 3,
+                                EXPIRES_REFRESH_TOKEN: 60 * 60 * 24 * 30,
                             },
                         });
                     });
@@ -86,6 +96,53 @@ class UserService {
 
             res.end();
         });
+    }
+
+    refreshTokenService(token) {
+        const decoded = jwt.verify(token, process.env.SECRET_KEY_REFRESH_TOKEN);
+
+        if (!decoded) {
+            return {
+                statusCode: 401,
+                message: "Invalid token",
+            };
+        }
+        const access_token = createToken(
+            { user_id: user.user_id },
+            process.env.SECRET_KEY_ACCESS_TOKEN,
+            {
+                expiresIn: 60 * 60 * 24 * 3,
+            }
+        );
+
+        return {
+            statusCode: 201,
+            message: "refesh token successfull",
+            data: {
+                access_token,
+                EXPIRES_ACCESS_TOKEN: 60 * 60 * 24 * 3,
+            },
+        };
+    }
+
+    async getProfile(user_id) {
+        const results = await query(
+            `SELECT user_id, email, username, role FROM "User" WHERE user_id = $1`,
+            [user_id]
+        );
+
+        if (!results.rows.length) {
+            return {
+                statusCode: 404,
+                message: "User not exist",
+            };
+        }
+
+        return {
+            statusCode: 200,
+            message: "Get Profile Successfull",
+            data: results.rows[0],
+        };
     }
 }
 

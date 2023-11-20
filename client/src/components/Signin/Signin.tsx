@@ -1,14 +1,35 @@
 import { useGoogleLogin } from "@react-oauth/google";
+import { useContext } from "react";
+import { useNavigate } from "react-router-dom";
 
 import styles from "./Signin.module.css";
+import { authService } from "../../services/auth.service";
+import { AuthContext } from "../../providers/AuthProvider";
 
 export const Signin = () => {
+    const { setProfile } = useContext(AuthContext);
+
+    const navigate = useNavigate();
+
     const login = useGoogleLogin({
         onSuccess: async (credentialResponse) => {
             // const res = await axios.post(
             //     "http://localhost:5000/api/v1/auth/google",
             //     { token: credentialResponse.access_token }
             // );
+            const res = await authService.loginWithGoogle(
+                credentialResponse.access_token
+            );
+
+            if (res.statusCode === 200) {
+                localStorage.setItem("access_token", res.data.access_token);
+                localStorage.setItem("refresh_token", res.data.refresh_token);
+
+                const response = await authService.getProfile();
+                setProfile(response.data);
+                localStorage.setItem("isAuthenticated", "true");
+                navigate("/");
+            }
         },
         flow: "implicit",
     });

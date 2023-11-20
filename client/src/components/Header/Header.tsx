@@ -1,9 +1,38 @@
 import { Link, NavLink } from "react-router-dom";
-import { IconUserCircle } from "@tabler/icons-react";
+import {
+    IconUserCircle,
+    IconCertificate2,
+    IconTrash,
+    IconArrowsLeftRight,
+} from "@tabler/icons-react";
+import { Menu, rem, Text, Group } from "@mantine/core";
+import { useContext } from "react";
 
 import styles from "./Header.module.css";
+import { AuthContext } from "../../providers/AuthProvider";
+import { authService } from "../../services/auth.service";
 
 export const Header = () => {
+    const { profile, setProfile } = useContext(AuthContext);
+
+    const handleLogout = async () => {
+        // setLoading(true);
+        const res = await authService.logout();
+        // setLoading(false);
+        if (res.statusCode === 200) {
+            localStorage.removeItem("access_token");
+            localStorage.removeItem("refresh_token");
+
+            setProfile({
+                user_id: 0,
+                email: "",
+                username: "",
+            });
+
+            localStorage.removeItem("isAuthenticated");
+        }
+    };
+
     return (
         <div className={styles.container}>
             <div className={styles.header}>
@@ -23,18 +52,88 @@ export const Header = () => {
                     </div>
                 </div>
                 <div className={styles.authentication}>
-                    <div className={styles.signup}>
-                        <Link to="/sigup">
-                            <button>
-                                <h4>Đăng ký</h4>
-                            </button>
-                        </Link>
-                    </div>
-                    <div className={styles.signin}>
-                        <Link to="/signin">
-                            <IconUserCircle size="40px" />
-                        </Link>
-                    </div>
+                    {!profile.user_id ? (
+                        <>
+                            {" "}
+                            <div className={styles.signup}>
+                                <Link to="/sigup">
+                                    <button>
+                                        <h4>Đăng ký</h4>
+                                    </button>
+                                </Link>
+                            </div>
+                            <div className={styles.signin}>
+                                <Link to="/signin">
+                                    <IconUserCircle size="40px" />
+                                </Link>
+                            </div>
+                        </>
+                    ) : (
+                        <Menu trigger="hover" openDelay={100} closeDelay={400}>
+                            <Menu.Target>
+                                <Group gap={0}>
+                                    <Text>{profile.username}</Text>
+                                    <IconUserCircle size="40px" />
+                                </Group>
+                            </Menu.Target>
+
+                            <Menu.Dropdown>
+                                <Menu.Item
+                                    leftSection={
+                                        <IconUserCircle
+                                            style={{
+                                                width: rem(14),
+                                                height: rem(14),
+                                            }}
+                                        />
+                                    }
+                                >
+                                    Thông tin cá nhân
+                                </Menu.Item>
+                                <Menu.Item
+                                    leftSection={
+                                        <IconCertificate2
+                                            style={{
+                                                width: rem(14),
+                                                height: rem(14),
+                                            }}
+                                        />
+                                    }
+                                >
+                                    Khóa học
+                                </Menu.Item>
+
+                                <Menu.Divider />
+
+                                <Menu.Item
+                                    leftSection={
+                                        <IconArrowsLeftRight
+                                            style={{
+                                                width: rem(14),
+                                                height: rem(14),
+                                            }}
+                                        />
+                                    }
+                                >
+                                    Chuyển tài khoản
+                                </Menu.Item>
+                                <Menu.Item
+                                    color="red"
+                                    leftSection={
+                                        <IconTrash
+                                            style={{
+                                                width: rem(14),
+                                                height: rem(14),
+                                            }}
+                                        />
+                                    }
+                                    onClick={() => handleLogout()}
+                                >
+                                    Đăng xuất
+                                </Menu.Item>
+                            </Menu.Dropdown>
+                        </Menu>
+                    )}
                 </div>
             </div>
             <div className={styles.footer}>
