@@ -1,0 +1,30 @@
+.container {
+    width: 100%;
+}
+
+.avatar {
+    width: 100%;
+    position: relative;
+}
+
+.avatar img {
+    width: 100%;
+    height: 492px;
+    object-fit: cover;
+    object-position: 50% 50%;
+}
+
+.title {
+    position: absolute;
+    bottom: 0;
+    width: 80%;
+    left: 50%;
+    transform: translateX(-50%);
+    height: 110px;
+    bottom: 0;
+    background-color: #fff;
+    display: flex;
+    justify-content: center;
+    align-items: flex-end;
+    font-size: 24px;
+}

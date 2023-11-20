@@ -11,6 +11,7 @@ import { CareerExperience } from "./components/CareerExperience";
 import { CourseDetail } from "./components/Course/CourseDetail";
 import { OnlineInternShip } from "./components/OnlineInternShip";
 import { JobSimulation } from "./components/JobSimualtion";
+import { FAQs } from "./components/FAQs";
 
 export default function App() {
     const { pathname } = useLocation();
@@ -44,6 +45,8 @@ export default function App() {
                         path="/internship_online/:job_simulation_id"
                         element={<JobSimulation />}
                     />
+
+                    <Route path="/faqs" element={<FAQs />} />
                 </Route>
                 <Route path="/signin" element={<AuthLayout />}>
                     <Route path="/signin" element={<Signin />} />

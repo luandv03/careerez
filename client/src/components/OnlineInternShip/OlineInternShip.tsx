@@ -14,26 +14,53 @@ import {
     Group,
     Box,
 } from "@mantine/core";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { IconTag, IconClockHour1 } from "@tabler/icons-react";
 
 import styles from "./OnlineInternShip.module.css";
+import { jobSimulationService } from "../../services/job_simulation.service";
 
-const groceries = [
-    "🍎 Data",
-    "🍌 Phân tích rủi ro",
-    "🥦 Báo cáo tài chính",
-    "🥕 Marketing",
-    "🍫 Kỹ thuật phần mềm",
-];
+interface IJobCategory {
+    job_category_id: number;
+    job_category_name: string;
+}
 
-const companies = [
-    "🍎 Pepsi",
-    "🍌 Coca cola",
-    "🥦 Toyota",
-    "🥕 Google",
-    "🍫 Facebook",
-];
+interface ICompany {
+    company_id: number;
+    company_name: string;
+    company_logo: string;
+}
+
+interface IJobSimulation {
+    job_simulation_id: number;
+    job_category_id: number;
+    company_id: number;
+    job_simulation_why_register: string;
+    job_simulation_des: string;
+    job_simulation_time_spaced: string;
+    job_simulation_level: string;
+    job_simulation_thumnail: string;
+    job_simulation_name: string;
+    job_category_name: string;
+    company_name: string;
+    company_logo: string;
+}
+
+// const groceries = [
+//     "🍎 Data",
+//     "🍌 Phân tích rủi ro",
+//     "🥦 Báo cáo tài chính",
+//     "🥕 Marketing",
+//     "🍫 Kỹ thuật phần mềm",
+// ];
+
+// const companies = [
+//     "🍎 Pepsi",
+//     "🍌 Coca cola",
+//     "🥦 Toyota",
+//     "🥕 Google",
+//     "🍫 Facebook",
+// ];
 
 const JOB_INIT = [
     {
@@ -104,6 +131,15 @@ const JOB_INIT = [
 ];
 
 export const OnlineInternShip = () => {
+    const [listJobCategory, setListJobCategory] = useState<IJobCategory[] | []>(
+        []
+    );
+
+    const [listCompany, setListCompany] = useState<ICompany[] | []>([]);
+    const [listJobSimulation, setListJobSimulation] = useState<
+        IJobSimulation[] | []
+    >([]);
+
     const comboboxJobCategory = useCombobox({
         onDropdownClose: () => comboboxJobCategory.resetSelectedOption(),
     });
@@ -113,19 +149,83 @@ export const OnlineInternShip = () => {
     });
 
     const [jobCategory, setJobCategory] = useState<string | null>(null);
-    const [company, setCompany] = useState<string | null>(null);
+    const [company, setCompany] = useState<string | null>();
 
-    const options = groceries.map((item) => (
-        <Combobox.Option value={item} key={item}>
-            {item}
-        </Combobox.Option>
-    ));
+    const options =
+        listJobCategory.length > 0 &&
+        listJobCategory.map((item) => (
+            <Combobox.Option
+                value={item.job_category_name}
+                key={item.job_category_id}
+            >
+                {item.job_category_name}
+            </Combobox.Option>
+        ));
 
-    const optionsCompany = companies.map((item) => (
-        <Combobox.Option value={item} key={item}>
-            {item}
-        </Combobox.Option>
-    ));
+    const optionsCompany =
+        listCompany.length > 0 &&
+        listCompany.map((item) => (
+            <Combobox.Option value={item.company_name} key={item.company_id}>
+                {item.company_name}
+            </Combobox.Option>
+        ));
+
+    const handleGetListJobCategory = async () => {
+        const res = await jobSimulationService.getListJobCategory();
+
+        if (res.statusCode === 200) {
+            setListJobCategory(res.data.job_categories);
+        }
+    };
+
+    const hanldeGetListCompany = async () => {
+        const res = await jobSimulationService.getListCompany();
+
+        if (res.statusCode === 200) {
+            setListCompany(res.data.companies);
+        }
+    };
+
+    const handleGetListJobSimulationByCategory = async (
+        jobCategory: string
+    ) => {
+        setJobCategory(jobCategory);
+        setCompany("");
+        comboboxJobCategory.closeDropdown();
+
+        const res = await jobSimulationService.getJobSimulationByCategoryId(
+            jobCategory,
+            1,
+            10
+        );
+
+        if (res.statusCode === 200) {
+            setListJobSimulation(res.data.job_simulations);
+        }
+    };
+
+    const handleGetListJobSimulationByCompany = async (company: string) => {
+        setCompany(company);
+        setJobCategory("");
+        comboboxCompany.closeDropdown();
+
+        const res = await jobSimulationService.getJobSimulationByCompanyId(
+            company,
+            1,
+            10
+        );
+
+        if (res.statusCode === 200) {
+            setListJobSimulation(res.data.job_simulations);
+        }
+    };
+
+    useEffect(() => {
+        handleGetListJobCategory();
+        hanldeGetListCompany();
+        handleGetListJobSimulationByCompany("Vinfast");
+        // eslint-disable-next-line react-hooks/exhaustive-deps
+    }, []);
 
     return (
         <div className={styles.container}>
@@ -251,8 +351,9 @@ export const OnlineInternShip = () => {
                                 <Combobox
                                     store={comboboxJobCategory}
                                     onOptionSubmit={(val) => {
-                                        setJobCategory(val);
-                                        comboboxJobCategory.closeDropdown();
+                                        handleGetListJobSimulationByCategory(
+                                            val
+                                        );
                                     }}
                                     width={276}
                                     style={{
@@ -286,8 +387,9 @@ export const OnlineInternShip = () => {
                                 <Combobox
                                     store={comboboxCompany}
                                     onOptionSubmit={(val) => {
-                                        setCompany(val);
-                                        comboboxCompany.closeDropdown();
+                                        handleGetListJobSimulationByCompany(
+                                            val
+                                        );
                                     }}
                                     width={200}
                                     style={{
@@ -321,96 +423,107 @@ export const OnlineInternShip = () => {
                         </Center>
 
                         <SimpleGrid cols={3} p={20} spacing={50}>
-                            {JOB_INIT.map((item) => (
-                                <Card
-                                    key={item.job_simulation_id}
-                                    shadow="sm"
-                                    padding="lg"
-                                    radius="md"
-                                    w={320}
-                                    withBorder
-                                    className={styles.jobHover}
-                                >
-                                    <Card.Section
-                                        style={{ position: "relative" }}
+                            {listJobSimulation.length > 0 &&
+                                listJobSimulation.map((item) => (
+                                    <Card
+                                        key={item.job_simulation_id}
+                                        shadow="sm"
+                                        padding="lg"
+                                        radius="md"
+                                        w={320}
+                                        withBorder
+                                        component="a"
+                                        href={`/internship_online/${item.job_simulation_id}`}
+                                        className={styles.jobHover}
                                     >
-                                        <Image
-                                            src={item.job_simulation_thumnail}
-                                            height={160}
-                                            alt="Norway"
-                                        />
-                                        <Box
-                                            h={40}
-                                            style={{
-                                                position: "absolute",
-                                                bottom: 0,
-                                                left: "10px",
-                                                borderTopLeftRadius: "4px",
-                                                borderTopRightRadius: "4px",
-                                                overflow: "hidden",
-                                            }}
+                                        <Card.Section
+                                            style={{ position: "relative" }}
                                         >
                                             <Image
-                                                src={item.company_logo}
-                                                height={40}
-                                                width={100}
+                                                src={
+                                                    item.job_simulation_thumnail
+                                                }
+                                                height={160}
                                                 alt="Norway"
                                             />
-                                        </Box>
-                                    </Card.Section>
+                                            <Box
+                                                h={40}
+                                                style={{
+                                                    position: "absolute",
+                                                    bottom: 0,
+                                                    left: "10px",
+                                                    borderTopLeftRadius: "4px",
+                                                    borderTopRightRadius: "4px",
+                                                    overflow: "hidden",
+                                                }}
+                                            >
+                                                <Image
+                                                    src={item.company_logo}
+                                                    height={40}
+                                                    width={100}
+                                                    alt="Norway"
+                                                />
+                                            </Box>
+                                        </Card.Section>
 
-                                    <Text style={{ color: "rgb(40, 89, 182)" }}>
-                                        {item.company_name}
-                                    </Text>
-
-                                    <Group justify="space-between" mb="xs">
                                         <Text
-                                            fw={700}
                                             style={{
                                                 color: "rgb(40, 89, 182)",
                                             }}
                                         >
-                                            {item.job_simulation_name}
+                                            {item.company_name}
                                         </Text>
-                                        {/* <Badge color="pink" variant="light">
+
+                                        <Group justify="space-between" mb="xs">
+                                            <Text
+                                                fw={700}
+                                                style={{
+                                                    color: "rgb(40, 89, 182)",
+                                                }}
+                                            >
+                                                {item.job_simulation_name}
+                                            </Text>
+                                            {/* <Badge color="pink" variant="light">
                                             In Progress
                                         </Badge> */}
-                                    </Group>
-                                    <Group
-                                        gap={4}
-                                        style={{
-                                            color: "rgb(40, 89, 182)",
-                                        }}
-                                    >
-                                        <IconTag size="16px" />
-                                        <Text size="16px">
-                                            {item.job_simulation_category}
-                                        </Text>
-                                    </Group>
+                                        </Group>
+                                        <Group
+                                            gap={4}
+                                            style={{
+                                                color: "rgb(40, 89, 182)",
+                                            }}
+                                        >
+                                            <IconTag size="16px" />
+                                            <Text size="16px">
+                                                {item.job_category_name}
+                                            </Text>
+                                        </Group>
 
-                                    <Group
-                                        gap={4}
-                                        mt={8}
-                                        style={{
-                                            color: "rgb(40, 89, 182)",
-                                        }}
-                                    >
-                                        <IconClockHour1 size="16px" />
-                                        <Text size="16px">
-                                            {item.job_simulation_time_spaced}
-                                        </Text>
-                                    </Group>
+                                        <Group
+                                            gap={4}
+                                            mt={8}
+                                            style={{
+                                                color: "rgb(40, 89, 182)",
+                                            }}
+                                        >
+                                            <IconClockHour1 size="16px" />
+                                            <Text size="16px">
+                                                {
+                                                    item.job_simulation_time_spaced
+                                                }
+                                            </Text>
+                                        </Group>
 
-                                    <Text
-                                        size="sm"
-                                        c="dimmed"
-                                        mt={8}
-                                        lineClamp={2}
-                                    >
-                                        {item.job_simulation_des}
-                                    </Text>
-                                </Card>
-                            ))}
+                                        <Text
+                                            size="sm"
+                                            c="dimmed"
+                                            mt={8}
+                                            lineClamp={2}
+                                        >
+                                            {item.job_simulation_des}
+                                        </Text>
+                                    </Card>
+                                ))}
                         </SimpleGrid>
                     </Stack>
                 </Center>
