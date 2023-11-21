@@ -364,7 +364,6 @@ export const OnlineInternShip = () => {
                                             val
                                         );
                                     }}
-                                    width={276}
                                     style={{
                                         width: "200px",
                                     }}
@@ -400,7 +399,6 @@ export const OnlineInternShip = () => {
                                             val
                                         );
                                     }}
-                                    width={200}
                                     style={{
                                         width: "200px",
                                     }}

@@ -68,6 +68,18 @@ class JobSimulationService extends BaseService {
             return error;
         }
     }
+
+    async getTaskByJobId(jobSimulationId: number) {
+        try {
+            const res = await this.httpClientPublic.get(
+                `/job_simulation/task/${jobSimulationId}/view`
+            );
+
+            return res.data;
+        } catch (error) {
+            return error;
+        }
+    }
 }
 
 export const jobSimulationService = new JobSimulationService();

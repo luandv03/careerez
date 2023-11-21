@@ -7,6 +7,7 @@ import "@mantine/core/styles.css";
 
 import App from "./App.tsx";
 import "./index.css";
+import "@mantine/tiptap/styles.css";
 import { AuthProvider } from "./providers/AuthProvider.tsx";
 
 ReactDOM.createRoot(document.getElementById("root")!).render(

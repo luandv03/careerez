@@ -30,4 +30,10 @@ jobSimulationRoutes.get(
     jobSimulationController.getJobSimulationDetailById
 );
 
+// get tasks by id
+jobSimulationRoutes.get(
+    "/job_simulation/task/:job_simulation_id/view",
+    jobSimulationController.getTaskByJobId
+);
+
 export default jobSimulationRoutes;

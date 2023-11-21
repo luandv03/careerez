@@ -82,6 +82,21 @@ class JobSimulationService {
             },
         };
     }
+
+    async getTaskByJobId(jobId) {
+        const result = await query(
+            `select * from task where job_simulation_id = $1 order by task_number`,
+            [jobId]
+        );
+
+        return {
+            statusCode: HttpStatusCode.OK,
+            message: "Get Task Simultion OK",
+            data: {
+                tasks: result.rows,
+            },
+        };
+    }
 }
 
 export const jobSimulationService = new JobSimulationService();

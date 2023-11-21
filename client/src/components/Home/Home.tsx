@@ -1,4 +1,5 @@
 import { motion } from "framer-motion";
+import { useNavigate } from "react-router-dom";
 
 import { ScrollAnimation } from "../ScrollAnimation";
 import styles from "./Home.module.css";
@@ -57,6 +58,8 @@ const companyList = [
 ];
 
 export const Home = () => {
+    const navigate = useNavigate();
+
     return (
         <div className={styles.container}>
             <div>
@@ -155,7 +158,13 @@ export const Home = () => {
                                             càng nhất cho định hướng của bản
                                             thân.
                                         </p>
-                                        <button>Tìm hiểu thêm</button>
+                                        <button
+                                            onClick={() =>
+                                                navigate("/career_experience")
+                                            }
+                                        >
+                                            Tìm hiểu thêm
+                                        </button>
                                     </div>
                                 </ScrollAnimation>
                             </div>
@@ -205,7 +214,13 @@ export const Home = () => {
                                             thành nhân sự của công ty trong
                                             tương lai
                                         </p>
-                                        <button>Tìm hiểu thêm</button>
+                                        <button
+                                            onClick={() =>
+                                                navigate("/internship_online")
+                                            }
+                                        >
+                                            Tìm hiểu thêm
+                                        </button>
                                     </div>
                                 </ScrollAnimation>
                             </div>
@@ -253,7 +268,13 @@ export const Home = () => {
                                             Bài kiểm tra sẽ giúp bạn tìm kiếm
                                             ngành nghề phù hợp trong tương lai
                                         </p>
-                                        <button>Tìm hiểu thêm</button>
+                                        <button
+                                            onClick={() =>
+                                                navigate("/personality_test")
+                                            }
+                                        >
+                                            Tìm hiểu thêm
+                                        </button>
                                     </div>
                                 </ScrollAnimation>
                             </div>
@@ -298,7 +319,13 @@ export const Home = () => {
                                             hóa ước mơ, theo đuổi công việc phù
                                             hợp và thành công!
                                         </p>
-                                        <button>Tìm hiểu thêm</button>
+                                        <button
+                                            onClick={() =>
+                                                navigate("/member_register")
+                                            }
+                                        >
+                                            Tìm hiểu thêm
+                                        </button>
                                     </div>
                                 </ScrollAnimation>
                             </div>

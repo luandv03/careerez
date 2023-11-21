@@ -14,6 +14,7 @@ import { OnlineInternShip } from "./components/OnlineInternShip";
 import { JobSimulation } from "./components/JobSimualtion";
 import { FAQs } from "./components/FAQs";
 import { MemberRegister } from "./components/MemberRegister";
+import { Editor } from "./components/Editor";
 
 export default function App() {
     const location = useLocation();
@@ -52,6 +53,8 @@ export default function App() {
                         element={<MemberRegister />}
                     />
                     <Route path="/faqs" element={<FAQs />} />
+
+                    <Route path="/editor" element={<Editor />} />
                 </Route>
                 <Route path="/signin" element={<AuthLayout />}>
                     <Route path="/signin" element={<Signin />} />

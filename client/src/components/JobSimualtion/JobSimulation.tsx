@@ -7,7 +7,7 @@ import {
     Button,
     Divider,
     ScrollArea,
-    List,
+    TypographyStylesProvider,
 } from "@mantine/core";
 import {
     IconTag,
@@ -18,7 +18,7 @@ import {
     IconFileCheck,
 } from "@tabler/icons-react";
 import { useState, useEffect } from "react";
-import { useParams } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 
 import { ReadMore } from "../ReadMore";
 import { jobSimulationService } from "../../services/job_simulation.service";
@@ -41,9 +41,25 @@ const JOB_DETAIL_INIT = {
         "Được học miễn phí, trải nghiệm kiến thức thực tế khi đi làm từ các chuyên từ các công ty hàng đầu về Công nghệ",
 };
 
+interface ITask {
+    task_id: number;
+    job_simulation_id: number;
+    task_name: string;
+    task_time_spaced: string;
+    task_des: string;
+    task_what_learn: string;
+    task_what_do: string;
+    task_video_intro: string;
+    task_number: number;
+    task_level: string;
+}
+
 export const JobSimulation = () => {
     const [jobSimulation, setJobSimulation] = useState(JOB_DETAIL_INIT);
+    const [tasks, setTasks] = useState<ITask[] | []>([]);
+    const [seletectedTasks, setSeletectedTasks] = useState(1);
     const { job_simulation_id } = useParams();
+    const navigate = useNavigate();
 
     const handleGetJobSimulationDetail = async () => {
         const res = await jobSimulationService.getJobSimulationDetailById(
@@ -55,8 +71,25 @@ export const JobSimulation = () => {
         }
     };
 
+    const handleRegisterJob = () => {
+        if (!JSON.parse(localStorage.getItem("isAuthenticated") as string)) {
+            navigate("/signin");
+        }
+    };
+
+    const handleGetTaskByJobId = async () => {
+        const res = await jobSimulationService.getTaskByJobId(
+            Number(job_simulation_id)
+        );
+
+        if (res.statusCode === 200) {
+            setTasks(res.data.tasks);
+        }
+    };
+
     useEffect(() => {
         handleGetJobSimulationDetail();
+        handleGetTaskByJobId();
         // eslint-disable-next-line react-hooks/exhaustive-deps
     }, []);
 
@@ -134,7 +167,12 @@ export const JobSimulation = () => {
                             </Text>
                         </Group>
 
-                        <Button color="rgb(40, 89, 182)">Tham gia ngay</Button>
+                        <Button
+                            color="rgb(40, 89, 182)"
+                            onClick={() => handleRegisterJob()}
+                        >
+                            Tham gia ngay
+                        </Button>
                     </Stack>
                 </Box>
             </div>
@@ -195,6 +233,7 @@ export const JobSimulation = () => {
                     <Text fw={700} size="20px">
                         Các nhiệm vụ cần hoàn thành
                     </Text>
+
                     <Box
                         p={8}
                         style={{
@@ -211,33 +250,47 @@ export const JobSimulation = () => {
                                 p={10}
                             >
                                 <Stack>
-                                    {[1, 2, 3, 4, 5, 6, 7].map((item) => (
-                                        <>
-                                            <Box
-                                                bg="rgb(247, 247, 247)"
-                                                p={10}
-                                                style={{
-                                                    borderRadius: "4px",
-                                                    cursor: "pointer",
-                                                }}
-                                            >
-                                                <Group>
-                                                    <Button
-                                                        style={{
-                                                            borderRadius:
-                                                                "50rem",
-                                                        }}
-                                                    >
-                                                        {item}
-                                                    </Button>
-                                                    <Text size="20px" fw={500}>
-                                                        Nhiệm vụ {item}
-                                                    </Text>
-                                                </Group>
-                                            </Box>
-                                            <Divider variant="dashed" />
-                                        </>
-                                    ))}
+                                    {tasks.length > 0 &&
+                                        tasks.map((item) => (
+                                            <>
+                                                <Box
+                                                    p={10}
+                                                    style={{
+                                                        borderRadius: "4px",
+                                                        cursor: "pointer",
+                                                        background:
+                                                            seletectedTasks ===
+                                                            item.task_number
+                                                                ? "rgb(223, 215, 215)"
+                                                                : "rgb(247, 247, 247)",
+                                                    }}
+                                                    onClick={() =>
+                                                        setSeletectedTasks(
+                                                            item.task_number
+                                                        )
+                                                    }
+                                                >
+                                                    <Group>
+                                                        <Button
+                                                            style={{
+                                                                borderRadius:
+                                                                    "50rem",
+                                                            }}
+                                                        >
+                                                            {item.task_number}
+                                                        </Button>
+                                                        <Text
+                                                            size="20px"
+                                                            fw={500}
+                                                        >
+                                                            Nhiệm vụ{" "}
+                                                            {item.task_number}
+                                                        </Text>
+                                                    </Group>
+                                                </Box>
+                                                <Divider variant="dashed" />
+                                            </>
+                                        ))}
                                 </Stack>
                             </ScrollArea>
 
@@ -245,102 +298,128 @@ export const JobSimulation = () => {
                                 style={{ height: "100%", flex: 1 }}
                                 p={10}
                             >
-                                <Stack>
-                                    <Text size="20px" fw={700}>
-                                        Nhiệm vụ 1. Tìm hiểu cơ bản về giao thức
-                                        HTTP và xây dựng server với Nodejs
-                                    </Text>
-
-                                    <Group gap={4}>
-                                        <IconClockHour1 size="16px" />
-                                        <Text size="16px">1-2 giờ</Text>
-                                    </Group>
-
-                                    <Group gap={4}>
-                                        <IconBadge size="16px" />
-                                        <Text size="16px">Trung bình</Text>
-                                    </Group>
-
-                                    <Box style={{ width: "100%" }}>
-                                        <ReadMore
-                                            text={
-                                                jobSimulation.job_simulation_des
+                                {tasks.length > 0 && (
+                                    <Stack>
+                                        <Text size="20px" fw={700}>
+                                            Nhiệm vụ{" "}
+                                            {
+                                                tasks[seletectedTasks - 1]
+                                                    .task_number
                                             }
-                                        ></ReadMore>
-                                    </Box>
+                                            .
+                                            {
+                                                tasks[seletectedTasks - 1]
+                                                    .task_name
+                                            }
+                                        </Text>
 
-                                    <Box
-                                        bg="rgb(247, 247, 247)"
-                                        p={10}
-                                        style={{
-                                            borderRadius: "4px",
-                                        }}
-                                    >
-                                        <Group>
-                                            <IconSchool size="20px" />
-                                            <Text size="18px" fw={700}>
-                                                Bạn sẽ học được gì ?
+                                        <Group gap={4}>
+                                            <IconClockHour1 size="16px" />
+                                            <Text size="16px">
+                                                {
+                                                    tasks[seletectedTasks - 1]
+                                                        .task_time_spaced
+                                                }
                                             </Text>
                                         </Group>
-                                        <List pl={20}>
-                                            <List.Item>
-                                                Clone or download repository
-                                                from GitHub
-                                            </List.Item>
-                                            <List.Item>
-                                                Install dependencies with yarn
-                                            </List.Item>
-                                            <List.Item>
-                                                To start development server run
-                                                npm start command
-                                            </List.Item>
-                                            <List.Item>
-                                                Run tests to make sure your
-                                                changes do not break the build
-                                            </List.Item>
-                                            <List.Item>
-                                                Submit a pull request once you
-                                                are done
-                                            </List.Item>
-                                        </List>
-                                    </Box>
 
-                                    <Box
-                                        bg="rgb(247, 247, 247)"
-                                        p={10}
-                                        style={{
-                                            borderRadius: "4px",
-                                        }}
-                                    >
-                                        <Group>
-                                            <IconFileCheck size="20px" />
-                                            <Text size="18px" fw={700}>
-                                                Bạn sẽ làm được gì ?
+                                        <Group gap={4}>
+                                            <IconBadge size="16px" />
+                                            <Text size="16px">
+                                                {
+                                                    tasks[seletectedTasks - 1]
+                                                        .task_level
+                                                }
                                             </Text>
                                         </Group>
-                                        <List pl={20}>
-                                            <List.Item>
-                                                Clone or download repository
-                                                from GitHub
-                                            </List.Item>
-                                            <List.Item>
-                                                Install dependencies with yarn
-                                            </List.Item>
-                                            <List.Item>
-                                                To start development server run
-                                                npm start command
-                                            </List.Item>
-                                            <List.Item>
-                                                Run tests to make sure your
-                                                changes do not break the build
-                                            </List.Item>
-                                            <List.Item>
-                                                Submit a pull request once you
-                                                are done
-                                            </List.Item>
-                                        </List>
-                                    </Box>
-                                </Stack>
+
+                                        <Box style={{ width: "100%" }}>
+                                            <ReadMore
+                                                text={
+                                                    tasks[seletectedTasks - 1]
+                                                        .task_des
+                                                }
+                                            ></ReadMore>
+                                        </Box>
+
+                                        <Box
+                                            bg="rgb(247, 247, 247)"
+                                            p={10}
+                                            style={{
+                                                borderRadius: "4px",
+                                            }}
+                                        >
+                                            <Group>
+                                                <IconSchool size="20px" />
+                                                <Text size="18px" fw={700}>
+                                                    Bạn sẽ học được gì ?
+                                                </Text>
+                                            </Group>
+                                            <TypographyStylesProvider>
+                                                <div
+                                                    dangerouslySetInnerHTML={{
+                                                        __html: tasks[
+                                                            seletectedTasks - 1
+                                                        ].task_what_learn,
+                                                    }}
+                                                />
+                                            </TypographyStylesProvider>
+                                        </Box>
+
+                                        <Box
+                                            bg="rgb(247, 247, 247)"
+                                            p={10}
+                                            style={{
+                                                borderRadius: "4px",
+                                            }}
+                                        >
+                                            <Group>
+                                                <IconFileCheck size="20px" />
+                                                <Text size="18px" fw={700}>
+                                                    Bạn sẽ làm được gì ?
+                                                </Text>
+                                            </Group>
+                                            <TypographyStylesProvider>
+                                                <div
+                                                    dangerouslySetInnerHTML={{
+                                                        __html: tasks[
+                                                            seletectedTasks - 1
+                                                        ].task_what_do,
+                                                    }}
+                                                />
+                                            </TypographyStylesProvider>
+                                        </Box>
+
+                                        <Text>
+                                            Lời nhắn trước khi làm nhiệm vụ
+                                        </Text>
+                                        <Box
+                                            p={8}
+                                            w={611}
+                                            h={353}
+                                            style={{
+                                                borderRadius: "8px",
+                                                overflow: "hidden",
+                                                boxShadow:
+                                                    "rgba(100, 100, 111, 0.2) 0px 7px 29px 0px",
+                                            }}
+                                        >
+                                            <video
+                                                src={
+                                                    tasks[seletectedTasks - 1]
+                                                        .task_video_intro
+                                                }
+                                                style={{
+                                                    width: "100%",
+                                                    height: "100%",
+                                                }}
+                                                controls
+                                                loop
+                                                muted
+                                            ></video>
+                                        </Box>
+                                    </Stack>
+                                )}
                             </ScrollArea>
                         </Group>
                     </Box>
