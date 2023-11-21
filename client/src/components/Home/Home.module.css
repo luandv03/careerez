@@ -135,10 +135,10 @@
     left: 0;
     top: 100px;
     width: 286px;
+    /* padding: 40px;
     background-color: #fff;
-    padding: 40px;
     border-top: 4px solid rgb(40, 89, 182);
-    border-bottom: 4px solid rgb(40, 89, 182);
+    border-bottom: 4px solid rgb(40, 89, 182); */
 }
 
 .advertisementHeaderContentCareerExperienceText h2 {
@@ -186,10 +186,10 @@
     left: 80px;
     top: 0;
     width: 286px;
-    background-color: #fff;
+    /* background-color: #fff;
     padding: 40px;
     border-top: 4px solid rgb(40, 89, 182);
-    border-bottom: 4px solid rgb(40, 89, 182);
+    border-bottom: 4px solid rgb(40, 89, 182); */
 }
 
 .advertisementHeaderContentOnlineInternshipText h2 {
@@ -249,10 +249,10 @@
     left: 60%;
     top: 55%;
     width: 286px;
-    background-color: #fff;
+    /* background-color: #fff;
     padding: 40px;
     border-top: 4px solid rgb(40, 89, 182);
-    border-bottom: 4px solid rgb(40, 89, 182);
+    border-bottom: 4px solid rgb(40, 89, 182); */
 }
 
 .advertisementFooterContentCareerExperienceText h2 {
@@ -300,10 +300,10 @@
     left: 80px;
     top: -10%;
     width: 286px;
-    background-color: #fff;
+    /* background-color: #fff;
     padding: 40px;
     border-top: 4px solid rgb(40, 89, 182);
-    border-bottom: 4px solid rgb(40, 89, 182);
+    border-bottom: 4px solid rgb(40, 89, 182); */
 }
 
 .advertisementFooterContentOnlineInternshipText h2 {

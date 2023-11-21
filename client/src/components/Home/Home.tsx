@@ -1,6 +1,8 @@
+import { motion } from "framer-motion";
+
+import { ScrollAnimation } from "../ScrollAnimation";
 import styles from "./Home.module.css";
 import { Carousel } from "../Carousel/Carousel";
-import { motion } from "framer-motion";
 
 const slides = [
     {
@@ -107,17 +109,10 @@ export const Home = () => {
 
                 <div className={styles.advertisementHeader}>
                     <div className={styles.advertisementHeaderContent}>
-                        <motion.div
+                        <div
                             className={
                                 styles.advertisementHeaderContentCareerExperience
                             }
-                            initial={{ opacity: 0, scale: 0.5 }}
-                            animate={{ opacity: 1, scale: 1 }}
-                            transition={{
-                                duration: 0.8,
-                                delay: 0.5,
-                                ease: [0, 0.71, 0.2, 1.01],
-                            }}
                         >
                             <div
                                 className={
@@ -135,35 +130,41 @@ export const Home = () => {
                                     styles.advertisementHeaderContentCareerExperienceText
                                 }
                             >
-                                <div>
-                                    <h2>Trải nghiệm ngành nghề</h2>
-                                    <p>
-                                        Thông qua quá trình trải nghiệm nghề
-                                        nghiệp, các bạn học sinh sẽ được nâng
-                                        cao nhân thức về ngành nghề, gặp gỡ và
-                                        nhận được sự hỗ trợ từ các chuyên gia
-                                        trong lĩnh vực đó. Các bài tập
-                                        case-study và kĩ năng liên quan cũng
-                                        cũng là một phần của khóa học để giúp
-                                        các bạn có cái nhìn kĩ càng nhất cho
-                                        định hướng của bản thân.
-                                    </p>
-                                    <button>Tìm hiểu thêm</button>
-                                </div>
+                                <ScrollAnimation
+                                    style={{
+                                        width: "100%",
+                                        height: "100%",
+                                        padding: "40px",
+                                        backgroundColor: "#fff",
+                                        borderTop: "4px solid rgb(40, 89, 182)",
+                                        borderBottom:
+                                            "4px solid rgb(40, 89, 182)",
+                                    }}
+                                >
+                                    <div>
+                                        <h2>Trải nghiệm ngành nghề</h2>
+                                        <p>
+                                            Thông qua quá trình trải nghiệm nghề
+                                            nghiệp, các bạn học sinh sẽ được
+                                            nâng cao nhân thức về ngành nghề,
+                                            gặp gỡ và nhận được sự hỗ trợ từ các
+                                            chuyên gia trong lĩnh vực đó. Các
+                                            bài tập case-study và kĩ năng liên
+                                            quan cũng cũng là một phần của khóa
+                                            học để giúp các bạn có cái nhìn kĩ
+                                            càng nhất cho định hướng của bản
+                                            thân.
+                                        </p>
+                                        <button>Tìm hiểu thêm</button>
+                                    </div>
+                                </ScrollAnimation>
                             </div>
-                        </motion.div>
+                        </div>
 
-                        <motion.div
+                        <div
                             className={
                                 styles.advertisementHeaderContentOnlineInternship
                             }
-                            initial={{ opacity: 0, scale: 0.5 }}
-                            animate={{ opacity: 1, scale: 1 }}
-                            transition={{
-                                duration: 0.8,
-                                delay: 0.5,
-                                ease: [0, 0.71, 0.2, 1.01],
-                            }}
                         >
                             <div
                                 className={
@@ -181,37 +182,43 @@ export const Home = () => {
                                     styles.advertisementHeaderContentOnlineInternshipText
                                 }
                             >
-                                <div>
-                                    <h2>Thực tập trực tuyến</h2>
-                                    <p>
-                                        Mô hình thực tập dành cho tất cả các bạn
-                                        học sinh với đề bài được cố vấn từ chính
-                                        các doanh nghiệp tại Việt Nam và trên
-                                        Thế giới. Hoàn thành khóa thực tập, các
-                                        bạn sẽ nhận được chứng chỉ và có cơ hội
-                                        được trở thành nhân sự của công ty trong
-                                        tương lai
-                                    </p>
-                                    <button>Tìm hiểu thêm</button>
-                                </div>
+                                <ScrollAnimation
+                                    style={{
+                                        width: "100%",
+                                        height: "100%",
+                                        padding: "40px",
+                                        backgroundColor: "#fff",
+                                        borderTop: "4px solid rgb(40, 89, 182)",
+                                        borderBottom:
+                                            "4px solid rgb(40, 89, 182)",
+                                    }}
+                                >
+                                    <div>
+                                        <h2>Thực tập trực tuyến</h2>
+                                        <p>
+                                            Mô hình thực tập dành cho tất cả các
+                                            bạn học sinh với đề bài được cố vấn
+                                            từ chính các doanh nghiệp tại Việt
+                                            Nam và trên Thế giới. Hoàn thành
+                                            khóa thực tập, các bạn sẽ nhận được
+                                            chứng chỉ và có cơ hội được trở
+                                            thành nhân sự của công ty trong
+                                            tương lai
+                                        </p>
+                                        <button>Tìm hiểu thêm</button>
+                                    </div>
+                                </ScrollAnimation>
                             </div>
-                        </motion.div>
+                        </div>
                     </div>
                 </div>
 
                 <div className={styles.advertisementFooter}>
                     <div className={styles.advertisementFooterContent}>
-                        <motion.div
+                        <div
                             className={
                                 styles.advertisementFooterContentCareerExperience
                             }
-                            initial={{ opacity: 0, scale: 0.5 }}
-                            animate={{ opacity: 1, scale: 1 }}
-                            transition={{
-                                duration: 0.8,
-                                delay: 0.5,
-                                ease: [0, 0.71, 0.2, 1.01],
-                            }}
                         >
                             <div
                                 className={
@@ -229,28 +236,33 @@ export const Home = () => {
                                     styles.advertisementFooterContentCareerExperienceText
                                 }
                             >
-                                <div>
-                                    <h2>Bài kiểm tra tính cách</h2>
-                                    <p>
-                                        Bài kiểm tra sẽ giúp bạn tìm kiếm ngành
-                                        nghề phù hợp trong tương lai
-                                    </p>
-                                    <button>Tìm hiểu thêm</button>
-                                </div>
+                                <ScrollAnimation
+                                    style={{
+                                        width: "100%",
+                                        height: "100%",
+                                        padding: "40px",
+                                        backgroundColor: "#fff",
+                                        borderTop: "4px solid rgb(40, 89, 182)",
+                                        borderBottom:
+                                            "4px solid rgb(40, 89, 182)",
+                                    }}
+                                >
+                                    <div>
+                                        <h2>Bài kiểm tra tính cách</h2>
+                                        <p>
+                                            Bài kiểm tra sẽ giúp bạn tìm kiếm
+                                            ngành nghề phù hợp trong tương lai
+                                        </p>
+                                        <button>Tìm hiểu thêm</button>
+                                    </div>
+                                </ScrollAnimation>
                             </div>
-                        </motion.div>
+                        </div>
 
-                        <motion.div
+                        <div
                             className={
                                 styles.advertisementFooterContentOnlineInternship
                             }
-                            initial={{ opacity: 0, scale: 0.5 }}
-                            animate={{ opacity: 1, scale: 1 }}
-                            transition={{
-                                duration: 0.8,
-                                delay: 0.5,
-                                ease: [0, 0.71, 0.2, 1.01],
-                            }}
                         >
                             <div
                                 className={
@@ -268,17 +280,29 @@ export const Home = () => {
                                     styles.advertisementFooterContentOnlineInternshipText
                                 }
                             >
-                                <div>
-                                    <h2>Tham gia CareerEZ</h2>
-                                    <p>
-                                        Tham gia cùng CareerEZ để hiện thực hóa
-                                        ước mơ, theo đuổi công việc phù hợp và
-                                        thành công!
-                                    </p>
-                                    <button>Tìm hiểu thêm</button>
-                                </div>
+                                <ScrollAnimation
+                                    style={{
+                                        width: "100%",
+                                        height: "100%",
+                                        padding: "40px",
+                                        backgroundColor: "#fff",
+                                        borderTop: "4px solid rgb(40, 89, 182)",
+                                        borderBottom:
+                                            "4px solid rgb(40, 89, 182)",
+                                    }}
+                                >
+                                    <div>
+                                        <h2>Tham gia CareerEZ</h2>
+                                        <p>
+                                            Tham gia cùng CareerEZ để hiện thực
+                                            hóa ước mơ, theo đuổi công việc phù
+                                            hợp và thành công!
+                                        </p>
+                                        <button>Tìm hiểu thêm</button>
+                                    </div>
+                                </ScrollAnimation>
                             </div>
-                        </motion.div>
+                        </div>
                     </div>
                 </div>
 

@@ -13,6 +13,7 @@ import { CourseDetail } from "./components/Course/CourseDetail";
 import { OnlineInternShip } from "./components/OnlineInternShip";
 import { JobSimulation } from "./components/JobSimualtion";
 import { FAQs } from "./components/FAQs";
+import { MemberRegister } from "./components/MemberRegister";
 
 export default function App() {
     const location = useLocation();
@@ -46,7 +47,10 @@ export default function App() {
                         path="/internship_online/:job_simulation_id"
                         element={<JobSimulation />}
                     />
-
+                    <Route
+                        path="/member_register"
+                        element={<MemberRegister />}
+                    />
                     <Route path="/faqs" element={<FAQs />} />
                 </Route>
                 <Route path="/signin" element={<AuthLayout />}>

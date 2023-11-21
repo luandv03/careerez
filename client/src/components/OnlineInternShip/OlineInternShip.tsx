@@ -10,7 +10,6 @@ import {
     SimpleGrid,
     Card,
     Image,
-    // Badge,
     Group,
     Box,
 } from "@mantine/core";

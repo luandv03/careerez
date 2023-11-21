@@ -64,6 +64,24 @@ class JobSimulationService {
             },
         };
     }
+
+    async getJobSimulationDetailById(jobSimulationId) {
+        const result = await query(
+            `select js.*, c.company_name, c.company_logo, c.company_video_intro, jc.job_category_name from job_simulation js
+        join company c using(company_id)
+        join job_category jc using(job_category_id)
+        where js.job_simulation_id = $1`,
+            [jobSimulationId]
+        );
+
+        return {
+            statusCode: HttpStatusCode.OK,
+            message: "Get Job Simultion OK",
+            data: {
+                job_simulation: result.rows[0],
+            },
+        };
+    }
 }
 
 export const jobSimulationService = new JobSimulationService();

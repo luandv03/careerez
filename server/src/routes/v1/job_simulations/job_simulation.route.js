@@ -24,4 +24,10 @@ jobSimulationRoutes.get(
     jobSimulationController.getJobSimulationByCompanyId
 );
 
+// get job detail by id
+jobSimulationRoutes.get(
+    "/job_simulation/:job_simulation_id/view",
+    jobSimulationController.getJobSimulationDetailById
+);
+
 export default jobSimulationRoutes;

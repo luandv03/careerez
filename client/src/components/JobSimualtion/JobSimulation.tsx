@@ -17,10 +17,14 @@ import {
     IconSchool,
     IconFileCheck,
 } from "@tabler/icons-react";
+import { useState, useEffect } from "react";
+import { useParams } from "react-router-dom";
+
 import { ReadMore } from "../ReadMore";
+import { jobSimulationService } from "../../services/job_simulation.service";
 
 const JOB_DETAIL_INIT = {
-    job_simulation_id: 1,
+    job_simulation_id: 0,
     company_logo:
         "https://res.cloudinary.com/dlbpgaw8k/image/upload/v1700277137/careerez/google_logo_labso4.png",
     company_name: "Google",
@@ -38,11 +42,29 @@ const JOB_DETAIL_INIT = {
 };
 
 export const JobSimulation = () => {
+    const [jobSimulation, setJobSimulation] = useState(JOB_DETAIL_INIT);
+    const { job_simulation_id } = useParams();
+
+    const handleGetJobSimulationDetail = async () => {
+        const res = await jobSimulationService.getJobSimulationDetailById(
+            Number(job_simulation_id)
+        );
+
+        if (res.statusCode === 200) {
+            setJobSimulation(res.data.job_simulation);
+        }
+    };
+
+    useEffect(() => {
+        handleGetJobSimulationDetail();
+        // eslint-disable-next-line react-hooks/exhaustive-deps
+    }, []);
+
     return (
         <Stack>
             <div
                 style={{
-                    backgroundImage: `url(${JOB_DETAIL_INIT.job_simulation_thumnail})`,
+                    backgroundImage: `url(${jobSimulation.job_simulation_thumnail})`,
                     backgroundRepeat: "no-repeat",
                     backgroundSize: "cover",
                     height: "432px",
@@ -75,39 +97,39 @@ export const JobSimulation = () => {
                     <Stack>
                         <Group>
                             <Image
-                                src={JOB_DETAIL_INIT.company_logo}
+                                src={jobSimulation.company_logo}
                                 w={200}
                                 h={40}
                                 fit="contain"
                             />
                             <Text size="24px" fw={700}>
-                                {JOB_DETAIL_INIT.company_name}
+                                {jobSimulation.company_name}
                             </Text>
                         </Group>
 
                         <Text size="28px" fw={700}>
-                            {JOB_DETAIL_INIT.job_simulation_name}
+                            {jobSimulation.job_simulation_name}
                         </Text>
 
                         <Group gap={4}>
                             <IconTag size="16px" />
                             <Text size="16px">
-                                {JOB_DETAIL_INIT.job_simulation_category}
+                                {jobSimulation.job_simulation_category}
                             </Text>
                         </Group>
 
                         <Group gap={4}>
                             <IconClockHour1 size="16px" />
                             <Text size="16px">
-                                {JOB_DETAIL_INIT.job_simulation_time_spaced}
+                                {jobSimulation.job_simulation_time_spaced}
                             </Text>
                         </Group>
 
                         <Group gap={4}>
                             <IconReceipt2 size="16px" />
                             <Text size="16px">
-                                {JOB_DETAIL_INIT.job_simulation_price > 0
-                                    ? JOB_DETAIL_INIT.job_simulation_price
+                                {jobSimulation.job_simulation_price > 0
+                                    ? jobSimulation.job_simulation_price
                                     : "Miễn phí"}
                             </Text>
                         </Group>
@@ -123,7 +145,7 @@ export const JobSimulation = () => {
                         Tại sao bạn nên chọn công việc này ?
                     </Text>
 
-                    <Text>{JOB_DETAIL_INIT.job_simulation_why_register}</Text>
+                    <Text>{jobSimulation.job_simulation_why_register}</Text>
 
                     <Text size="20px" fw={700}>
                         Mô tả công việc
@@ -131,7 +153,7 @@ export const JobSimulation = () => {
                     <Stack gap={0}>
                         <Text>
                             <ReadMore
-                                text={JOB_DETAIL_INIT.job_simulation_des}
+                                text={jobSimulation.job_simulation_des}
                             ></ReadMore>
                         </Text>
                     </Stack>
@@ -139,14 +161,14 @@ export const JobSimulation = () => {
                     <Group justify="space-between">
                         <Stack>
                             <Image
-                                src={JOB_DETAIL_INIT.company_logo}
+                                src={jobSimulation.company_logo}
                                 w={100}
                                 h={40}
                                 fit="contain"
                             />
                             <Text size="26px" fw={700}>
                                 Giới thiệu về công ty{" "}
-                                {JOB_DETAIL_INIT.company_name}
+                                {jobSimulation.company_name}
                             </Text>
                         </Stack>
                         <Box
@@ -161,7 +183,7 @@ export const JobSimulation = () => {
                             }}
                         >
                             <video
-                                src="https://res.cloudinary.com/codelife/video/upload/v1637805738/intro_l5ul1k.mp4"
+                                src={jobSimulation.company_video_intro}
                                 style={{ width: "100%", height: "100%" }}
                                 controls
                                 loop
@@ -242,7 +264,7 @@ export const JobSimulation = () => {
                                     <Box style={{ width: "100%" }}>
                                         <ReadMore
                                             text={
-                                                JOB_DETAIL_INIT.job_simulation_des
+                                                jobSimulation.job_simulation_des
                                             }
                                         ></ReadMore>
                                     </Box>
