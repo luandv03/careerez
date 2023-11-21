@@ -1,5 +1,6 @@
 import { Routes, Route, useLocation } from "react-router-dom";
 import { useEffect } from "react";
+import { AnimatePresence } from "framer-motion";
 
 import LayoutApp from "./layouts/LayoutApp/LayoutApp";
 import { AuthLayout } from "./layouts/AuthLayout/AuthLayout";
@@ -14,15 +15,15 @@ import { JobSimulation } from "./components/JobSimualtion";
 import { FAQs } from "./components/FAQs";
 
 export default function App() {
-    const { pathname } = useLocation();
+    const location = useLocation();
 
     useEffect(() => {
         window.scrollTo(0, 0);
-    }, [pathname]);
+    }, [location.pathname]);
 
     return (
-        <>
-            <Routes>
+        <AnimatePresence>
+            <Routes location={location} key={location.pathname}>
                 <Route path="/" element={<LayoutApp />}>
                     <Route path="/" element={<Home />} />
                     <Route path="/about" element={<About />} />
@@ -52,6 +53,6 @@ export default function App() {
                     <Route path="/signin" element={<Signin />} />
                 </Route>
             </Routes>
-        </>
+        </AnimatePresence>
     );
 }

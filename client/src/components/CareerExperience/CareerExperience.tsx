@@ -4,6 +4,7 @@ import { Link } from "react-router-dom";
 
 import { courseService } from "../../services/course.service";
 import styles from "./CareerExperience.module.css";
+import { motion } from "framer-motion";
 
 interface Major {
     major_id: number;
@@ -151,7 +152,16 @@ export const CareerExperience = () => {
 
     return (
         <div className={styles.container}>
-            <div className={styles.avatar}>
+            <motion.div
+                className={styles.avatar}
+                initial={{ opacity: 0, scale: 0.5 }}
+                animate={{ opacity: 1, scale: 1 }}
+                transition={{
+                    duration: 0.8,
+                    delay: 0.5,
+                    ease: [0, 0.71, 0.2, 1.01],
+                }}
+            >
                 <img
                     src="https://static.wixstatic.com/media/11062b_2d80a3e84c064ae6aa91e4e58652474d~mv2.jpg/v1/fill/w_1895,h_738,al_c,q_85,usm_0.66_1.00_0.01,enc_auto/11062b_2d80a3e84c064ae6aa91e4e58652474d~mv2.jpg"
                     alt="Avatar Career Experience"
@@ -160,7 +170,7 @@ export const CareerExperience = () => {
                 <div className={styles.title}>
                     <h1>Trải nghiệm nghề nghiệp</h1>
                 </div>
-            </div>
+            </motion.div>
             <div className={styles.about}>
                 <div className={styles.aboutContent}>
                     <div className={styles.aboutContentText}>

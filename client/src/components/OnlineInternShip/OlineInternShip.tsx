@@ -16,6 +16,7 @@ import {
 } from "@mantine/core";
 import { useState, useEffect } from "react";
 import { IconTag, IconClockHour1 } from "@tabler/icons-react";
+import { motion } from "framer-motion";
 
 import styles from "./OnlineInternShip.module.css";
 import { jobSimulationService } from "../../services/job_simulation.service";
@@ -229,7 +230,16 @@ export const OnlineInternShip = () => {
 
     return (
         <div className={styles.container}>
-            <div className={styles.avatar}>
+            <motion.div
+                className={styles.avatar}
+                initial={{ opacity: 0, scale: 0.5 }}
+                animate={{ opacity: 1, scale: 1 }}
+                transition={{
+                    duration: 0.8,
+                    delay: 0.5,
+                    ease: [0, 0.71, 0.2, 1.01],
+                }}
+            >
                 <img
                     src="https://static.wixstatic.com/media/657d93c686e44e2d9b543a6e1e42cbca.jpg/v1/fill/w_1895,h_738,al_c,q_85,usm_0.66_1.00_0.01,enc_auto/657d93c686e44e2d9b543a6e1e42cbca.jpg"
                     alt="Avatar Career Experience"
@@ -238,7 +248,7 @@ export const OnlineInternShip = () => {
                 <div className={styles.title}>
                     <h1>Thực tập trực tuyến</h1>
                 </div>
-            </div>
+            </motion.div>
             <div className={styles.about}>
                 <div>
                     <div className={styles.aboutContent}>

@@ -1,5 +1,6 @@
 import styles from "./Home.module.css";
 import { Carousel } from "../Carousel/Carousel";
+import { motion } from "framer-motion";
 
 const slides = [
     {
@@ -57,7 +58,16 @@ export const Home = () => {
     return (
         <div className={styles.container}>
             <div>
-                <div className={styles.avatar}>
+                <motion.div
+                    className={styles.avatar}
+                    initial={{ opacity: 0, scale: 0.5 }}
+                    animate={{ opacity: 1, scale: 1 }}
+                    transition={{
+                        duration: 0.8,
+                        delay: 0.5,
+                        ease: [0, 0.71, 0.2, 1.01],
+                    }}
+                >
                     <img
                         src="https://static.wixstatic.com/media/c86370_52f60e8d43f7458f99994cdb1a7c5bdb~mv2.jpg/v1/fill/w_1200,h_582,al_c,q_85,enc_auto/c86370_52f60e8d43f7458f99994cdb1a7c5bdb~mv2.jpg"
                         alt="Home Avatar"
@@ -77,7 +87,7 @@ export const Home = () => {
                             </div>
                         </div>
                     </div>
-                </div>
+                </motion.div>
 
                 <div className={styles.company}>
                     <div className={styles.companyList}>
@@ -97,10 +107,17 @@ export const Home = () => {
 
                 <div className={styles.advertisementHeader}>
                     <div className={styles.advertisementHeaderContent}>
-                        <div
+                        <motion.div
                             className={
                                 styles.advertisementHeaderContentCareerExperience
                             }
+                            initial={{ opacity: 0, scale: 0.5 }}
+                            animate={{ opacity: 1, scale: 1 }}
+                            transition={{
+                                duration: 0.8,
+                                delay: 0.5,
+                                ease: [0, 0.71, 0.2, 1.01],
+                            }}
                         >
                             <div
                                 className={
@@ -134,12 +151,19 @@ export const Home = () => {
                                     <button>Tìm hiểu thêm</button>
                                 </div>
                             </div>
-                        </div>
+                        </motion.div>
 
-                        <div
+                        <motion.div
                             className={
                                 styles.advertisementHeaderContentOnlineInternship
                             }
+                            initial={{ opacity: 0, scale: 0.5 }}
+                            animate={{ opacity: 1, scale: 1 }}
+                            transition={{
+                                duration: 0.8,
+                                delay: 0.5,
+                                ease: [0, 0.71, 0.2, 1.01],
+                            }}
                         >
                             <div
                                 className={
@@ -171,16 +195,23 @@ export const Home = () => {
                                     <button>Tìm hiểu thêm</button>
                                 </div>
                             </div>
-                        </div>
+                        </motion.div>
                     </div>
                 </div>
 
                 <div className={styles.advertisementFooter}>
                     <div className={styles.advertisementFooterContent}>
-                        <div
+                        <motion.div
                             className={
                                 styles.advertisementFooterContentCareerExperience
                             }
+                            initial={{ opacity: 0, scale: 0.5 }}
+                            animate={{ opacity: 1, scale: 1 }}
+                            transition={{
+                                duration: 0.8,
+                                delay: 0.5,
+                                ease: [0, 0.71, 0.2, 1.01],
+                            }}
                         >
                             <div
                                 className={
@@ -207,12 +238,19 @@ export const Home = () => {
                                     <button>Tìm hiểu thêm</button>
                                 </div>
                             </div>
-                        </div>
+                        </motion.div>
 
-                        <div
+                        <motion.div
                             className={
                                 styles.advertisementFooterContentOnlineInternship
                             }
+                            initial={{ opacity: 0, scale: 0.5 }}
+                            animate={{ opacity: 1, scale: 1 }}
+                            transition={{
+                                duration: 0.8,
+                                delay: 0.5,
+                                ease: [0, 0.71, 0.2, 1.01],
+                            }}
                         >
                             <div
                                 className={
@@ -240,7 +278,7 @@ export const Home = () => {
                                     <button>Tìm hiểu thêm</button>
                                 </div>
                             </div>
-                        </div>
+                        </motion.div>
                     </div>
                 </div>
 

@@ -2,6 +2,7 @@ import { Outlet } from "react-router-dom";
 import { Button } from "@mantine/core";
 import { useWindowScroll } from "@mantine/hooks";
 import { IconArrowBigUp } from "@tabler/icons-react";
+import { motion } from "framer-motion";
 
 import { Header } from "../../components/Header";
 import { Footer } from "../../components/Footer";
@@ -19,9 +20,14 @@ export default function LayoutApp() {
             <header className={styles.header}>
                 <Header />
             </header>
-            <div className={styles.content}>
+            <motion.div
+                className={styles.content}
+                initial={{ opacity: 0 }}
+                animate={{ opacity: 1 }}
+                exit={{ opacity: 0 }}
+            >
                 <Outlet />
-            </div>
+            </motion.div>
             <footer className={styles.footer}>
                 <Footer />
             </footer>
