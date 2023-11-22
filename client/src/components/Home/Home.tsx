@@ -4,6 +4,7 @@ import { useNavigate } from "react-router-dom";
 import { ScrollAnimation } from "../ScrollAnimation";
 import styles from "./Home.module.css";
 import { Carousel } from "../Carousel/Carousel";
+import { ScrollCountUp } from "../ScrollCountUp";
 
 const slides = [
     {
@@ -340,21 +341,26 @@ export const Home = () => {
                         </h1>
                         <div className={styles.achievementList}>
                             <div className={styles.achievementItem}>
-                                <h1>10.000+</h1>
+                                <ScrollCountUp
+                                    number={10}
+                                    decimal="."
+                                    decimals={3}
+                                    suffix="+"
+                                />
                                 <div
                                     className={styles.achievementItemDivide}
                                 ></div>
                                 <h2>Lượng người dùng</h2>
                             </div>
                             <div className={styles.achievementItem}>
-                                <h1>50+</h1>
+                                <ScrollCountUp number={50} suffix="+" />
                                 <div
                                     className={styles.achievementItemDivide}
                                 ></div>
                                 <h2>Cơ hội thực tập</h2>
                             </div>
                             <div className={styles.achievementItem}>
-                                <h1>50+</h1>
+                                <ScrollCountUp number={50} suffix="+" />
                                 <div
                                     className={styles.achievementItemDivide}
                                 ></div>

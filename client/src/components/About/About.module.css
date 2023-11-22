@@ -112,6 +112,7 @@
 
 .versionAvatar img {
     width: 100%;
+    object-fit: contain;
 }
 
 .missionAboutContentTitle {
@@ -210,6 +211,11 @@
 }
 
 .adviserItemContent li p {
+    text-align: left;
+}
+
+.adviserItemContentHeader h3,
+.adviserItemContentHeader p {
     text-align: left;
 }
 

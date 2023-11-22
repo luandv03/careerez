@@ -6,6 +6,51 @@ import {
 } from "@tabler/icons-react";
 import { motion } from "framer-motion";
 
+const listExpert = [
+    {
+        major: "Cố vấn lĩnh vực Giáo dục Đào tạo",
+        avatar: "https://res.cloudinary.com/dlbpgaw8k/image/upload/v1700662010/careerez/94371402_2970927109612011_2766736422193856512_n_b1kba8.webp",
+        name: "PGS.TS Vũ Thị Hiền",
+        description: [
+            "Trưởng phòng Quản lý Đào tạo Trường Đại học Ngoại thương",
+            "Chủ tịch Công đoàn Trường Đại học Ngoại thương",
+            "Hơn 20 năm kinh nghiệm trong lĩnh vực đào tạo  và phát triển chương trình giáo dục Đại học ",
+        ],
+    },
+    {
+        major: "Cố vấn lĩnh vực Công nghệ",
+        name: "Nguyễn Trọng Việt Hùng",
+        avatar: "https://res.cloudinary.com/dlbpgaw8k/image/upload/v1700662021/careerez/164679815_2998621020367393_3666755866093820735_n_sebdnz.webp",
+        description: [
+            "Data Engineer tại FPT Software",
+            "Data Scientist tại Crypto Sloth",
+            "Leader R&D điện tử tại Học viện Công nghệ Brickone",
+            "Á Quân Khởi nghiệp cùng Kawaii",
+        ],
+    },
+    {
+        major: "Cố vấn lĩnh vực Tài chính",
+        name: "Nguyễn Hồng Anh",
+        avatar: "https://res.cloudinary.com/dlbpgaw8k/image/upload/v1700662027/careerez/332903504_740619710842419_4142293370696838193_n_hndq5u.webp",
+        description: [
+            "Thạc sĩ Tài chính và Đầu tư  Đại học Kinh doanh SKEMA (Pháp)",
+            "Chuyên viên M&A và Đầu tư tại Công ty CMC Solutions",
+            "Investment Analysis tại Next100 Ventures",
+            "Đạt chứng chỉ ACCA, CFA Level1",
+        ],
+    },
+    {
+        major: "Cố vấn lĩnh vực Ngôn ngữ",
+        name: "Nguyễn Lê Bảo Ngọc",
+        avatar: "https://res.cloudinary.com/dlbpgaw8k/image/upload/v1700662032/careerez/326767633_458397296357787_8898291323160137080_n_jkazk9.webp",
+        description: [
+            "Tốt nghiệp bằng Xuất sắc Cử nhân song ngành Ngôn ngữ Hàn và Ngôn ngữ Anh​",
+            "Phiên dịch viên, Trợ lý Giám đốc Công ty Cổ phần ALPEC ",
+            "KDB Global Leadership Program 2022",
+        ],
+    },
+];
+
 export const About = () => {
     return (
         <div className={styles.container}>
@@ -69,7 +114,7 @@ export const About = () => {
             <div className={styles.version}>
                 <div className={styles.versionAvatar}>
                     <img
-                        src="https://static.wixstatic.com/media/c86370_a88fdd3b205f4bcdae6a27fa54280357~mv2.jpg/v1/fill/w_950,h_1071,al_c,q_85,usm_0.66_1.00_0.01,enc_auto/c86370_a88fdd3b205f4bcdae6a27fa54280357~mv2.jpg"
+                        src="https://res.cloudinary.com/dlbpgaw8k/image/upload/v1700660880/careerez/about_1_yavecx.webp"
                         alt="Tam_nhin"
                     />
                 </div>
@@ -143,229 +188,54 @@ export const About = () => {
                     </p>
 
                     <div className={styles.adviserList}>
-                        <div className={styles.adviserItem}>
-                            <div className={styles.adviserItemAvatar}>
-                                <img
-                                    src="https://static.wixstatic.com/media/c86370_f6762c0eacbd4b13af074b348af1da2e~mv2.jpg/v1/fill/w_605,h_501,al_c,q_80,usm_0.66_1.00_0.01,enc_auto/94371402_2970927109612011_2766736422193856512_n.jpg"
-                                    alt=""
-                                />
-                            </div>
-                            <div className={styles.adviserItemContent}>
-                                <div>
-                                    <p>Cố vấn lĩnh vực Giáo dục Đào tạo</p>
-                                    <h3>PGS.TS Vũ Thị Hiền</h3>
+                        {listExpert.map((item, index) => (
+                            <div className={styles.adviserItem} key={index}>
+                                <div className={styles.adviserItemAvatar}>
+                                    <img src={item.avatar} alt="" />
+                                </div>
+                                <div className={styles.adviserItemContent}>
+                                    <div>
+                                        <div
+                                            className={
+                                                styles.adviserItemContentHeader
+                                            }
+                                        >
+                                            <p>{item.major}</p>
+                                            <h3>{item.name}</h3>
+                                        </div>
 
-                                    <ul>
-                                        <li>
-                                            <p>
-                                                Trưởng phòng Quản lý Đào tạo
-                                                Trường Đại học Ngoại thương
-                                            </p>
-                                        </li>
-                                        <li>
-                                            <p>
-                                                Chủ tịch Công đoàn Trường Đại
-                                                học Ngoại thương
-                                            </p>
-                                        </li>
-                                        <li>
-                                            <p>
-                                                Hơn 20 năm kinh nghiệm trong
-                                                lĩnh vực đào tạo và phát triển
-                                                chương trình giáo dục Đại học{" "}
-                                            </p>
-                                        </li>
-                                    </ul>
-                                </div>
-                                <div className={styles.socialMedia}>
-                                    <ul className={styles.socialMediaList}>
-                                        <li>
-                                            <a href="#">
-                                                <IconBrandFacebook />
-                                            </a>
-                                        </li>
-                                        <li>
-                                            <a href="#">
-                                                <IconBrandInstagram />
-                                            </a>
-                                        </li>
-                                        <li>
-                                            <a href="#">
-                                                <IconBrandTwitter />
-                                            </a>
-                                        </li>
-                                    </ul>
+                                        <ul>
+                                            {item.description.map(
+                                                (item, index) => (
+                                                    <li key={index}>
+                                                        <p>{item}</p>
+                                                    </li>
+                                                )
+                                            )}
+                                        </ul>
+                                    </div>
+                                    <div className={styles.socialMedia}>
+                                        <ul className={styles.socialMediaList}>
+                                            <li>
+                                                <a href="#">
+                                                    <IconBrandFacebook />
+                                                </a>
+                                            </li>
+                                            <li>
+                                                <a href="#">
+                                                    <IconBrandInstagram />
+                                                </a>
+                                            </li>
+                                            <li>
+                                                <a href="#">
+                                                    <IconBrandTwitter />
+                                                </a>
+                                            </li>
+                                        </ul>
+                                    </div>
                                 </div>
                             </div>
-                        </div>
-
-                        <div className={styles.adviserItem}>
-                            <div className={styles.adviserItemAvatar}>
-                                <img
-                                    src="https://static.wixstatic.com/media/c86370_f6762c0eacbd4b13af074b348af1da2e~mv2.jpg/v1/fill/w_605,h_501,al_c,q_80,usm_0.66_1.00_0.01,enc_auto/94371402_2970927109612011_2766736422193856512_n.jpg"
-                                    alt=""
-                                />
-                            </div>
-                            <div className={styles.adviserItemContent}>
-                                <div>
-                                    <p>Cố vấn lĩnh vực Giáo dục Đào tạo</p>
-                                    <h3>PGS.TS Vũ Thị Hiền</h3>
-
-                                    <ul>
-                                        <li>
-                                            <p>
-                                                Trưởng phòng Quản lý Đào tạo
-                                                Trường Đại học Ngoại thương
-                                            </p>
-                                        </li>
-                                        <li>
-                                            <p>
-                                                Chủ tịch Công đoàn Trường Đại
-                                                học Ngoại thương
-                                            </p>
-                                        </li>
-                                        <li>
-                                            <p>
-                                                Hơn 20 năm kinh nghiệm trong
-                                                lĩnh vực đào tạo và phát triển
-                                                chương trình giáo dục Đại học{" "}
-                                            </p>
-                                        </li>
-                                    </ul>
-                                </div>
-                                <div className={styles.socialMedia}>
-                                    <ul className={styles.socialMediaList}>
-                                        <li>
-                                            <a href="#">
-                                                <IconBrandFacebook />
-                                            </a>
-                                        </li>
-                                        <li>
-                                            <a href="#">
-                                                <IconBrandInstagram />
-                                            </a>
-                                        </li>
-                                        <li>
-                                            <a href="#">
-                                                <IconBrandTwitter />
-                                            </a>
-                                        </li>
-                                    </ul>
-                                </div>
-                            </div>
-                        </div>
-
-                        <div className={styles.adviserItem}>
-                            <div className={styles.adviserItemAvatar}>
-                                <img
-                                    src="https://static.wixstatic.com/media/c86370_f6762c0eacbd4b13af074b348af1da2e~mv2.jpg/v1/fill/w_605,h_501,al_c,q_80,usm_0.66_1.00_0.01,enc_auto/94371402_2970927109612011_2766736422193856512_n.jpg"
-                                    alt=""
-                                />
-                            </div>
-                            <div className={styles.adviserItemContent}>
-                                <div>
-                                    <p>Cố vấn lĩnh vực Giáo dục Đào tạo</p>
-                                    <h3>PGS.TS Vũ Thị Hiền</h3>
-
-                                    <ul>
-                                        <li>
-                                            <p>
-                                                Trưởng phòng Quản lý Đào tạo
-                                                Trường Đại học Ngoại thương
-                                            </p>
-                                        </li>
-                                        <li>
-                                            <p>
-                                                Chủ tịch Công đoàn Trường Đại
-                                                học Ngoại thương
-                                            </p>
-                                        </li>
-                                        <li>
-                                            <p>
-                                                Hơn 20 năm kinh nghiệm trong
-                                                lĩnh vực đào tạo và phát triển
-                                                chương trình giáo dục Đại học{" "}
-                                            </p>
-                                        </li>
-                                    </ul>
-                                </div>
-                                <div className={styles.socialMedia}>
-                                    <ul className={styles.socialMediaList}>
-                                        <li>
-                                            <a href="#">
-                                                <IconBrandFacebook />
-                                            </a>
-                                        </li>
-                                        <li>
-                                            <a href="#">
-                                                <IconBrandInstagram />
-                                            </a>
-                                        </li>
-                                        <li>
-                                            <a href="#">
-                                                <IconBrandTwitter />
-                                            </a>
-                                        </li>
-                                    </ul>
-                                </div>
-                            </div>
-                        </div>
-
-                        <div className={styles.adviserItem}>
-                            <div className={styles.adviserItemAvatar}>
-                                <img
-                                    src="https://static.wixstatic.com/media/c86370_f6762c0eacbd4b13af074b348af1da2e~mv2.jpg/v1/fill/w_605,h_501,al_c,q_80,usm_0.66_1.00_0.01,enc_auto/94371402_2970927109612011_2766736422193856512_n.jpg"
-                                    alt=""
-                                />
-                            </div>
-                            <div className={styles.adviserItemContent}>
-                                <div>
-                                    <p>Cố vấn lĩnh vực Giáo dục Đào tạo</p>
-                                    <h3>PGS.TS Vũ Thị Hiền</h3>
-
-                                    <ul>
-                                        <li>
-                                            <p>
-                                                Trưởng phòng Quản lý Đào tạo
-                                                Trường Đại học Ngoại thương
-                                            </p>
-                                        </li>
-                                        <li>
-                                            <p>
-                                                Chủ tịch Công đoàn Trường Đại
-                                                học Ngoại thương
-                                            </p>
-                                        </li>
-                                        <li>
-                                            <p>
-                                                Hơn 20 năm kinh nghiệm trong
-                                                lĩnh vực đào tạo và phát triển
-                                                chương trình giáo dục Đại học{" "}
-                                            </p>
-                                        </li>
-                                    </ul>
-                                </div>
-                                <div className={styles.socialMedia}>
-                                    <ul className={styles.socialMediaList}>
-                                        <li>
-                                            <a href="#">
-                                                <IconBrandFacebook />
-                                            </a>
-                                        </li>
-                                        <li>
-                                            <a href="#">
-                                                <IconBrandInstagram />
-                                            </a>
-                                        </li>
-                                        <li>
-                                            <a href="#">
-                                                <IconBrandTwitter />
-                                            </a>
-                                        </li>
-                                    </ul>
-                                </div>
-                            </div>
-                        </div>
+                        ))}
                     </div>
                 </div>
             </div>

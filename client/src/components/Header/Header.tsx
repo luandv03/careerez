@@ -100,7 +100,7 @@ export const Header = () => {
                                         />
                                     }
                                 >
-                                    Khóa học
+                                    Hoạt động
                                 </Menu.Item>
 
                                 <Menu.Divider />

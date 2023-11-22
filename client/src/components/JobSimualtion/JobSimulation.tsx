@@ -31,7 +31,7 @@ const JOB_DETAIL_INIT = {
     company_video_intro: "",
     job_simulation_price: 0,
     job_simulation_name: "Back-End Engineering",
-    job_simulation_category: "Software Engineer",
+    job_category_name: "Software Engineer",
     job_simulation_thumnail:
         "https://cdn.theforage.com/vinternships/companyassets/prBZoAihniNijyD6d/CSN4y3ePwJCyRZTtj/1631126862718/Homepage%20Hero%20%E2%80%93%204%20R1.jpg",
     job_simulation_time_spaced: "3-4 giờ",
@@ -147,7 +147,7 @@ export const JobSimulation = () => {
                         <Group gap={4}>
                             <IconTag size="16px" />
                             <Text size="16px">
-                                {jobSimulation.job_simulation_category}
+                                {jobSimulation.job_category_name}
                             </Text>
                         </Group>
 
