@@ -210,7 +210,7 @@ export const OnlineInternShip = () => {
 
         if (!JSON.parse(localStorage.getItem("isAuthenticated") as string)) {
             const res = await jobSimulationService.getJobSimulationByCompanyId(
-                company,
+                encodeURIComponent(company),
                 1,
                 10
             );
@@ -222,7 +222,7 @@ export const OnlineInternShip = () => {
 
         const res =
             await jobSimulationService.getJobSimulationByCompanyIdAndUserId(
-                company,
+                encodeURIComponent(company),
                 1,
                 10
             );
@@ -498,7 +498,9 @@ export const OnlineInternShip = () => {
                                                     color="pink"
                                                     variant="light"
                                                 >
-                                                    {item.status}
+                                                    {item.status == "1"
+                                                        ? "Đang làm"
+                                                        : "Đã hoàn thành"}
                                                 </Badge>
                                             )}
                                         </Group>

@@ -270,7 +270,7 @@ export const JobSimulation = () => {
                         </Stack>
 
                         <Group justify="space-between">
-                            <Stack>
+                            <Stack style={{ flex: 1 }}>
                                 <Image
                                     src={jobSimulation.company_logo}
                                     w={100}
@@ -413,13 +413,27 @@ export const JobSimulation = () => {
                                             </Group>
 
                                             <Box style={{ width: "100%" }}>
-                                                <ReadMore
-                                                    text={
-                                                        tasks[
-                                                            seletectedTasks - 1
-                                                        ].task_des
-                                                    }
-                                                ></ReadMore>
+                                                <TypographyStylesProvider>
+                                                    <div
+                                                        dangerouslySetInnerHTML={{
+                                                            __html: tasks[
+                                                                seletectedTasks -
+                                                                    1
+                                                            ].task_des,
+                                                            //     .task_des (
+                                                            //     <ReadMore
+                                                            //         text={
+                                                            //             tasks[
+                                                            //                 seletectedTasks -
+                                                            //                     1
+                                                            //             ]
+                                                            //                 .task_des
+                                                            //         }
+                                                            //     ></ReadMore>
+                                                            // ),
+                                                        }}
+                                                    />
+                                                </TypographyStylesProvider>
                                             </Box>
 
                                             <Box
@@ -472,35 +486,43 @@ export const JobSimulation = () => {
                                                 </TypographyStylesProvider>
                                             </Box>
 
-                                            <Text>
-                                                Lời nhắn trước khi làm nhiệm vụ
-                                            </Text>
-                                            <Box
-                                                p={8}
-                                                w={611}
-                                                h={353}
-                                                style={{
-                                                    borderRadius: "8px",
-                                                    overflow: "hidden",
-                                                    boxShadow:
-                                                        "rgba(100, 100, 111, 0.2) 0px 7px 29px 0px",
-                                                }}
-                                            >
-                                                <video
-                                                    src={
-                                                        tasks[
-                                                            seletectedTasks - 1
-                                                        ].task_video_intro
-                                                    }
-                                                    style={{
-                                                        width: "100%",
-                                                        height: "100%",
-                                                    }}
-                                                    controls
-                                                    loop
-                                                    muted
-                                                ></video>
-                                            </Box>
+                                            {tasks[seletectedTasks - 1]
+                                                .task_video_intro && (
+                                                <>
+                                                    <Text>
+                                                        Lời nhắn trước khi làm
+                                                        nhiệm vụ
+                                                    </Text>
+                                                    <Box
+                                                        p={8}
+                                                        w={611}
+                                                        h={353}
+                                                        style={{
+                                                            borderRadius: "8px",
+                                                            overflow: "hidden",
+                                                            boxShadow:
+                                                                "rgba(100, 100, 111, 0.2) 0px 7px 29px 0px",
+                                                        }}
+                                                    >
+                                                        <video
+                                                            src={
+                                                                tasks[
+                                                                    seletectedTasks -
+                                                                        1
+                                                                ]
+                                                                    .task_video_intro
+                                                            }
+                                                            style={{
+                                                                width: "100%",
+                                                                height: "100%",
+                                                            }}
+                                                            controls
+                                                            loop
+                                                            muted
+                                                        ></video>
+                                                    </Box>
+                                                </>
+                                            )}
                                         </Stack>
                                     )}
                                 </ScrollArea>

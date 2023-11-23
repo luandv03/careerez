@@ -1,16 +1,35 @@
-import { Box, Center, Grid, Stack, Text, List, Button } from "@mantine/core";
+import {
+    Box,
+    Center,
+    Grid,
+    Stack,
+    Text,
+    List,
+    Button,
+    Overlay,
+} from "@mantine/core";
 import { useNavigate } from "react-router-dom";
 
 import classes from "./MemberRegister.module.css";
+import { createWindow } from "../../helpers/createWindow";
+import { BASE_URL_API } from "../../configs/server.config";
 
 export const MemberRegister = () => {
     const navigate = useNavigate();
 
-    const handleRegsiterService = () => {
+    const handleRegsiterService = (amount: number, orderId: string) => {
         // check login
         if (!JSON.parse(localStorage.getItem("isAuthenticated") as string)) {
             navigate("/signin");
+            return;
         }
+
+        createWindow(
+            `${BASE_URL_API}/payment/momo?amount=${amount}&order_id=${orderId}`,
+            "_self",
+            800,
+            800
+        );
     };
 
     return (
@@ -57,7 +76,7 @@ export const MemberRegister = () => {
                                             size="20px"
                                             color="rgb(255,222,89)"
                                         >
-                                            Miễn phí
+                                            1.000/Tháng
                                         </Text>
                                     </Center>
                                     <List>
@@ -87,7 +106,12 @@ export const MemberRegister = () => {
                                     <Button
                                         w={200}
                                         className={classes.btnRegister}
-                                        onClick={() => handleRegsiterService()}
+                                        onClick={() =>
+                                            handleRegsiterService(
+                                                1000,
+                                                "2023A1"
+                                            )
+                                        }
                                     >
                                         <Text>Đăng ký</Text>
                                     </Button>
@@ -122,7 +146,7 @@ export const MemberRegister = () => {
                                             size="20px"
                                             color="rgb(255,222,89)"
                                         >
-                                            Miễn phí
+                                            2.000/Tháng
                                         </Text>
                                     </Center>
                                     <List>
@@ -167,7 +191,9 @@ export const MemberRegister = () => {
                                     <Button
                                         w={200}
                                         className={classes.btnRegister}
-                                        onClick={() => handleRegsiterService()}
+                                        onClick={() =>
+                                            handleRegsiterService(3000, "2023B")
+                                        }
                                     >
                                         <Text>Đăng ký</Text>
                                     </Button>
@@ -202,7 +228,7 @@ export const MemberRegister = () => {
                                             size="20px"
                                             color="rgb(255,222,89)"
                                         >
-                                            Miễn phí
+                                            3.000/Tháng
                                         </Text>
                                     </Center>
                                     <List>
@@ -256,7 +282,9 @@ export const MemberRegister = () => {
                                     <Button
                                         w={200}
                                         className={classes.btnRegister}
-                                        onClick={() => handleRegsiterService()}
+                                        onClick={() =>
+                                            handleRegsiterService(1000, "2023C")
+                                        }
                                     >
                                         <Text>Đăng ký</Text>
                                     </Button>

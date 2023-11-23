@@ -79,6 +79,8 @@ export class JobSimulationController {
         try {
             const { company_name, page, limit } = req.query;
 
+            console.log(company_name);
+
             const data = await jobSimulationService.getJobSimulationByCompanyId(
                 company_name,
                 page,
