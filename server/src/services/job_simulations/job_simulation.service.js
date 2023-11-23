@@ -26,6 +26,7 @@ class JobSimulationService {
         };
     }
 
+    //user don't login
     async getJobSimulationByCategoryId(job_category_name, page, limit) {
         const offset = (page - 1) * limit;
 
@@ -33,7 +34,8 @@ class JobSimulationService {
             `SELECT js.*, jc.job_category_name, c.company_name, c.company_logo FROM job_simulation js
             JOIN job_category jc USING(job_category_id)
             JOIN company c USING(company_id)
-            WHERE job_category_name = $1 OFFSET $2 LIMIT $3`,
+            WHERE job_category_name = $1 
+            OFFSET $2 LIMIT $3`,
             [job_category_name, offset, limit]
         );
 
@@ -46,6 +48,35 @@ class JobSimulationService {
         };
     }
 
+    // user logined
+    async getJobSimulationByCategoryIdAndUserId(
+        job_category_name,
+        user_id,
+        page,
+        limit
+    ) {
+        const offset = (page - 1) * limit;
+
+        const result = await query(
+            `select jobs.*, b.status  from (SELECT js.*, jc.job_category_name, c.company_name, c.company_logo FROM job_simulation js
+            JOIN job_category jc USING(job_category_id)
+            JOIN company c USING(company_id) 
+            WHERE job_category_name = $1) as jobs
+            left join (select job_simulation_id ,status from user_enroll_job_simulation where user_id = $2) b using(job_simulation_id)
+            OFFSET $3 LIMIT $4`,
+            [job_category_name, user_id, offset, limit]
+        );
+
+        return {
+            statusCode: HttpStatusCode.OK,
+            message: "Get Job Category OK",
+            data: {
+                job_simulations: result.rows,
+            },
+        };
+    }
+
+    // user don't login
     async getJobSimulationByCompanyId(company_name, page, limit) {
         const offset = (page - 1) * limit;
 
@@ -54,6 +85,34 @@ class JobSimulationService {
             JOIN job_category jc USING(job_category_id)
             JOIN company c USING(company_id) WHERE company_name = $1 OFFSET $2 LIMIT $3`,
             [company_name, offset, limit]
+        );
+
+        return {
+            statusCode: HttpStatusCode.OK,
+            message: "Get Job Company OK",
+            data: {
+                job_simulations: result.rows,
+            },
+        };
+    }
+
+    // user logined
+    async getJobSimulationByCompanyIdAndUserId(
+        company_name,
+        user_id,
+        page,
+        limit
+    ) {
+        const offset = (page - 1) * limit;
+
+        const result = await query(
+            `select jobs.*, b.status  from (SELECT js.*, jc.job_category_name, c.company_name, c.company_logo FROM job_simulation js
+            JOIN job_category jc USING(job_category_id)
+            JOIN company c USING(company_id) 
+            WHERE company_name = $1) as jobs
+            left join (select job_simulation_id ,status from user_enroll_job_simulation where user_id = $2) b using(job_simulation_id)
+            OFFSET $3 LIMIT $4`,
+            [company_name, user_id, offset, limit]
         );
 
         return {

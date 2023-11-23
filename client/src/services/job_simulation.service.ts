@@ -41,6 +41,23 @@ class JobSimulationService extends BaseService {
         }
     }
 
+    // đã login
+    async getJobSimulationByCategoryIdAndUserId(
+        jobCategoryName: string,
+        page: number,
+        limit: number
+    ) {
+        try {
+            const res = await this.httpClientPrivate.get(
+                `/job_simulation/job_category/list/user/view?job_category_name=${jobCategoryName}&page=${page}&limit=${limit}`
+            );
+
+            return res.data;
+        } catch (error) {
+            return error;
+        }
+    }
+
     async getJobSimulationByCompanyId(
         companyName: string,
         page: number,
@@ -49,6 +66,23 @@ class JobSimulationService extends BaseService {
         try {
             const res = await this.httpClientPublic.get(
                 `/job_simulation/company/list/view?company_name=${companyName}&page=${page}&limit=${limit}`
+            );
+
+            return res.data;
+        } catch (error) {
+            return error;
+        }
+    }
+
+    // da login
+    async getJobSimulationByCompanyIdAndUserId(
+        companyName: string,
+        page: number,
+        limit: number
+    ) {
+        try {
+            const res = await this.httpClientPublic.get(
+                `/job_simulation/company/list/user/view?company_name=${companyName}&page=${page}&limit=${limit}`
             );
 
             return res.data;

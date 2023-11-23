@@ -51,12 +51,59 @@ export class JobSimulationController {
         }
     }
 
+    // đã đăng nhập
+    async getJobSimulationByCategoryIdAndUserId(req, res, next) {
+        try {
+            const { job_category_name, page, limit } = req.query;
+            const { user_id } = res.locals.data;
+
+            const data =
+                await jobSimulationService.getJobSimulationByCategoryId(
+                    job_category_name,
+                    Number(user_id),
+                    page,
+                    limit
+                );
+
+            return res.status(data.statusCode).json(data);
+        } catch (error) {
+            return res.status(HttpStatusCode.INTERNAL_SERVER_ERROR).json({
+                statusCode: HttpStatusCode.INTERNAL_SERVER_ERROR,
+                message: "Internal Server Error",
+                error,
+            });
+        }
+    }
+
     async getJobSimulationByCompanyId(req, res, next) {
         try {
             const { company_name, page, limit } = req.query;
 
             const data = await jobSimulationService.getJobSimulationByCompanyId(
                 company_name,
+                page,
+                limit
+            );
+
+            return res.status(data.statusCode).json(data);
+        } catch (error) {
+            return res.status(HttpStatusCode.INTERNAL_SERVER_ERROR).json({
+                statusCode: HttpStatusCode.INTERNAL_SERVER_ERROR,
+                message: "Internal Server Error",
+                error,
+            });
+        }
+    }
+
+    // getJobSimulationByCompanyIdAndUserId
+    async getJobSimulationByCompanyIdAndUserId(req, res, next) {
+        try {
+            const { company_name, page, limit } = req.query;
+            const { user_id } = res.locals.data;
+
+            const data = await jobSimulationService.getJobSimulationByCompanyId(
+                company_name,
+                Number(user_id),
                 page,
                 limit
             );

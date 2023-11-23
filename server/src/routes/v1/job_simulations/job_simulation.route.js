@@ -1,5 +1,6 @@
 import { Router } from "express";
 import { JobSimulationController } from "../../../controllers/job_simulations/job_simulation.controller.js";
+import { authMiddleware } from "../../../middlewares/auth.middleware.js";
 
 const jobSimulationRoutes = Router();
 const jobSimulationController = new JobSimulationController();
@@ -19,9 +20,22 @@ jobSimulationRoutes.get(
     jobSimulationController.getJobSimulationByCategoryId
 );
 
+// đã login
+jobSimulationRoutes.get(
+    "/job_simulation/job_category/list/user/view",
+    authMiddleware,
+    jobSimulationController.getJobSimulationByCategoryIdAndUserId
+);
+
 jobSimulationRoutes.get(
     "/job_simulation/company/list/view",
     jobSimulationController.getJobSimulationByCompanyId
+);
+
+// đã login
+jobSimulationRoutes.get(
+    "/job_simulation/company/list/user/view",
+    jobSimulationController.getJobSimulationByCompanyIdAndUserId
 );
 
 // get job detail by id

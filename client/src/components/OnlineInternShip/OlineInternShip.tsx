@@ -12,6 +12,7 @@ import {
     Image,
     Group,
     Box,
+    Badge,
 } from "@mantine/core";
 import { useState, useEffect } from "react";
 import { IconTag, IconClockHour1 } from "@tabler/icons-react";
@@ -44,23 +45,8 @@ interface IJobSimulation {
     job_category_name: string;
     company_name: string;
     company_logo: string;
+    status: string;
 }
-
-// const groceries = [
-//     "🍎 Data",
-//     "🍌 Phân tích rủi ro",
-//     "🥦 Báo cáo tài chính",
-//     "🥕 Marketing",
-//     "🍫 Kỹ thuật phần mềm",
-// ];
-
-// const companies = [
-//     "🍎 Pepsi",
-//     "🍌 Coca cola",
-//     "🥦 Toyota",
-//     "🥕 Google",
-//     "🍫 Facebook",
-// ];
 
 // const JOB_INIT = [
 //     {
@@ -193,14 +179,27 @@ export const OnlineInternShip = () => {
         setCompany("");
         comboboxJobCategory.closeDropdown();
 
-        const res = await jobSimulationService.getJobSimulationByCategoryId(
-            jobCategory,
-            1,
-            10
-        );
+        if (!JSON.parse(localStorage.getItem("isAuthenticated") as string)) {
+            const res = await jobSimulationService.getJobSimulationByCategoryId(
+                jobCategory,
+                1,
+                10
+            );
+
+            if (res.statusCode === 200) {
+                return setListJobSimulation(res.data.job_simulations);
+            }
+        }
+
+        const res =
+            await jobSimulationService.getJobSimulationByCategoryIdAndUserId(
+                jobCategory,
+                1,
+                10
+            );
 
         if (res.statusCode === 200) {
-            setListJobSimulation(res.data.job_simulations);
+            return setListJobSimulation(res.data.job_simulations);
         }
     };
 
@@ -209,14 +208,27 @@ export const OnlineInternShip = () => {
         setJobCategory("");
         comboboxCompany.closeDropdown();
 
-        const res = await jobSimulationService.getJobSimulationByCompanyId(
-            company,
-            1,
-            10
-        );
+        if (!JSON.parse(localStorage.getItem("isAuthenticated") as string)) {
+            const res = await jobSimulationService.getJobSimulationByCompanyId(
+                company,
+                1,
+                10
+            );
+
+            if (res.statusCode === 200) {
+                return setListJobSimulation(res.data.job_simulations);
+            }
+        }
+
+        const res =
+            await jobSimulationService.getJobSimulationByCompanyIdAndUserId(
+                company,
+                1,
+                10
+            );
 
         if (res.statusCode === 200) {
-            setListJobSimulation(res.data.job_simulations);
+            return setListJobSimulation(res.data.job_simulations);
         }
     };
 
@@ -473,13 +485,23 @@ export const OnlineInternShip = () => {
                                             </Box>
                                         </Card.Section>
 
-                                        <Text
-                                            style={{
-                                                color: "rgb(40, 89, 182)",
-                                            }}
-                                        >
-                                            {item.company_name}
-                                        </Text>
+                                        <Group justify="space-between">
+                                            <Text
+                                                style={{
+                                                    color: "rgb(40, 89, 182)",
+                                                }}
+                                            >
+                                                {item.company_name}
+                                            </Text>
+                                            {item.status && (
+                                                <Badge
+                                                    color="pink"
+                                                    variant="light"
+                                                >
+                                                    {item.status}
+                                                </Badge>
+                                            )}
+                                        </Group>
 
                                         <Group justify="space-between" mb="xs">
                                             <Text
