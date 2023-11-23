@@ -35,6 +35,7 @@ jobSimulationRoutes.get(
 // đã login
 jobSimulationRoutes.get(
     "/job_simulation/company/list/user/view",
+    authMiddleware,
     jobSimulationController.getJobSimulationByCompanyIdAndUserId
 );
 
@@ -42,6 +43,20 @@ jobSimulationRoutes.get(
 jobSimulationRoutes.get(
     "/job_simulation/:job_simulation_id/view",
     jobSimulationController.getJobSimulationDetailById
+);
+
+// get job detail by id and userId
+jobSimulationRoutes.get(
+    "/job_simulation/:job_simulation_id/owner/view",
+    authMiddleware,
+    jobSimulationController.getJobSimulationDetailByIdAndUserId
+);
+
+// register job simulation by id
+jobSimulationRoutes.post(
+    "/job_simulation/:job_simulation_id/register",
+    authMiddleware,
+    jobSimulationController.registerJobSimulationById
 );
 
 // get tasks by id

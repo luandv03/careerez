@@ -81,7 +81,7 @@ class JobSimulationService extends BaseService {
         limit: number
     ) {
         try {
-            const res = await this.httpClientPublic.get(
+            const res = await this.httpClientPrivate.get(
                 `/job_simulation/company/list/user/view?company_name=${companyName}&page=${page}&limit=${limit}`
             );
 
@@ -103,10 +103,36 @@ class JobSimulationService extends BaseService {
         }
     }
 
+    ///job_simulation/:job_simulation_id/owner/view
+    async getJobSimulationDetailByIdAndUserId(jobSimulationId: number) {
+        try {
+            const res = await this.httpClientPrivate.get(
+                `/job_simulation/${jobSimulationId}/owner/view`
+            );
+
+            return res.data;
+        } catch (error) {
+            return error;
+        }
+    }
+
     async getTaskByJobId(jobSimulationId: number) {
         try {
             const res = await this.httpClientPublic.get(
                 `/job_simulation/task/${jobSimulationId}/view`
+            );
+
+            return res.data;
+        } catch (error) {
+            return error;
+        }
+    }
+
+    // register job simulation
+    async registerJobSimulationById(jobSimulationId: number) {
+        try {
+            const res = await this.httpClientPrivate.post(
+                `/job_simulation/${jobSimulationId}/register`
             );
 
             return res.data;

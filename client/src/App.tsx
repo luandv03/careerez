@@ -12,9 +12,11 @@ import { CareerExperience } from "./components/CareerExperience";
 import { CourseDetail } from "./components/Course/CourseDetail";
 import { OnlineInternShip } from "./components/OnlineInternShip";
 import { JobSimulation } from "./components/JobSimualtion";
+import { JobSimulationUser } from "./components/JobSimulationUser";
 import { FAQs } from "./components/FAQs";
 import { MemberRegister } from "./components/MemberRegister";
 import { Editor } from "./components/Editor";
+import { JobDetail } from "./components/JobDetail";
 
 export default function App() {
     const location = useLocation();
@@ -55,6 +57,16 @@ export default function App() {
                     <Route path="/faqs" element={<FAQs />} />
 
                     <Route path="/editor" element={<Editor />} />
+
+                    <Route
+                        path="/job_simulation/:job_simulation_id/owner"
+                        element={<JobSimulationUser />}
+                    />
+
+                    <Route
+                        path="/job_detail/:job_simulation_id"
+                        element={<JobDetail />}
+                    />
                 </Route>
                 <Route path="/signin" element={<AuthLayout />}>
                     <Route path="/signin" element={<Signin />} />

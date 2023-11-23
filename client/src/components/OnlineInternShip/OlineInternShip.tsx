@@ -452,7 +452,7 @@ export const OnlineInternShip = () => {
                                         w={320}
                                         withBorder
                                         component="a"
-                                        href={`/internship_online/${item.job_simulation_id}`}
+                                        href={`/job_detail/${item.job_simulation_id}`}
                                         className={styles.jobHover}
                                     >
                                         <Card.Section

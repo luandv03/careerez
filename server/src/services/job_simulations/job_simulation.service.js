@@ -156,6 +156,57 @@ class JobSimulationService {
             },
         };
     }
+
+    // get job by user_id and job id
+    async getJobSimulationDetailByIdAndUserId(jobSimulationId, userId) {
+        const result = await query(
+            `select job.*,COALESCE(b.status, '0') status from (select js.*, c.company_name, c.company_logo, c.company_video_intro, jc.job_category_name from job_simulation js
+                join company c using(company_id)
+                join job_category jc using(job_category_id)
+                where js.job_simulation_id = $1) job
+                left join (select job_simulation_id ,status from user_enroll_job_simulation where user_id = $2) b using(job_simulation_id)`,
+            [jobSimulationId, userId]
+        );
+
+        return {
+            statusCode: HttpStatusCode.OK,
+            message: "Get Job Simultion OK",
+            data: {
+                job_simulation: result.rows[0],
+            },
+        };
+    }
+
+    async registerJobSimulationById(job_simulation_id, user_id) {
+        const jobRegistration = await query(
+            `SELECT * FROM user_enroll_job_simulation WHERE job_simulation_id = $1 AND user_id = $2`,
+            [job_simulation_id, user_id]
+        );
+
+        if (jobRegistration.rowCount > 0) {
+            return {
+                statusCode: HttpStatusCode.BAD_REQUEST,
+                message: "You Registered This Job Before",
+            };
+        }
+
+        const results = await query(
+            `INSERT INTO user_enroll_job_simulation VALUES ($1, $2, '1') RETURNING *`,
+            [user_id, job_simulation_id]
+        );
+
+        if (!results.rowCount) {
+            return {
+                statusCode: HttpStatusCode.BAD_REQUEST,
+                message: "Register Job Simultion Failed",
+            };
+        }
+
+        return {
+            statusCode: HttpStatusCode.OK,
+            message: "Register Job Simultion OK",
+        };
+    }
 }
 
 export const jobSimulationService = new JobSimulationService();

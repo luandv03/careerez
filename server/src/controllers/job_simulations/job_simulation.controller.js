@@ -58,7 +58,7 @@ export class JobSimulationController {
             const { user_id } = res.locals.data;
 
             const data =
-                await jobSimulationService.getJobSimulationByCategoryId(
+                await jobSimulationService.getJobSimulationByCategoryIdAndUserId(
                     job_category_name,
                     Number(user_id),
                     page,
@@ -101,12 +101,13 @@ export class JobSimulationController {
             const { company_name, page, limit } = req.query;
             const { user_id } = res.locals.data;
 
-            const data = await jobSimulationService.getJobSimulationByCompanyId(
-                company_name,
-                Number(user_id),
-                page,
-                limit
-            );
+            const data =
+                await jobSimulationService.getJobSimulationByCompanyIdAndUserId(
+                    company_name,
+                    Number(user_id),
+                    page,
+                    limit
+                );
 
             return res.status(data.statusCode).json(data);
         } catch (error) {
@@ -136,12 +137,55 @@ export class JobSimulationController {
         }
     }
 
+    // get job by id and userId
+    async getJobSimulationDetailByIdAndUserId(req, res) {
+        try {
+            const { job_simulation_id } = req.params;
+            const { user_id } = res.locals.data;
+
+            const data =
+                await jobSimulationService.getJobSimulationDetailByIdAndUserId(
+                    Number(job_simulation_id),
+                    Number(user_id)
+                );
+
+            return res.status(data.statusCode).json(data);
+        } catch (error) {
+            return res.status(HttpStatusCode.INTERNAL_SERVER_ERROR).json({
+                statusCode: HttpStatusCode.INTERNAL_SERVER_ERROR,
+                message: "Internal Server Error",
+                error,
+            });
+        }
+    }
+
     async getTaskByJobId(req, res, next) {
         try {
             const { job_simulation_id } = req.params;
 
             const data = await jobSimulationService.getTaskByJobId(
                 Number(job_simulation_id)
+            );
+
+            return res.status(data.statusCode).json(data);
+        } catch (error) {
+            return res.status(HttpStatusCode.INTERNAL_SERVER_ERROR).json({
+                statusCode: HttpStatusCode.INTERNAL_SERVER_ERROR,
+                message: "Internal Server Error",
+                error,
+            });
+        }
+    }
+
+    // register job simulation
+    async registerJobSimulationById(req, res, next) {
+        try {
+            const { job_simulation_id } = req.params;
+            const { user_id } = res.locals.data;
+
+            const data = await jobSimulationService.registerJobSimulationById(
+                Number(job_simulation_id),
+                Number(user_id)
             );
 
             return res.status(data.statusCode).json(data);
