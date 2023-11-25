@@ -11,7 +11,7 @@ import { Signin } from "./components/Signin/Signin";
 // import { CareerExperience } from "./components/CareerExperience";
 import { OverviewCareer } from "./components/OverviewCareer";
 import { OverviewCareerDetail } from "./components/OverviewCareerDetail";
-import { CourseDetail } from "./components/Course/CourseDetail";
+// import { CourseDetail } from "./components/Course/CourseDetail";
 import { OnlineInternShip } from "./components/OnlineInternShip";
 import { JobSimulation } from "./components/JobSimualtion";
 import { JobSimulationUser } from "./components/JobSimulationUser";
@@ -19,6 +19,7 @@ import { FAQs } from "./components/FAQs";
 import { MemberRegister } from "./components/MemberRegister";
 import { Editor } from "./components/Editor";
 import { JobDetail } from "./components/JobDetail";
+import { MemberRegisterSuccess } from "./components/MemberRegister/MemberRegisterSuccess";
 
 export default function App() {
     const location = useLocation();
@@ -73,6 +74,11 @@ export default function App() {
                 <Route path="/signin" element={<AuthLayout />}>
                     <Route path="/signin" element={<Signin />} />
                 </Route>
+
+                <Route
+                    path="/member_register/:ordere_id/success"
+                    element={<MemberRegisterSuccess />}
+                />
             </Routes>
         </AnimatePresence>
     );

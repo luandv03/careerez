@@ -1,18 +1,9 @@
 import { useEffect } from "react";
-import { useSearchParams } from "react-router-dom";
-import { Alert, Center, Text } from "@mantine/core";
+import { Alert, Center, Stack, Text } from "@mantine/core";
+import { IconCircleCheck } from "@tabler/icons-react";
 
 export const MemberRegisterSuccess = () => {
-    const [searchParams] = useSearchParams();
-
     useEffect(() => {
-        if (searchParams.get("resultCode") as string) {
-            localStorage.setItem(
-                "resultCode",
-                searchParams.get("resultCode") as string
-            );
-        }
-
         const timer = setTimeout(() => {
             window.close();
         }, 300);
@@ -22,9 +13,18 @@ export const MemberRegisterSuccess = () => {
     }, []);
 
     return (
-        <Center>
-            <Alert title="Bummer!" color="red">
-                <Text fw={700}> Bạn đã đăng nhập thành công</Text>
+        <Center p={50}>
+            <Alert>
+                <Stack>
+                    <Center>
+                        <IconCircleCheck size={40} color="rgb(40, 89, 182)" />
+                    </Center>
+                    <Center>
+                        <Text fw={500} color="rgb(40, 89, 182)">
+                            Bạn đã đăng ký thành thông{" "}
+                        </Text>
+                    </Center>
+                </Stack>
             </Alert>
         </Center>
     );

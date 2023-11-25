@@ -6,28 +6,69 @@ import {
     Text,
     List,
     Button,
-    // Modal,
+    Overlay,
+    Modal,
     // ScrollArea,
     // RemoveScroll,
 } from "@mantine/core";
-// import { useDisclosure } from "@mantine/hooks";
+import { useDisclosure } from "@mantine/hooks";
 import { useNavigate } from "react-router-dom";
-// import { useState } from "react";
+import { useState } from "react";
 
 import classes from "./MemberRegister.module.css";
 import { createWindow } from "../../helpers/createWindow";
 import { BASE_URL_API } from "../../configs/server.config";
+import { Loading } from "../Loading";
+import { IconCircleCheck } from "@tabler/icons-react";
 
 export const MemberRegister = () => {
     const navigate = useNavigate();
+    const [visible, setVisible] = useState(false);
+    const [opened, { open, close }] = useDisclosure(false);
     // const [opened, { open, close }] = useDisclosure(false);
     // const [link, setLink] = useState<string>("");
 
     const handleRegsiterService = (amount: number, orderId: string) => {
         // check login
+
         if (!JSON.parse(localStorage.getItem("isAuthenticated") as string)) {
             navigate("/signin");
             return;
+        }
+
+        if (amount == 0) {
+            setVisible(true);
+
+            setTimeout(() => {
+                setVisible(false);
+                open();
+
+                setTimeout(() => {
+                    navigate("/");
+                }, 1000);
+            }, 500);
+        } else {
+            orderId += Date.now();
+            amount = amount / 100;
+
+            let timer: ReturnType<typeof setTimeout> | null = null;
+
+            const windowPayment = createWindow(
+                `${BASE_URL_API}/payment/momo?amount=${amount}&order_id=${orderId}`,
+                "_blank",
+                800,
+                800
+            );
+
+            if (windowPayment) {
+                timer = setInterval(async () => {
+                    if (windowPayment.closed) {
+                        navigate("/");
+
+                        if (timer) clearInterval(timer);
+                    }
+                }, 500);
+            }
         }
 
         // open();
@@ -36,12 +77,12 @@ export const MemberRegister = () => {
         //     `${BASE_URL_API}/payment/momo?amount=${amount}&order_id=${orderId}`
         // );
 
-        createWindow(
-            `${BASE_URL_API}/payment/momo?amount=${amount}&order_id=${orderId}`,
-            "_self",
-            800,
-            800
-        );
+        // createWindow(
+        //     `${BASE_URL_API}/payment/momo?amount=${amount}&order_id=${orderId}`,
+        //     "_self",
+        //     800,
+        //     800
+        // );
     };
 
     return (
@@ -65,6 +106,43 @@ export const MemberRegister = () => {
                     className={RemoveScroll.classNames.zeroRight}
                 />
             </Modal> */}
+            {visible && (
+                <Overlay
+                    style={{
+                        position: "fixed",
+                        width: "100%",
+                        height: "100%",
+                        background: "rgba(0, 0, 0, 0.5)",
+                    }}
+                >
+                    <div
+                        style={{
+                            width: "100%",
+                            height: "100vh",
+                            display: "flex",
+                            justifyContent: "center",
+                            alignItems: "center",
+                        }}
+                    >
+                        <Loading />
+                    </div>
+                </Overlay>
+            )}
+            <Modal
+                opened={opened}
+                onClose={close}
+                centered
+                style={{ color: "rgb(40, 89, 182)" }}
+            >
+                <Stack>
+                    <Center>
+                        <IconCircleCheck size={40} />
+                    </Center>
+                    <Center>
+                        <Text fw={500}>Bạn đã đăng ký thành thông </Text>
+                    </Center>
+                </Stack>
+            </Modal>
             <Center>
                 <Text fw={700} size="30px">
                     ĐĂNG KÍ THÀNH VIÊN
@@ -107,7 +185,7 @@ export const MemberRegister = () => {
                                             size="20px"
                                             color="rgb(255,222,89)"
                                         >
-                                            1.000/Tháng
+                                            Miễn phí
                                         </Text>
                                     </Center>
                                     <List>
@@ -138,10 +216,7 @@ export const MemberRegister = () => {
                                         w={200}
                                         className={classes.btnRegister}
                                         onClick={() =>
-                                            handleRegsiterService(
-                                                1000,
-                                                "2023A1f0f"
-                                            )
+                                            handleRegsiterService(0, "2023A1")
                                         }
                                     >
                                         <Text>Đăng ký</Text>
@@ -177,7 +252,7 @@ export const MemberRegister = () => {
                                             size="20px"
                                             color="rgb(255,222,89)"
                                         >
-                                            2.000/Tháng
+                                            999K
                                         </Text>
                                     </Center>
                                     <List>
@@ -223,7 +298,10 @@ export const MemberRegister = () => {
                                         w={200}
                                         className={classes.btnRegister}
                                         onClick={() =>
-                                            handleRegsiterService(3000, "2023B")
+                                            handleRegsiterService(
+                                                999000,
+                                                "2023A2"
+                                            )
                                         }
                                     >
                                         <Text>Đăng ký</Text>
@@ -259,7 +337,7 @@ export const MemberRegister = () => {
                                             size="20px"
                                             color="rgb(255,222,89)"
                                         >
-                                            3.000/Tháng
+                                            3.000K
                                         </Text>
                                     </Center>
                                     <List>
@@ -314,7 +392,10 @@ export const MemberRegister = () => {
                                         w={200}
                                         className={classes.btnRegister}
                                         onClick={() =>
-                                            handleRegsiterService(1000, "2023C")
+                                            handleRegsiterService(
+                                                3000000,
+                                                "2023A3"
+                                            )
                                         }
                                     >
                                         <Text>Đăng ký</Text>
