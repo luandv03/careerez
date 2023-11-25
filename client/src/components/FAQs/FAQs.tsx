@@ -1,4 +1,5 @@
 import { Flex, Stack } from "@mantine/core";
+import { motion } from "framer-motion";
 
 import styles from "./FAQs.module.css";
 import { DropdownText } from "./DropdownText";
@@ -69,7 +70,16 @@ const FAQS_INIT = [
 export const FAQs = () => {
     return (
         <div className={styles.container}>
-            <div className={styles.avatar}>
+            <motion.div
+                className={styles.avatar}
+                initial={{ opacity: 0, scale: 0.5 }}
+                animate={{ opacity: 1, scale: 1 }}
+                transition={{
+                    duration: 0.8,
+                    delay: 0.5,
+                    ease: [0, 0.71, 0.2, 1.01],
+                }}
+            >
                 <img
                     src="https://static.wixstatic.com/media/0b340f_a5c250a81aed4d7fa68e005cff2132c8~mv2_d_3840_1960_s_2.jpg/v1/fill/w_1895,h_738,al_c,q_85,usm_0.66_1.00_0.01,enc_auto/0b340f_a5c250a81aed4d7fa68e005cff2132c8~mv2_d_3840_1960_s_2.jpg"
                     alt="Avatar Career Experience"
@@ -78,7 +88,7 @@ export const FAQs = () => {
                 <div className={styles.title}>
                     <h1>Câu hỏi thường gặp</h1>
                 </div>
-            </div>
+            </motion.div>
 
             <Flex style={{ width: "100%" }} px={140}>
                 <Stack>

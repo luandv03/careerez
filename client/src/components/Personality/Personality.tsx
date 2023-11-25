@@ -1,11 +1,21 @@
 import { Link } from "react-router-dom";
+import { motion } from "framer-motion";
 
 import styles from "./Personality.module.css";
 
 export const Personality = () => {
     return (
         <div className={styles.container}>
-            <div className={styles.avatar}>
+            <motion.div
+                className={styles.avatar}
+                initial={{ opacity: 0, scale: 0.5 }}
+                animate={{ opacity: 1, scale: 1 }}
+                transition={{
+                    duration: 0.8,
+                    delay: 0.5,
+                    ease: [0, 0.71, 0.2, 1.01],
+                }}
+            >
                 <img
                     src="https://static.wixstatic.com/media/11062b_c3bf9d55edca43e0a7866bcf01a9416b~mv2.jpg/v1/fill/w_1895,h_738,al_c,q_85,usm_0.66_1.00_0.01,enc_auto/11062b_c3bf9d55edca43e0a7866bcf01a9416b~mv2.jpg"
                     alt="Avatar Personality Test"
@@ -14,7 +24,7 @@ export const Personality = () => {
                 <div className={styles.title}>
                     <h1>Bài kiểm tra tính cách</h1>
                 </div>
-            </div>
+            </motion.div>
 
             <div className={styles.about}>
                 <div className={styles.aboutContent}>

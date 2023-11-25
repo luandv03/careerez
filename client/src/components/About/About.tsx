@@ -1,10 +1,12 @@
-import styles from "./About.module.css";
 import {
     IconBrandFacebook,
     IconBrandInstagram,
     IconBrandTwitter,
 } from "@tabler/icons-react";
+import { useNavigate } from "react-router-dom";
 import { motion } from "framer-motion";
+
+import styles from "./About.module.css";
 
 const listExpert = [
     {
@@ -52,6 +54,8 @@ const listExpert = [
 ];
 
 export const About = () => {
+    const navigate = useNavigate();
+
     return (
         <div className={styles.container}>
             <motion.div
@@ -93,18 +97,38 @@ export const About = () => {
                     <div className={styles.aboutOptions}>
                         <ul className={styles.aboutOptionsList}>
                             <li className={styles.aboutOptionsItem}>
-                                <button>Đăng ký thành viên</button>
+                                <button
+                                    onClick={() => navigate("/member_register")}
+                                >
+                                    Đăng ký thành viên
+                                </button>
                             </li>
                             <li className={styles.aboutOptionsItem}>
-                                <button>Bài kiểm tra tính cách</button>
+                                <button
+                                    onClick={() =>
+                                        navigate("/personality_test")
+                                    }
+                                >
+                                    Bài kiểm tra tính cách
+                                </button>
                             </li>
                         </ul>
                         <ul className={styles.aboutOptionsList}>
                             <li className={styles.aboutOptionsItem}>
-                                <button>Trải nghiệm nghề nghiệp</button>
+                                <button
+                                    onClick={() => navigate("/career_overview")}
+                                >
+                                    Tổng quan ngành nghề
+                                </button>
                             </li>
                             <li className={styles.aboutOptionsItem}>
-                                <button>Thực tập trực tuyến</button>
+                                <button
+                                    onClick={() =>
+                                        navigate("/internship_online")
+                                    }
+                                >
+                                    Trải nghiệm nghề nghiệp
+                                </button>
                             </li>
                         </ul>
                     </div>

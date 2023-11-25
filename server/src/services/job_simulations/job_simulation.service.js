@@ -207,6 +207,21 @@ class JobSimulationService {
             message: "Register Job Simultion OK",
         };
     }
+
+    async getTaskRequirement(taskId, requirementNumber) {
+        const result = await query(
+            `SELECT * FROM requirement WHERE task_id = $1 AND requirement_number = $2`,
+            [taskId, requirementNumber]
+        );
+
+        return {
+            statusCode: HttpStatusCode.OK,
+            message: "Task requirement OK",
+            data: {
+                requirement: result.rows[0],
+            },
+        };
+    }
 }
 
 export const jobSimulationService = new JobSimulationService();

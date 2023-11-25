@@ -9,6 +9,7 @@ import {
     Text,
     Tabs,
     Image,
+    Pagination,
 } from "@mantine/core";
 import {
     IconClockHour1,
@@ -26,6 +27,7 @@ import { useEffect, useState } from "react";
 import { ReadMore } from "../ReadMore";
 import { jobSimulationService } from "../../services/job_simulation.service";
 import { JobSimulation } from "../JobSimualtion";
+import { Requirement } from "../Requirement";
 
 interface ITask {
     task_id: number;
@@ -64,6 +66,12 @@ export const JobSimulationUser = () => {
     const [tasks, setTasks] = useState<ITask[] | []>([]);
     const [seletectedTasks, setSeletectedTasks] = useState(1);
     const { job_simulation_id } = useParams();
+    const [pageNumber, setPageNumber] = useState(1);
+    const [requirement, setRequirement] = useState({
+        requirement_id: 0,
+        requirement_name: "",
+        requirement_des: "",
+    });
 
     const handleGetJobSimulationDetail = async () => {
         const res =
@@ -86,9 +94,18 @@ export const JobSimulationUser = () => {
         }
     };
 
+    const handleGetTaskRequirement = async () => {
+        const res = await jobSimulationService.getTaskRequirement(1, 1);
+
+        if (res.statusCode === 200) {
+            setRequirement(res.data.requirement);
+        }
+    };
+
     useEffect(() => {
         handleGetJobSimulationDetail();
         handleGetTaskByJobId();
+        handleGetTaskRequirement();
         // eslint-disable-next-line react-hooks/exhaustive-deps
     }, []);
 
@@ -341,130 +358,172 @@ export const JobSimulationUser = () => {
                                 >
                                     {tasks.length > 0 && (
                                         <Stack>
-                                            <Text size="20px" fw={700}>
-                                                Nhiệm vụ{" "}
-                                                {
-                                                    tasks[seletectedTasks - 1]
-                                                        .task_number
-                                                }
-                                                .
-                                                {
-                                                    tasks[seletectedTasks - 1]
-                                                        .task_name
-                                                }
-                                            </Text>
-
-                                            <Group gap={4}>
-                                                <IconClockHour1 size="16px" />
-                                                <Text size="16px">
+                                            <Group justify="space-between">
+                                                <Text size="20px" fw={700}>
+                                                    Nhiệm vụ{" "}
                                                     {
                                                         tasks[
                                                             seletectedTasks - 1
-                                                        ].task_time_spaced
+                                                        ].task_number
                                                     }
-                                                </Text>
-                                            </Group>
-
-                                            <Group gap={4}>
-                                                <IconBadge size="16px" />
-                                                <Text size="16px">
+                                                    .
                                                     {
                                                         tasks[
                                                             seletectedTasks - 1
-                                                        ].task_level
+                                                        ].task_name
                                                     }
                                                 </Text>
+
+                                                <Pagination
+                                                    total={4}
+                                                    value={pageNumber}
+                                                    onChange={(value) =>
+                                                        setPageNumber(value)
+                                                    }
+                                                />
                                             </Group>
+                                            <Divider my="sm" />
 
-                                            <Box style={{ width: "100%" }}>
-                                                <ReadMore
-                                                    text={
-                                                        tasks[
-                                                            seletectedTasks - 1
-                                                        ].task_des
-                                                    }
-                                                ></ReadMore>
-                                            </Box>
+                                            {pageNumber == 1 ? (
+                                                <>
+                                                    <Group gap={4}>
+                                                        <IconClockHour1 size="16px" />
+                                                        <Text size="16px">
+                                                            {
+                                                                tasks[
+                                                                    seletectedTasks -
+                                                                        1
+                                                                ]
+                                                                    .task_time_spaced
+                                                            }
+                                                        </Text>
+                                                    </Group>
 
-                                            <Box
-                                                bg="rgb(247, 247, 247)"
-                                                p={10}
-                                                style={{
-                                                    borderRadius: "4px",
-                                                }}
-                                            >
-                                                <Group>
-                                                    <IconSchool size="20px" />
-                                                    <Text size="18px" fw={700}>
-                                                        Bạn sẽ học được gì ?
-                                                    </Text>
-                                                </Group>
-                                                <TypographyStylesProvider>
-                                                    <div
-                                                        dangerouslySetInnerHTML={{
-                                                            __html: tasks[
-                                                                seletectedTasks -
-                                                                    1
-                                                            ].task_what_learn,
+                                                    <Group gap={4}>
+                                                        <IconBadge size="16px" />
+                                                        <Text size="16px">
+                                                            {
+                                                                tasks[
+                                                                    seletectedTasks -
+                                                                        1
+                                                                ].task_level
+                                                            }
+                                                        </Text>
+                                                    </Group>
+
+                                                    <Box
+                                                        style={{
+                                                            width: "100%",
                                                         }}
-                                                    />
-                                                </TypographyStylesProvider>
-                                            </Box>
+                                                    >
+                                                        <ReadMore
+                                                            text={
+                                                                tasks[
+                                                                    seletectedTasks -
+                                                                        1
+                                                                ].task_des
+                                                            }
+                                                        ></ReadMore>
+                                                    </Box>
 
-                                            <Box
-                                                bg="rgb(247, 247, 247)"
-                                                p={10}
-                                                style={{
-                                                    borderRadius: "4px",
-                                                }}
-                                            >
-                                                <Group>
-                                                    <IconFileCheck size="20px" />
-                                                    <Text size="18px" fw={700}>
-                                                        Bạn sẽ làm được gì ?
-                                                    </Text>
-                                                </Group>
-                                                <TypographyStylesProvider>
-                                                    <div
-                                                        dangerouslySetInnerHTML={{
-                                                            __html: tasks[
-                                                                seletectedTasks -
-                                                                    1
-                                                            ].task_what_do,
+                                                    <Box
+                                                        bg="rgb(247, 247, 247)"
+                                                        p={10}
+                                                        style={{
+                                                            borderRadius: "4px",
                                                         }}
-                                                    />
-                                                </TypographyStylesProvider>
-                                            </Box>
+                                                    >
+                                                        <Group>
+                                                            <IconSchool size="20px" />
+                                                            <Text
+                                                                size="18px"
+                                                                fw={700}
+                                                            >
+                                                                Bạn sẽ học được
+                                                                gì ?
+                                                            </Text>
+                                                        </Group>
+                                                        <TypographyStylesProvider>
+                                                            <div
+                                                                dangerouslySetInnerHTML={{
+                                                                    __html: tasks[
+                                                                        seletectedTasks -
+                                                                            1
+                                                                    ]
+                                                                        .task_what_learn,
+                                                                }}
+                                                            />
+                                                        </TypographyStylesProvider>
+                                                    </Box>
 
-                                            <Text>
-                                                Lời nhắn trước khi làm nhiệm vụ
-                                            </Text>
-                                            <Box
-                                                p={8}
-                                                w={611}
-                                                h={353}
-                                                style={{
-                                                    borderRadius: "8px",
-                                                    overflow: "hidden",
-                                                    boxShadow:
-                                                        "rgba(100, 100, 111, 0.2) 0px 7px 29px 0px",
-                                                }}
-                                            >
-                                                <video
-                                                    src={
-                                                        tasks[
-                                                            seletectedTasks - 1
-                                                        ].task_video_intro
-                                                    }
-                                                    style={{
-                                                        width: "100%",
-                                                        height: "100%",
-                                                    }}
-                                                    controls
-                                                    loop
-                                                    muted
-                                                ></video>
-                                            </Box>
+                                                    <Box
+                                                        bg="rgb(247, 247, 247)"
+                                                        p={10}
+                                                        style={{
+                                                            borderRadius: "4px",
+                                                        }}
+                                                    >
+                                                        <Group>
+                                                            <IconFileCheck size="20px" />
+                                                            <Text
+                                                                size="18px"
+                                                                fw={700}
+                                                            >
+                                                                Bạn sẽ làm được
+                                                                gì ?
+                                                            </Text>
+                                                        </Group>
+                                                        <TypographyStylesProvider>
+                                                            <div
+                                                                dangerouslySetInnerHTML={{
+                                                                    __html: tasks[
+                                                                        seletectedTasks -
+                                                                            1
+                                                                    ]
+                                                                        .task_what_do,
+                                                                }}
+                                                            />
+                                                        </TypographyStylesProvider>
+                                                    </Box>
+
+                                                    <Text>
+                                                        Lời nhắn trước khi làm
+                                                        nhiệm vụ
+                                                    </Text>
+                                                    <Box
+                                                        p={8}
+                                                        w={611}
+                                                        h={353}
+                                                        style={{
+                                                            borderRadius: "8px",
+                                                            overflow: "hidden",
+                                                            boxShadow:
+                                                                "rgba(100, 100, 111, 0.2) 0px 7px 29px 0px",
+                                                        }}
+                                                    >
+                                                        <video
+                                                            src={
+                                                                tasks[
+                                                                    seletectedTasks -
+                                                                        1
+                                                                ]
+                                                                    .task_video_intro
+                                                            }
+                                                            style={{
+                                                                width: "100%",
+                                                                height: "100%",
+                                                            }}
+                                                            controls
+                                                            loop
+                                                            muted
+                                                        ></video>
+                                                    </Box>
+                                                </>
+                                            ) : (
+                                                <Requirement
+                                                    requirement={requirement}
+                                                />
+                                            )}
                                         </Stack>
                                     )}
                                 </ScrollArea>

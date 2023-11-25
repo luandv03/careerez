@@ -65,4 +65,10 @@ jobSimulationRoutes.get(
     jobSimulationController.getTaskByJobId
 );
 
+// get task requirement by task id and number
+jobSimulationRoutes.get(
+    "/job_simulation/task/:task_id/requirement_number/:requirement_number/view",
+    jobSimulationController.getTaskRequirement
+);
+
 export default jobSimulationRoutes;

@@ -56,7 +56,7 @@ export const Header = () => {
                         <>
                             {" "}
                             <div className={styles.signup}>
-                                <Link to="/sigup">
+                                <Link to="/signin">
                                     <button>
                                         <h4>Đăng ký</h4>
                                     </button>
@@ -182,7 +182,7 @@ export const Header = () => {
                     </li>
                     <li>
                         <NavLink
-                            to="/career_experience"
+                            to="/career_overview"
                             className={({ isActive, isPending }) =>
                                 isPending
                                     ? styles.pending
@@ -191,7 +191,7 @@ export const Header = () => {
                                     : ""
                             }
                         >
-                            <h4>Trải nghiệm nghề nghiệp</h4>
+                            <h4>Tổng quan ngành nghề</h4>
                         </NavLink>
                     </li>
                     <li>
@@ -205,7 +205,7 @@ export const Header = () => {
                                     : ""
                             }
                         >
-                            <h4>Thực tập trực tuyến</h4>
+                            <h4>Trải nghiệm ngành nghề</h4>
                         </NavLink>
                     </li>
                     <li>

@@ -6,9 +6,13 @@ import {
     Text,
     List,
     Button,
-    Overlay,
+    // Modal,
+    // ScrollArea,
+    // RemoveScroll,
 } from "@mantine/core";
+// import { useDisclosure } from "@mantine/hooks";
 import { useNavigate } from "react-router-dom";
+// import { useState } from "react";
 
 import classes from "./MemberRegister.module.css";
 import { createWindow } from "../../helpers/createWindow";
@@ -16,6 +20,8 @@ import { BASE_URL_API } from "../../configs/server.config";
 
 export const MemberRegister = () => {
     const navigate = useNavigate();
+    // const [opened, { open, close }] = useDisclosure(false);
+    // const [link, setLink] = useState<string>("");
 
     const handleRegsiterService = (amount: number, orderId: string) => {
         // check login
@@ -23,6 +29,12 @@ export const MemberRegister = () => {
             navigate("/signin");
             return;
         }
+
+        // open();
+
+        // setLink(
+        //     `${BASE_URL_API}/payment/momo?amount=${amount}&order_id=${orderId}`
+        // );
 
         createWindow(
             `${BASE_URL_API}/payment/momo?amount=${amount}&order_id=${orderId}`,
@@ -34,6 +46,25 @@ export const MemberRegister = () => {
 
     return (
         <Stack p={50}>
+            {/* <Modal
+                opened={opened}
+                onClose={close}
+                size="xl"
+                // yOffset="1vh"
+                xOffset={0}
+                scrollAreaComponent={ScrollArea.Autosize}
+                className={classes.scrollbarY}
+                // className={RemoveScroll.classNames.fullWidth}
+            >
+                <iframe
+                    src={link}
+                    style={{
+                        width: "100%",
+                        height: "800px",
+                    }}
+                    className={RemoveScroll.classNames.zeroRight}
+                />
+            </Modal> */}
             <Center>
                 <Text fw={700} size="30px">
                     ĐĂNG KÍ THÀNH VIÊN
@@ -109,7 +140,7 @@ export const MemberRegister = () => {
                                         onClick={() =>
                                             handleRegsiterService(
                                                 1000,
-                                                "2023A1"
+                                                "2023A1f0f"
                                             )
                                         }
                                     >

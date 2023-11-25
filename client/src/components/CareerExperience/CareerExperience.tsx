@@ -1,5 +1,6 @@
 import { IconHash, IconClockCheck } from "@tabler/icons-react";
 import { useState, useEffect } from "react";
+import { Grid } from "@mantine/core";
 import { Link } from "react-router-dom";
 
 import { courseService } from "../../services/course.service";

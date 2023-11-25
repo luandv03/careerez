@@ -88,7 +88,13 @@ export const Home = () => {
 
                             <div className={styles.sloganButton}>
                                 <div className={styles.sloganButtonBox}>
-                                    <button>Tham gia ngay</button>
+                                    <button
+                                        onClick={() =>
+                                            navigate("/internship_online")
+                                        }
+                                    >
+                                        Tham gia ngay
+                                    </button>
                                 </div>
                             </div>
                         </div>

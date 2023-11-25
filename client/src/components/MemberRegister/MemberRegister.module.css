@@ -15,3 +15,13 @@
     background-color: rgb(255, 222, 89);
     cursor: pointer;
 }
+
+.scrollbarY {
+    -ms-overflow-style: none; /* for Internet Explorer, Edge */
+    scrollbar-width: none; /* for Firefox */
+    /* overflow-y: scroll; */
+}
+
+.scrollbarY::-webkit-scrollbar {
+    display: none;
+}

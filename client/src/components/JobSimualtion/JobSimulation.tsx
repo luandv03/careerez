@@ -32,20 +32,16 @@ import { jobSimulationService } from "../../services/job_simulation.service";
 
 const JOB_DETAIL_INIT = {
     job_simulation_id: 0,
-    company_logo:
-        "https://res.cloudinary.com/dlbpgaw8k/image/upload/v1700277137/careerez/google_logo_labso4.png",
-    company_name: "Google",
+    company_logo: "",
+    company_name: "",
     company_video_intro: "",
     job_simulation_price: 0,
-    job_simulation_name: "Back-End Engineering",
-    job_category_name: "Software Engineer",
-    job_simulation_thumnail:
-        "https://cdn.theforage.com/vinternships/companyassets/prBZoAihniNijyD6d/CSN4y3ePwJCyRZTtj/1631126862718/Homepage%20Hero%20%E2%80%93%204%20R1.jpg",
-    job_simulation_time_spaced: "3-4 giờ",
-    job_simulation_des:
-        "A risk-free way to experience work on the job. Practice your skills with example tasks and build your confidence to ace your applications. A risk-free way to experience work on the job. Practice your skills with example tasks and build your confidence to ace your applications. A risk-free way to experience work on the job. Practice your skills with example tasks and build your confidence to ace your applications. A risk-free way to experience work on the job. Practice your skills with example tasks and build your confidence to ace your applications. A risk-free way to experience work on the job. Practice your skills with example tasks and build your confidence to ace your applications.",
-    job_simulation_why_register:
-        "Được học miễn phí, trải nghiệm kiến thức thực tế khi đi làm từ các chuyên từ các công ty hàng đầu về Công nghệ",
+    job_simulation_name: "",
+    job_category_name: "",
+    job_simulation_thumnail: "",
+    job_simulation_time_spaced: "",
+    job_simulation_des: "",
+    job_simulation_why_register: "",
 };
 
 interface ITask {
@@ -94,6 +90,7 @@ export const JobSimulation = () => {
         if (res.statusCode === 200) {
             /// thong bao thanh cong
             /// dieu huong den trang job cua no
+
             setTimeout(() => {
                 setVisible(false);
                 open();
