@@ -2,7 +2,7 @@ import { useState, useEffect } from "react";
 import { IconArrowRight } from "@tabler/icons-react";
 import { useNavigate } from "react-router-dom";
 
-import styles from "./MBTITEST.module.css";
+import styles from "./MBTITest.module.css";
 import { testService } from "../../../services/test.service";
 
 interface Question {
