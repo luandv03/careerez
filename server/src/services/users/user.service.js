@@ -28,30 +28,15 @@ class UserService {
                     resp.on("end", async () => {
                         data = JSON.parse(data);
 
-                        // let user = await prisma.user.findFirst({
-                        //     where: {
-                        //         email: data?.email,
-                        //     },
-                        // });
-
                         let result = await query(
                             `SELECT * FROM "User" WHERE email = $1`,
                             [data?.email]
                         );
 
                         if (!result.rowCount) {
-                            // user = await prisma.user.create({
-                            //     data: {
-                            //         email: data.email,
-                            //         username: data.name,
-                            //         method_auth: "google",
-                            //         role: "user",
-                            //     },
-                            // });
-
                             result = await query(
-                                `INSERT INTO "USER" VALUES(DEFAULT, $1, 'user', 'google', now(), now(), $2) RETURNING *`,
-                                [data.name, data.email]
+                                `INSERT INTO "User" VALUES (DEFAULT, $1, 'user', 'google', now(), now(), $2) RETURNING *`,
+                                [data?.name, data?.email]
                             );
                         }
 
