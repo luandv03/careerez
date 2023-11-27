@@ -202,10 +202,11 @@ export const OnlineInternShip = () => {
                 10
             );
 
+        setLoadingJob(false);
+
         if (res.statusCode === 200) {
             return setListJobSimulation(res.data.job_simulations);
         }
-        setLoadingJob(false);
     };
 
     const handleGetListJobSimulationByCompany = async (company: string) => {
@@ -234,10 +235,11 @@ export const OnlineInternShip = () => {
                 10
             );
 
+        setLoadingJob(false);
+
         if (res.statusCode === 200) {
             return setListJobSimulation(res.data.job_simulations);
         }
-        setLoadingJob(false);
     };
 
     useEffect(() => {
