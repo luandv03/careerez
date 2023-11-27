@@ -13,6 +13,7 @@ import {
     Group,
     Box,
     Badge,
+    Skeleton,
 } from "@mantine/core";
 import { useState, useEffect } from "react";
 import { IconTag, IconClockHour1 } from "@tabler/icons-react";
@@ -48,78 +49,79 @@ interface IJobSimulation {
     status: string;
 }
 
-// const JOB_INIT = [
-//     {
-//         job_simulation_id: 1,
-//         company_logo:
-//             "https://res.cloudinary.com/dlbpgaw8k/image/upload/v1700277137/careerez/google_logo_labso4.png",
-//         company_name: "Google",
-//         job_simulation_name: "Back-End Engineering",
-//         job_simulation_category: "Software Engineer",
-//         job_simulation_thumnail:
-//             "https://res.cloudinary.com/dlbpgaw8k/image/upload/v1698914711/nodejs_backend_bon7ye.png",
-//         job_simulation_time_spaced: "3-4 giờ",
-//         job_simulation_des:
-//             "A risk-free way to experience work on the job. Practice your skills with example tasks and build your confidence to ace your applications.",
-//     },
-//     {
-//         job_simulation_id: 2,
-//         company_logo:
-//             "https://res.cloudinary.com/dlbpgaw8k/image/upload/v1700277137/careerez/google_logo_labso4.png",
-//         company_name: "Google",
-//         job_simulation_name: "Back-End Engineering",
-//         job_simulation_category: "Software Engineer",
-//         job_simulation_thumnail:
-//             "https://res.cloudinary.com/dlbpgaw8k/image/upload/v1698914711/nodejs_backend_bon7ye.png",
-//         job_simulation_time_spaced: "3-4 giờ",
-//         job_simulation_des:
-//             "A risk-free way to experience work on the job. Practice your skills with example tasks and build your confidence to ace your applications.",
-//     },
-//     {
-//         job_simulation_id: 3,
-//         company_logo:
-//             "https://res.cloudinary.com/dlbpgaw8k/image/upload/v1700277137/careerez/google_logo_labso4.png",
-//         company_name: "Google",
-//         job_simulation_name: "Back-End Engineering",
-//         job_simulation_category: "Software Engineer",
-//         job_simulation_thumnail:
-//             "https://res.cloudinary.com/dlbpgaw8k/image/upload/v1698914711/nodejs_backend_bon7ye.png",
-//         job_simulation_time_spaced: "3-4 giờ",
-//         job_simulation_des:
-//             "A risk-free way to experience work on the job. Practice your skills with example tasks and build your confidence to ace your applications.",
-//     },
-//     {
-//         job_simulation_id: 4,
-//         company_logo:
-//             "https://res.cloudinary.com/dlbpgaw8k/image/upload/v1700277137/careerez/google_logo_labso4.png",
-//         company_name: "Google",
-//         job_simulation_name: "Back-End Engineering",
-//         job_simulation_category: "Software Engineer",
-//         job_simulation_thumnail:
-//             "https://res.cloudinary.com/dlbpgaw8k/image/upload/v1698914711/nodejs_backend_bon7ye.png",
-//         job_simulation_time_spaced: "3-4 giờ",
-//         job_simulation_des:
-//             "A risk-free way to experience work on the job. Practice your skills with example tasks and build your confidence to ace your applications.",
-//     },
-//     {
-//         job_simulation_id: 5,
-//         company_logo:
-//             "https://res.cloudinary.com/dlbpgaw8k/image/upload/v1700277137/careerez/google_logo_labso4.png",
-//         company_name: "Google",
-//         job_simulation_name: "Back-End Engineering",
-//         job_simulation_category: "Software Engineer",
-//         job_simulation_thumnail:
-//             "https://res.cloudinary.com/dlbpgaw8k/image/upload/v1698914711/nodejs_backend_bon7ye.png",
-//         job_simulation_time_spaced: "3-4 giờ",
-//         job_simulation_des:
-//             "A risk-free way to experience work on the job. Practice your skills with example tasks and build your confidence to ace your applications.",
-//     },
-// ];
+const JOB_INIT = [
+    {
+        job_simulation_id: 1,
+        company_logo:
+            "https://res.cloudinary.com/dlbpgaw8k/image/upload/v1700277137/careerez/google_logo_labso4.png",
+        company_name: "Google",
+        job_simulation_name: "Back-End Engineering",
+        job_simulation_category: "Software Engineer",
+        job_simulation_thumnail:
+            "https://res.cloudinary.com/dlbpgaw8k/image/upload/v1698914711/nodejs_backend_bon7ye.png",
+        job_simulation_time_spaced: "3-4 giờ",
+        job_simulation_des:
+            "A risk-free way to experience work on the job. Practice your skills with example tasks and build your confidence to ace your applications.",
+    },
+    {
+        job_simulation_id: 2,
+        company_logo:
+            "https://res.cloudinary.com/dlbpgaw8k/image/upload/v1700277137/careerez/google_logo_labso4.png",
+        company_name: "Google",
+        job_simulation_name: "Back-End Engineering",
+        job_simulation_category: "Software Engineer",
+        job_simulation_thumnail:
+            "https://res.cloudinary.com/dlbpgaw8k/image/upload/v1698914711/nodejs_backend_bon7ye.png",
+        job_simulation_time_spaced: "3-4 giờ",
+        job_simulation_des:
+            "A risk-free way to experience work on the job. Practice your skills with example tasks and build your confidence to ace your applications.",
+    },
+    {
+        job_simulation_id: 3,
+        company_logo:
+            "https://res.cloudinary.com/dlbpgaw8k/image/upload/v1700277137/careerez/google_logo_labso4.png",
+        company_name: "Google",
+        job_simulation_name: "Back-End Engineering",
+        job_simulation_category: "Software Engineer",
+        job_simulation_thumnail:
+            "https://res.cloudinary.com/dlbpgaw8k/image/upload/v1698914711/nodejs_backend_bon7ye.png",
+        job_simulation_time_spaced: "3-4 giờ",
+        job_simulation_des:
+            "A risk-free way to experience work on the job. Practice your skills with example tasks and build your confidence to ace your applications.",
+    },
+    {
+        job_simulation_id: 4,
+        company_logo:
+            "https://res.cloudinary.com/dlbpgaw8k/image/upload/v1700277137/careerez/google_logo_labso4.png",
+        company_name: "Google",
+        job_simulation_name: "Back-End Engineering",
+        job_simulation_category: "Software Engineer",
+        job_simulation_thumnail:
+            "https://res.cloudinary.com/dlbpgaw8k/image/upload/v1698914711/nodejs_backend_bon7ye.png",
+        job_simulation_time_spaced: "3-4 giờ",
+        job_simulation_des:
+            "A risk-free way to experience work on the job. Practice your skills with example tasks and build your confidence to ace your applications.",
+    },
+    {
+        job_simulation_id: 5,
+        company_logo:
+            "https://res.cloudinary.com/dlbpgaw8k/image/upload/v1700277137/careerez/google_logo_labso4.png",
+        company_name: "Google",
+        job_simulation_name: "Back-End Engineering",
+        job_simulation_category: "Software Engineer",
+        job_simulation_thumnail:
+            "https://res.cloudinary.com/dlbpgaw8k/image/upload/v1698914711/nodejs_backend_bon7ye.png",
+        job_simulation_time_spaced: "3-4 giờ",
+        job_simulation_des:
+            "A risk-free way to experience work on the job. Practice your skills with example tasks and build your confidence to ace your applications.",
+    },
+];
 
 export const OnlineInternShip = () => {
     const [listJobCategory, setListJobCategory] = useState<IJobCategory[] | []>(
         []
     );
+    const [loadingJob, setLoadingJob] = useState<boolean>(false);
 
     const [listCompany, setListCompany] = useState<ICompany[] | []>([]);
     const [listJobSimulation, setListJobSimulation] = useState<
@@ -191,12 +193,14 @@ export const OnlineInternShip = () => {
             }
         }
 
+        setLoadingJob(true);
         const res =
             await jobSimulationService.getJobSimulationByCategoryIdAndUserId(
                 jobCategory,
                 1,
                 10
             );
+        setLoadingJob(false);
 
         if (res.statusCode === 200) {
             return setListJobSimulation(res.data.job_simulations);
@@ -442,119 +446,232 @@ export const OnlineInternShip = () => {
                         </Center>
 
                         <SimpleGrid cols={3} p={20} spacing={50}>
-                            {listJobSimulation.length > 0 &&
-                                listJobSimulation.map((item) => (
-                                    <Card
-                                        key={item.job_simulation_id}
-                                        shadow="sm"
-                                        padding="lg"
-                                        radius="md"
-                                        w={320}
-                                        withBorder
-                                        component="a"
-                                        href={`/job_detail/${item.job_simulation_id}`}
-                                        className={styles.jobHover}
-                                    >
-                                        <Card.Section
-                                            style={{ position: "relative" }}
-                                        >
-                                            <Image
-                                                src={
-                                                    item.job_simulation_thumnail
-                                                }
-                                                height={160}
-                                                alt="Norway"
-                                            />
-                                            <Box
-                                                h={40}
-                                                style={{
-                                                    position: "absolute",
-                                                    bottom: 0,
-                                                    left: "10px",
-                                                    borderTopLeftRadius: "4px",
-                                                    borderTopRightRadius: "4px",
-                                                    overflow: "hidden",
-                                                }}
-                                            >
-                                                <Image
-                                                    src={item.company_logo}
-                                                    height={40}
-                                                    width={100}
-                                                    alt="Norway"
-                                                />
-                                            </Box>
-                                        </Card.Section>
+                            {loadingJob
+                                ? JOB_INIT.map((item) => (
+                                      <Skeleton>
+                                          <Card
+                                              key={item.job_simulation_id}
+                                              shadow="sm"
+                                              padding="lg"
+                                              radius="md"
+                                              w={320}
+                                              withBorder
+                                          >
+                                              <Card.Section
+                                                  style={{
+                                                      position: "relative",
+                                                  }}
+                                              >
+                                                  <Image
+                                                      src={
+                                                          item.job_simulation_thumnail
+                                                      }
+                                                      height={160}
+                                                      alt="Norway"
+                                                  />
+                                                  <Box
+                                                      h={40}
+                                                      style={{
+                                                          position: "absolute",
+                                                          bottom: 0,
+                                                          left: "10px",
+                                                          borderTopLeftRadius:
+                                                              "4px",
+                                                          borderTopRightRadius:
+                                                              "4px",
+                                                          overflow: "hidden",
+                                                      }}
+                                                  >
+                                                      <Image
+                                                          src={
+                                                              item.company_logo
+                                                          }
+                                                          height={40}
+                                                          width={100}
+                                                          alt="Norway"
+                                                      />
+                                                  </Box>
+                                              </Card.Section>
 
-                                        <Group justify="space-between">
-                                            <Text
-                                                style={{
-                                                    color: "rgb(40, 89, 182)",
-                                                }}
-                                            >
-                                                {item.company_name}
-                                            </Text>
-                                            {item.status && (
-                                                <Badge
-                                                    color="pink"
-                                                    variant="light"
-                                                >
-                                                    {item.status == "1"
-                                                        ? "Đang làm"
-                                                        : "Đã hoàn thành"}
-                                                </Badge>
-                                            )}
-                                        </Group>
+                                              <Group justify="space-between">
+                                                  <Text
+                                                      style={{
+                                                          color: "rgb(40, 89, 182)",
+                                                      }}
+                                                  >
+                                                      {item.company_name}
+                                                  </Text>
+                                              </Group>
 
-                                        <Group justify="space-between" mb="xs">
-                                            <Text
-                                                fw={700}
-                                                style={{
-                                                    color: "rgb(40, 89, 182)",
-                                                }}
-                                            >
-                                                {item.job_simulation_name}
-                                            </Text>
-                                            {/* <Badge color="pink" variant="light">
+                                              <Group
+                                                  justify="space-between"
+                                                  mb="xs"
+                                              >
+                                                  <Text
+                                                      fw={700}
+                                                      style={{
+                                                          color: "rgb(40, 89, 182)",
+                                                      }}
+                                                  >
+                                                      {item.job_simulation_name}
+                                                  </Text>
+                                              </Group>
+                                              <Group
+                                                  gap={4}
+                                                  style={{
+                                                      color: "rgb(40, 89, 182)",
+                                                  }}
+                                              >
+                                                  <IconTag size="16px" />
+                                                  <Text size="16px">
+                                                      Hello world!
+                                                  </Text>
+                                              </Group>
+
+                                              <Group
+                                                  gap={4}
+                                                  mt={8}
+                                                  style={{
+                                                      color: "rgb(40, 89, 182)",
+                                                  }}
+                                              >
+                                                  <IconClockHour1 size="16px" />
+                                                  <Text size="16px">
+                                                      {
+                                                          item.job_simulation_time_spaced
+                                                      }
+                                                  </Text>
+                                              </Group>
+
+                                              <Text
+                                                  size="sm"
+                                                  c="dimmed"
+                                                  mt={8}
+                                                  lineClamp={2}
+                                              >
+                                                  {item.job_simulation_des}
+                                              </Text>
+                                          </Card>
+                                      </Skeleton>
+                                  ))
+                                : listJobSimulation.length > 0 &&
+                                  listJobSimulation.map((item) => (
+                                      <Card
+                                          key={item.job_simulation_id}
+                                          shadow="sm"
+                                          padding="lg"
+                                          radius="md"
+                                          w={320}
+                                          withBorder
+                                          component="a"
+                                          href={`/job_detail/${item.job_simulation_id}`}
+                                          className={styles.jobHover}
+                                      >
+                                          <Card.Section
+                                              style={{ position: "relative" }}
+                                          >
+                                              <Image
+                                                  src={
+                                                      item.job_simulation_thumnail
+                                                  }
+                                                  height={160}
+                                                  alt="Norway"
+                                              />
+                                              <Box
+                                                  h={40}
+                                                  style={{
+                                                      position: "absolute",
+                                                      bottom: 0,
+                                                      left: "10px",
+                                                      borderTopLeftRadius:
+                                                          "4px",
+                                                      borderTopRightRadius:
+                                                          "4px",
+                                                      overflow: "hidden",
+                                                  }}
+                                              >
+                                                  <Image
+                                                      src={item.company_logo}
+                                                      height={40}
+                                                      width={100}
+                                                      alt="Norway"
+                                                  />
+                                              </Box>
+                                          </Card.Section>
+
+                                          <Group justify="space-between">
+                                              <Text
+                                                  style={{
+                                                      color: "rgb(40, 89, 182)",
+                                                  }}
+                                              >
+                                                  {item.company_name}
+                                              </Text>
+                                              {item.status && (
+                                                  <Badge
+                                                      color="pink"
+                                                      variant="light"
+                                                  >
+                                                      {item.status == "1"
+                                                          ? "Đang làm"
+                                                          : "Đã hoàn thành"}
+                                                  </Badge>
+                                              )}
+                                          </Group>
+
+                                          <Group
+                                              justify="space-between"
+                                              mb="xs"
+                                          >
+                                              <Text
+                                                  fw={700}
+                                                  style={{
+                                                      color: "rgb(40, 89, 182)",
+                                                  }}
+                                              >
+                                                  {item.job_simulation_name}
+                                              </Text>
+                                              {/* <Badge color="pink" variant="light">
                                             In Progress
                                         </Badge> */}
-                                        </Group>
-                                        <Group
-                                            gap={4}
-                                            style={{
-                                                color: "rgb(40, 89, 182)",
-                                            }}
-                                        >
-                                            <IconTag size="16px" />
-                                            <Text size="16px">
-                                                {item.job_category_name}
-                                            </Text>
-                                        </Group>
+                                          </Group>
+                                          <Group
+                                              gap={4}
+                                              style={{
+                                                  color: "rgb(40, 89, 182)",
+                                              }}
+                                          >
+                                              <IconTag size="16px" />
+                                              <Text size="16px">
+                                                  {item.job_category_name}
+                                              </Text>
+                                          </Group>
 
-                                        <Group
-                                            gap={4}
-                                            mt={8}
-                                            style={{
-                                                color: "rgb(40, 89, 182)",
-                                            }}
-                                        >
-                                            <IconClockHour1 size="16px" />
-                                            <Text size="16px">
-                                                {
-                                                    item.job_simulation_time_spaced
-                                                }
-                                            </Text>
-                                        </Group>
+                                          <Group
+                                              gap={4}
+                                              mt={8}
+                                              style={{
+                                                  color: "rgb(40, 89, 182)",
+                                              }}
+                                          >
+                                              <IconClockHour1 size="16px" />
+                                              <Text size="16px">
+                                                  {
+                                                      item.job_simulation_time_spaced
+                                                  }
+                                              </Text>
+                                          </Group>
 
-                                        <Text
-                                            size="sm"
-                                            c="dimmed"
-                                            mt={8}
-                                            lineClamp={2}
-                                        >
-                                            {item.job_simulation_des}
-                                        </Text>
-                                    </Card>
-                                ))}
+                                          <Text
+                                              size="sm"
+                                              c="dimmed"
+                                              mt={8}
+                                              lineClamp={2}
+                                          >
+                                              {item.job_simulation_des}
+                                          </Text>
+                                      </Card>
+                                  ))}
                         </SimpleGrid>
                     </Stack>
                 </Center>
