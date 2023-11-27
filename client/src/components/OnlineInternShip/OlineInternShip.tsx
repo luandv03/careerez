@@ -189,6 +189,7 @@ export const OnlineInternShip = () => {
                 1,
                 10
             );
+            setLoadingJob(false);
 
             if (res.statusCode === 200) {
                 return setListJobSimulation(res.data.job_simulations);
@@ -201,7 +202,6 @@ export const OnlineInternShip = () => {
                 1,
                 10
             );
-
         setLoadingJob(false);
 
         if (res.statusCode === 200) {
@@ -222,6 +222,7 @@ export const OnlineInternShip = () => {
                 1,
                 10
             );
+            setLoadingJob(false);
 
             if (res.statusCode === 200) {
                 return setListJobSimulation(res.data.job_simulations);
