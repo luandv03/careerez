@@ -454,20 +454,20 @@ export const OnlineInternShip = () => {
                         <SimpleGrid cols={3} p={20} spacing={50}>
                             {loadingJob
                                 ? JOB_INIT.map((item) => (
-                                      <Skeleton>
-                                          <Card
-                                              key={item.job_simulation_id}
-                                              shadow="sm"
-                                              padding="lg"
-                                              radius="md"
-                                              w={320}
-                                              withBorder
+                                      <Card
+                                          key={item.job_simulation_id}
+                                          shadow="sm"
+                                          padding="lg"
+                                          radius="md"
+                                          w={320}
+                                          withBorder
+                                      >
+                                          <Card.Section
+                                              style={{
+                                                  position: "relative",
+                                              }}
                                           >
-                                              <Card.Section
-                                                  style={{
-                                                      position: "relative",
-                                                  }}
-                                              >
+                                              <Skeleton>
                                                   <Image
                                                       src={
                                                           item.job_simulation_thumnail
@@ -475,31 +475,11 @@ export const OnlineInternShip = () => {
                                                       height={160}
                                                       alt="Norway"
                                                   />
-                                                  <Box
-                                                      h={40}
-                                                      style={{
-                                                          position: "absolute",
-                                                          bottom: 0,
-                                                          left: "10px",
-                                                          borderTopLeftRadius:
-                                                              "4px",
-                                                          borderTopRightRadius:
-                                                              "4px",
-                                                          overflow: "hidden",
-                                                      }}
-                                                  >
-                                                      <Image
-                                                          src={
-                                                              item.company_logo
-                                                          }
-                                                          height={40}
-                                                          width={100}
-                                                          alt="Norway"
-                                                      />
-                                                  </Box>
-                                              </Card.Section>
+                                              </Skeleton>
+                                          </Card.Section>
 
-                                              <Group justify="space-between">
+                                          <Group justify="space-between">
+                                              <Skeleton h={20} my={4}>
                                                   <Text
                                                       style={{
                                                           color: "rgb(40, 89, 182)",
@@ -507,12 +487,14 @@ export const OnlineInternShip = () => {
                                                   >
                                                       {item.company_name}
                                                   </Text>
-                                              </Group>
+                                              </Skeleton>
+                                          </Group>
 
-                                              <Group
-                                                  justify="space-between"
-                                                  mb="xs"
-                                              >
+                                          <Group
+                                              justify="space-between"
+                                              mb="xs"
+                                          >
+                                              <Skeleton h={20}>
                                                   <Text
                                                       fw={700}
                                                       style={{
@@ -521,34 +503,44 @@ export const OnlineInternShip = () => {
                                                   >
                                                       {item.job_simulation_name}
                                                   </Text>
-                                              </Group>
-                                              <Group
-                                                  gap={4}
-                                                  style={{
-                                                      color: "rgb(40, 89, 182)",
-                                                  }}
-                                              >
+                                              </Skeleton>
+                                          </Group>
+                                          <Group
+                                              gap={4}
+                                              style={{
+                                                  color: "rgb(40, 89, 182)",
+                                              }}
+                                          >
+                                              <Skeleton w={20} h={20}>
                                                   <IconTag size="16px" />
+                                              </Skeleton>
+                                              <Skeleton w={80} h={20}>
                                                   <Text size="16px">
                                                       Hello world!
                                                   </Text>
-                                              </Group>
+                                              </Skeleton>
+                                          </Group>
 
-                                              <Group
-                                                  gap={4}
-                                                  mt={8}
-                                                  style={{
-                                                      color: "rgb(40, 89, 182)",
-                                                  }}
-                                              >
+                                          <Group
+                                              gap={4}
+                                              mt={8}
+                                              style={{
+                                                  color: "rgb(40, 89, 182)",
+                                              }}
+                                          >
+                                              <Skeleton w={20} h={20}>
                                                   <IconClockHour1 size="16px" />
+                                              </Skeleton>
+                                              <Skeleton w={40} h={20}>
                                                   <Text size="16px">
                                                       {
                                                           item.job_simulation_time_spaced
                                                       }
                                                   </Text>
-                                              </Group>
+                                              </Skeleton>
+                                          </Group>
 
+                                          <Skeleton mt={4}>
                                               <Text
                                                   size="sm"
                                                   c="dimmed"
@@ -557,8 +549,8 @@ export const OnlineInternShip = () => {
                                               >
                                                   {item.job_simulation_des}
                                               </Text>
-                                          </Card>
-                                      </Skeleton>
+                                          </Skeleton>
+                                      </Card>
                                   ))
                                 : listJobSimulation.length > 0 &&
                                   listJobSimulation.map((item) => (
