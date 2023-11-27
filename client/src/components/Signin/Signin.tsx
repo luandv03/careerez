@@ -1,5 +1,5 @@
 import { useGoogleLogin } from "@react-oauth/google";
-import { useContext } from "react";
+import { useContext, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { useToggle, upperFirst } from "@mantine/hooks";
 import { useForm } from "@mantine/form";
@@ -14,13 +14,16 @@ import {
     Anchor,
     Stack,
     Center,
+    Overlay,
 } from "@mantine/core";
 
 import styles from "./Signin.module.css";
 import { authService } from "../../services/auth.service";
 import { AuthContext } from "../../providers/AuthProvider";
+import { Loading } from "../Loading";
 
 export const Signin = () => {
+    const [visible, setVisible] = useState(false);
     const [type, toggle] = useToggle(["login", "register"]);
     const form = useForm({
         initialValues: {
@@ -47,9 +50,12 @@ export const Signin = () => {
             //     "http://localhost:5000/api/v1/auth/google",
             //     { token: credentialResponse.access_token }
             // );
+            setVisible(true);
             const res = await authService.loginWithGoogle(
                 credentialResponse.access_token
             );
+
+            setVisible(false);
 
             if (res.statusCode === 200) {
                 localStorage.setItem("access_token", res.data.access_token);
@@ -58,6 +64,7 @@ export const Signin = () => {
                 const response = await authService.getProfile();
                 setProfile(response.data);
                 localStorage.setItem("isAuthenticated", "true");
+
                 navigate("/");
             }
         },
@@ -66,6 +73,30 @@ export const Signin = () => {
 
     return (
         <div className={styles.container}>
+            <>
+                {visible && (
+                    <Overlay
+                        style={{
+                            position: "fixed",
+                            width: "100%",
+                            height: "100%",
+                            background: "rgba(0, 0, 0, 0.5)",
+                        }}
+                    >
+                        <div
+                            style={{
+                                width: "100%",
+                                height: "100vh",
+                                display: "flex",
+                                justifyContent: "center",
+                                alignItems: "center",
+                            }}
+                        >
+                            <Loading />
+                        </div>
+                    </Overlay>
+                )}
+            </>
             <div className={styles.content}>
                 <Center>
                     <h1>Đăng nhập</h1>
