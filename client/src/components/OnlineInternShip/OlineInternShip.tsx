@@ -181,6 +181,8 @@ export const OnlineInternShip = () => {
         setCompany("");
         comboboxJobCategory.closeDropdown();
 
+        setLoadingJob(true);
+
         if (!JSON.parse(localStorage.getItem("isAuthenticated") as string)) {
             const res = await jobSimulationService.getJobSimulationByCategoryId(
                 jobCategory,
@@ -193,24 +195,25 @@ export const OnlineInternShip = () => {
             }
         }
 
-        setLoadingJob(true);
         const res =
             await jobSimulationService.getJobSimulationByCategoryIdAndUserId(
                 jobCategory,
                 1,
                 10
             );
-        setLoadingJob(false);
 
         if (res.statusCode === 200) {
             return setListJobSimulation(res.data.job_simulations);
         }
+        setLoadingJob(false);
     };
 
     const handleGetListJobSimulationByCompany = async (company: string) => {
         setCompany(company);
         setJobCategory("");
         comboboxCompany.closeDropdown();
+
+        setLoadingJob(true);
 
         if (!JSON.parse(localStorage.getItem("isAuthenticated") as string)) {
             const res = await jobSimulationService.getJobSimulationByCompanyId(
@@ -234,6 +237,7 @@ export const OnlineInternShip = () => {
         if (res.statusCode === 200) {
             return setListJobSimulation(res.data.job_simulations);
         }
+        setLoadingJob(false);
     };
 
     useEffect(() => {
