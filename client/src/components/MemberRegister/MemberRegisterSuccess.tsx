@@ -1,9 +1,19 @@
 import { useEffect } from "react";
 import { Alert, Center, Stack, Text } from "@mantine/core";
 import { IconCircleCheck } from "@tabler/icons-react";
+import { useSearchParams } from "react-router-dom";
 
 export const MemberRegisterSuccess = () => {
+    const [searchParams] = useSearchParams();
+
     useEffect(() => {
+        localStorage.setItem(
+            "user_buy_service_pack_id",
+            JSON.stringify(
+                Number(searchParams.get("user_buy_service_pack_id") as string)
+            )
+        );
+
         const timer = setTimeout(() => {
             window.close();
         }, 300);

@@ -25,6 +25,20 @@ class JobSimulationService extends BaseService {
         }
     }
 
+    // getListCompanyByCategoryId
+    async getListCompanyByCategoryId(listCategoryId: number[]) {
+        try {
+            const res = await this.httpClientPublic.post(
+                `/job_simulation/job_category/company/all/view`,
+                { listCategoryId }
+            );
+
+            return res.data;
+        } catch (error) {
+            return error;
+        }
+    }
+
     async getJobSimulationByCategoryId(
         jobCategoryName: string,
         page: number,
@@ -129,10 +143,14 @@ class JobSimulationService extends BaseService {
     }
 
     // register job simulation
-    async registerJobSimulationById(jobSimulationId: number) {
+    async registerJobSimulationById(
+        jobCategoryId: number,
+        companyId: number,
+        jobSimulationId: number
+    ) {
         try {
             const res = await this.httpClientPrivate.post(
-                `/job_simulation/${jobSimulationId}/register`
+                `/job_simulation/${jobSimulationId}/job_category/${jobCategoryId}/company/${companyId}/register`
             );
 
             return res.data;
@@ -141,10 +159,54 @@ class JobSimulationService extends BaseService {
         }
     }
 
-    async getTaskRequirement(taskId: number, requirementnumber: number) {
+    async getTaskRequirement(
+        jobSimulationId: number,
+        taskId: number,
+        requirementnumber: number
+    ) {
         try {
-            const res = await this.httpClientPublic.get(
-                `/job_simulation/task/${taskId}/requirement_number/${requirementnumber}/view`
+            const res = await this.httpClientPrivate.get(
+                `/job_simulation/${jobSimulationId}/task/${taskId}/requirement_number/${requirementnumber}/view`
+            );
+
+            return res.data;
+        } catch (error) {
+            return error;
+        }
+    }
+
+    async registerPackService(servicePackId: number) {
+        try {
+            const res = await this.httpClientPrivate.post(
+                `/service_pack/${servicePackId}/register`
+            );
+
+            return res.data;
+        } catch (error) {
+            return error;
+        }
+    }
+
+    async getUserBuyServicePackById(userBuyServicePackId: number) {
+        try {
+            const res = await this.httpClientPrivate.get(
+                `/user_buy_service_pack/${userBuyServicePackId}/view`
+            );
+
+            return res.data;
+        } catch (error) {
+            return error;
+        }
+    }
+
+    async applyServicePackJobCategoryCompany(
+        userBuyServicePackId: number,
+        payload: { job_category_id: number; company_id: number }[]
+    ) {
+        try {
+            const res = await this.httpClientPrivate.post(
+                `/user_buy_service_pack/${userBuyServicePackId}/apply`,
+                { payload }
             );
 
             return res.data;

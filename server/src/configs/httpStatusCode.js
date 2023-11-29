@@ -8,4 +8,5 @@ export const HttpStatusCode = {
     NOT_ACCEPTABLE: 406,
     INTERNAL_SERVER_ERROR: 500,
     BAD_GATEWAY: 502,
+    FORBIDDEN: 403,
 };

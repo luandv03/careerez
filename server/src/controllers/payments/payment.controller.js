@@ -1,5 +1,6 @@
 import https from "https";
 import crypto from "crypto";
+import { jobSimulationService } from "../../services/job_simulations/job_simulation.service.js";
 
 export class PaymentController {
     // ############ MOMO ###########
@@ -10,11 +11,13 @@ export class PaymentController {
             const secretKey = "K951B6PE1waDMi640xX08PD3vg6EkVlz";
             const orderInfo = "pay with MoMo";
             const partnerCode = "MOMO";
+            const service_pack_id = request.query.service_pack_id;
+
             // const redirectUrl =
             //     "https://webhook.site/b3088a6a-2d17-4f8d-a383-71389a6c600b";
             const redirectUrl =
-                process.env.DOMAIN_CLIENT +
-                `/member_register/${request.query.order_id}/success`;
+                process.env.DOMAIN_SERVER +
+                `/payment/momo/return_url?service_pack_id=${service_pack_id}`;
             const ipnUrl =
                 "https://webhook.site/b3088a6a-2d17-4f8d-a383-71389a6c600b";
             const requestType = "payWithMethod";
@@ -131,19 +134,18 @@ export class PaymentController {
             } = req.query;
             // save into db
 
-            // const data = await paymentService.createPaymentMomoTrans({
-            //     orderId: Number(orderId),
-            //     partnerCode: partnerCode,
-            //     requestId: requestId,
-            //     amount: amount,
-            //     orderType: orderType,
-            //     transId: transId,
-            //     resultCode: resultCode,
-            //     message: message,
-            //     payType: payType,
-            //     signature: signature,
-            // });
-            res.render(process.env.DOMAIN_CLIENT, { code: resultCode });
+            const { service_pack_id } = req.query;
+            const { user_id } = res.locals.data;
+
+            const data = await jobSimulationService.registerPackService(
+                Number(service_pack_id),
+                Number(user_id)
+            );
+
+            res.render(
+                process.env.DOMAIN_CLIENT +
+                    `/member_register/${orderId}/success?user_buy_service_pack_id=${data.data.user_buy_service_pack.user_buy_service_pack_id}`
+            );
         } catch (error) {
             res.status(500).json({
                 statusCode: 500,

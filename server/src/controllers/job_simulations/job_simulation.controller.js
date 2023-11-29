@@ -30,6 +30,24 @@ export class JobSimulationController {
         }
     }
 
+    async getListCompanyByCategoryId(req, res, next) {
+        try {
+            const { listCategoryId } = req.body;
+
+            const data = await jobSimulationService.getListCompanyByCategoryId(
+                listCategoryId
+            );
+
+            return res.status(data.statusCode).json(data);
+        } catch (error) {
+            return res.status(HttpStatusCode.INTERNAL_SERVER_ERROR).json({
+                statusCode: HttpStatusCode.INTERNAL_SERVER_ERROR,
+                message: "Internal Server Error",
+                error,
+            });
+        }
+    }
+
     async getJobSimulationByCategoryId(req, res, next) {
         try {
             const { job_category_name, page, limit } = req.query;
@@ -78,8 +96,6 @@ export class JobSimulationController {
     async getJobSimulationByCompanyId(req, res, next) {
         try {
             const { company_name, page, limit } = req.query;
-
-            console.log(company_name);
 
             const data = await jobSimulationService.getJobSimulationByCompanyId(
                 company_name,
@@ -182,10 +198,13 @@ export class JobSimulationController {
     // register job simulation
     async registerJobSimulationById(req, res, next) {
         try {
-            const { job_simulation_id } = req.params;
+            const { job_simulation_id, job_category_id, company_id } =
+                req.params;
             const { user_id } = res.locals.data;
 
             const data = await jobSimulationService.registerJobSimulationById(
+                Number(job_category_id),
+                Number(company_id),
                 Number(job_simulation_id),
                 Number(user_id)
             );
@@ -208,6 +227,65 @@ export class JobSimulationController {
                 Number(task_id),
                 Number(requirement_number)
             );
+
+            return res.status(data.statusCode).json(data);
+        } catch (error) {
+            return res.status(HttpStatusCode.INTERNAL_SERVER_ERROR).json({
+                statusCode: HttpStatusCode.INTERNAL_SERVER_ERROR,
+                message: "Internal Server Error",
+                error,
+            });
+        }
+    }
+
+    async registerPackService(req, res) {
+        try {
+            const { service_pack_id } = req.params;
+            const { user_id } = res.locals.data;
+
+            const data = await jobSimulationService.registerPackService(
+                Number(service_pack_id),
+                Number(user_id)
+            );
+
+            return res.status(data.statusCode).json(data);
+        } catch (error) {
+            return res.status(HttpStatusCode.INTERNAL_SERVER_ERROR).json({
+                statusCode: HttpStatusCode.INTERNAL_SERVER_ERROR,
+                message: "Internal Server Error",
+                error,
+            });
+        }
+    }
+
+    async getUserBuyServicePackById(req, res) {
+        try {
+            const { user_buy_service_pack_id } = req.params;
+
+            const data = await jobSimulationService.getUserBuyServicePackById(
+                Number(user_buy_service_pack_id)
+            );
+
+            return res.status(data.statusCode).json(data);
+        } catch (error) {
+            return res.status(HttpStatusCode.INTERNAL_SERVER_ERROR).json({
+                statusCode: HttpStatusCode.INTERNAL_SERVER_ERROR,
+                message: "Internal Server Error",
+                error,
+            });
+        }
+    }
+
+    async applyServicePackJobCategoryCompany(req, res) {
+        try {
+            const { user_buy_service_pack_id } = req.params;
+            const { payload } = req.body;
+
+            const data =
+                await jobSimulationService.applyServicePackJobCategoryCompany(
+                    Number(user_buy_service_pack_id),
+                    payload
+                );
 
             return res.status(data.statusCode).json(data);
         } catch (error) {

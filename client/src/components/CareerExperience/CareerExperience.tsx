@@ -169,7 +169,7 @@ export const CareerExperience = () => {
                     loading="lazy"
                 />
                 <div className={styles.title}>
-                    <h1>Trải nghiệm nghề nghiệp</h1>
+                    <h1>Tổng quan ngành nghề</h1>
                 </div>
             </motion.div>
             <div className={styles.about}>

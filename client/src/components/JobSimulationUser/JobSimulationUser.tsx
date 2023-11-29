@@ -28,6 +28,7 @@ import { ReadMore } from "../ReadMore";
 import { jobSimulationService } from "../../services/job_simulation.service";
 import { JobSimulation } from "../JobSimualtion";
 import { Requirement } from "../Requirement";
+import { notifications } from "@mantine/notifications";
 
 interface ITask {
     task_id: number;
@@ -40,6 +41,7 @@ interface ITask {
     task_video_intro: string;
     task_number: number;
     task_level: string;
+    number_of_requirement: number;
 }
 
 const JOB_DETAIL_INIT = {
@@ -94,18 +96,37 @@ export const JobSimulationUser = () => {
         }
     };
 
-    const handleGetTaskRequirement = async () => {
-        const res = await jobSimulationService.getTaskRequirement(1, 1);
+    const handleSeletectTask = (taskNumber: number) => {
+        setSeletectedTasks(taskNumber);
+        setPageNumber(1);
+    };
+
+    const handleChangeTaskRequirement = async (
+        taskId: number,
+        pageNumber: number
+    ) => {
+        if (pageNumber === 1) return setPageNumber(pageNumber);
+
+        const res = await jobSimulationService.getTaskRequirement(
+            Number(job_simulation_id),
+            taskId,
+            pageNumber - 1
+        );
 
         if (res.statusCode === 200) {
-            setRequirement(res.data.requirement);
+            setPageNumber(pageNumber);
+            return setRequirement(res.data.requirement);
         }
+
+        notifications.show({
+            message: res.message,
+        });
     };
 
     useEffect(() => {
         handleGetJobSimulationDetail();
         handleGetTaskByJobId();
-        handleGetTaskRequirement();
+
         // eslint-disable-next-line react-hooks/exhaustive-deps
     }, []);
 
@@ -319,7 +340,7 @@ export const JobSimulationUser = () => {
                                                                     : "rgb(247, 247, 247)",
                                                         }}
                                                         onClick={() =>
-                                                            setSeletectedTasks(
+                                                            handleSeletectTask(
                                                                 item.task_number
                                                             )
                                                         }
@@ -375,10 +396,22 @@ export const JobSimulationUser = () => {
                                                 </Text>
 
                                                 <Pagination
-                                                    total={4}
+                                                    total={
+                                                        tasks[
+                                                            seletectedTasks - 1
+                                                        ].number_of_requirement
+                                                    }
                                                     value={pageNumber}
-                                                    onChange={(value) =>
-                                                        setPageNumber(value)
+                                                    onChange={
+                                                        (value) =>
+                                                            handleChangeTaskRequirement(
+                                                                tasks[
+                                                                    seletectedTasks -
+                                                                        1
+                                                                ].task_id,
+                                                                value
+                                                            )
+                                                        // setPageNumber(value)
                                                     }
                                                 />
                                             </Group>

@@ -8,27 +8,32 @@ import {
     Button,
     Overlay,
     Modal,
-    // ScrollArea,
-    // RemoveScroll,
 } from "@mantine/core";
 import { useDisclosure } from "@mantine/hooks";
 import { useNavigate } from "react-router-dom";
 import { useState } from "react";
+import { IconCircleCheck } from "@tabler/icons-react";
 
 import classes from "./MemberRegister.module.css";
 import { createWindow } from "../../helpers/createWindow";
 import { BASE_URL_API } from "../../configs/server.config";
 import { Loading } from "../Loading";
-import { IconCircleCheck } from "@tabler/icons-react";
+import { ModalPackService } from "../ModalPackService";
+import { jobSimulationService } from "../../services/job_simulation.service";
 
 export const MemberRegister = () => {
     const navigate = useNavigate();
     const [visible, setVisible] = useState(false);
     const [opened, { open, close }] = useDisclosure(false);
-    // const [opened, { open, close }] = useDisclosure(false);
-    // const [link, setLink] = useState<string>("");
+    const [openedJob, { open: openJob, close: closeJob }] =
+        useDisclosure(false);
+    const [userBuyServicePackId, setUserBuyServicePackId] = useState(0);
 
-    const handleRegsiterService = (amount: number, orderId: string) => {
+    const handleRegsiterService = async (
+        servicePackId: number,
+        amount: number,
+        orderId: string
+    ) => {
         // check login
 
         if (!JSON.parse(localStorage.getItem("isAuthenticated") as string)) {
@@ -39,22 +44,40 @@ export const MemberRegister = () => {
         if (amount == 0) {
             setVisible(true);
 
+            const res = await jobSimulationService.registerPackService(
+                servicePackId
+            );
+
+            if (res.statusCode === 200) {
+                setUserBuyServicePackId(
+                    res.data.user_buy_service_pack.user_buy_service_pack_id
+                );
+            }
+
             setTimeout(() => {
                 setVisible(false);
                 open();
 
                 setTimeout(() => {
-                    navigate("/");
-                }, 1000);
+                    close();
+
+                    setTimeout(() => {
+                        openJob();
+                    }, 500);
+                }, 500);
             }, 500);
         } else {
+            setVisible(true);
             orderId += Date.now();
-            amount = amount / 100;
+            // amount = amount / 100;
 
             let timer: ReturnType<typeof setTimeout> | null = null;
 
+            // remove user_buy_service_pack_id cũ
+            localStorage.removeItem("user_buy_service_pack_id");
+
             const windowPayment = createWindow(
-                `${BASE_URL_API}/payment/momo?amount=${amount}&order_id=${orderId}`,
+                `${BASE_URL_API}/payment/momo?amount=${amount}&order_id=${orderId}&service_pack_id=${servicePackId}`,
                 "_blank",
                 800,
                 800
@@ -63,49 +86,45 @@ export const MemberRegister = () => {
             if (windowPayment) {
                 timer = setInterval(async () => {
                     if (windowPayment.closed) {
-                        navigate("/");
+                        const user_buy_service_pack_id = JSON.parse(
+                            localStorage.getItem(
+                                "user_buy_service_pack_id"
+                            ) as string
+                        );
+
+                        if (user_buy_service_pack_id) {
+                            setUserBuyServicePackId(user_buy_service_pack_id);
+
+                            setTimeout(() => {
+                                setVisible(false);
+                                open();
+
+                                setTimeout(() => {
+                                    close();
+
+                                    setTimeout(() => {
+                                        openJob();
+                                    }, 500);
+                                }, 500);
+                            }, 500);
+                        }
+                        setVisible(false);
 
                         if (timer) clearInterval(timer);
                     }
                 }, 500);
             }
         }
-
-        // open();
-
-        // setLink(
-        //     `${BASE_URL_API}/payment/momo?amount=${amount}&order_id=${orderId}`
-        // );
-
-        // createWindow(
-        //     `${BASE_URL_API}/payment/momo?amount=${amount}&order_id=${orderId}`,
-        //     "_self",
-        //     800,
-        //     800
-        // );
     };
 
     return (
         <Stack p={50}>
-            {/* <Modal
-                opened={opened}
-                onClose={close}
-                size="xl"
-                // yOffset="1vh"
-                xOffset={0}
-                scrollAreaComponent={ScrollArea.Autosize}
-                className={classes.scrollbarY}
-                // className={RemoveScroll.classNames.fullWidth}
-            >
-                <iframe
-                    src={link}
-                    style={{
-                        width: "100%",
-                        height: "800px",
-                    }}
-                    className={RemoveScroll.classNames.zeroRight}
-                />
-            </Modal> */}
+            <ModalPackService
+                openedJob={openedJob}
+                closeJob={closeJob}
+                userBuyServicePackId={userBuyServicePackId}
+            />
+            {/* <Button onClick={openJob}>Mo modal</Button> */}
             {visible && (
                 <Overlay
                     style={{
@@ -149,7 +168,7 @@ export const MemberRegister = () => {
                 </Text>
             </Center>
             <Center>
-                <Text fw={500} size="20px" align="center">
+                <Text fw={500} size="20px" style={{ textAlign: "center" }}>
                     Đăng kí thành viên là cách tốt nhất để bạn trải nghiệm toàn
                     bộ nền tảng của chúng tôi và nhận được nhiều ưu đãi độc
                     quyền. Hãy cùng CareerEZ hướng đến sự phát triển cá nhân và
@@ -216,7 +235,11 @@ export const MemberRegister = () => {
                                         w={200}
                                         className={classes.btnRegister}
                                         onClick={() =>
-                                            handleRegsiterService(0, "2023A1")
+                                            handleRegsiterService(
+                                                1,
+                                                0,
+                                                "2023A1"
+                                            )
                                         }
                                     >
                                         <Text>Đăng ký</Text>
@@ -299,6 +322,7 @@ export const MemberRegister = () => {
                                         className={classes.btnRegister}
                                         onClick={() =>
                                             handleRegsiterService(
+                                                2,
                                                 999000,
                                                 "2023A2"
                                             )
@@ -393,6 +417,7 @@ export const MemberRegister = () => {
                                         className={classes.btnRegister}
                                         onClick={() =>
                                             handleRegsiterService(
+                                                3,
                                                 3000000,
                                                 "2023A3"
                                             )

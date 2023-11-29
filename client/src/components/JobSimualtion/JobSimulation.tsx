@@ -22,9 +22,10 @@ import {
     IconCircleCheck,
 } from "@tabler/icons-react";
 import { useState, useEffect } from "react";
-import { useNavigate, useParams } from "react-router-dom";
+import { useNavigate, useParams, useSearchParams } from "react-router-dom";
 import { useDisclosure } from "@mantine/hooks";
 import { motion } from "framer-motion";
+import { notifications } from "@mantine/notifications";
 
 import { ReadMore } from "../ReadMore";
 import { Loading } from "../Loading";
@@ -62,6 +63,7 @@ export const JobSimulation = () => {
     const [tasks, setTasks] = useState<ITask[] | []>([]);
     const [seletectedTasks, setSeletectedTasks] = useState(1);
     const { job_simulation_id } = useParams();
+    const [searchParams] = useSearchParams();
     const navigate = useNavigate();
     const [visible, setVisible] = useState(false);
     const [opened, { open, close }] = useDisclosure(false);
@@ -84,8 +86,23 @@ export const JobSimulation = () => {
         }
 
         const res = await jobSimulationService.registerJobSimulationById(
+            Number(searchParams.get("job_category_id")),
+            Number(searchParams.get("company_id")),
             Number(job_simulation_id)
         );
+
+        if (res.statusCode === 403) {
+            setTimeout(() => {
+                setVisible(false);
+
+                notifications.show({
+                    title: "Chú ý",
+                    message: `${res.message}! 🤥`,
+                });
+            }, 500);
+
+            return;
+        }
 
         if (res.statusCode === 200) {
             /// thong bao thanh cong
@@ -238,6 +255,7 @@ export const JobSimulation = () => {
                             </Group>
 
                             <Button
+                                w={200}
                                 color="rgb(40, 89, 182)"
                                 onClick={() => handleRegisterJob()}
                             >

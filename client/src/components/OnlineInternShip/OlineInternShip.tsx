@@ -268,7 +268,7 @@ export const OnlineInternShip = () => {
                     loading="lazy"
                 />
                 <div className={styles.title}>
-                    <h1>Thực tập trực tuyến</h1>
+                    <h1>Trải nghiệm ngành nghề</h1>
                 </div>
             </motion.div>
             <div className={styles.about}>
@@ -563,7 +563,7 @@ export const OnlineInternShip = () => {
                                           w={320}
                                           withBorder
                                           component="a"
-                                          href={`/job_detail/${item.job_simulation_id}`}
+                                          href={`/job_detail/${item.job_simulation_id}?job_category_id=${item.job_category_id}&company_id=${item.company_id}`}
                                           className={styles.jobHover}
                                       >
                                           <Card.Section

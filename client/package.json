@@ -13,6 +13,7 @@
         "@mantine/core": "^7.2.2",
         "@mantine/form": "^7.2.2",
         "@mantine/hooks": "^7.2.2",
+        "@mantine/notifications": "^7.2.2",
         "@mantine/tiptap": "^7.2.2",
         "@react-oauth/google": "^0.11.1",
         "@tabler/icons-react": "^2.41.0",

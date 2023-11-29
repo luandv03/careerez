@@ -26,6 +26,41 @@ class JobSimulationService {
         };
     }
 
+    async getListCompanyByCategoryId(listCategoryId) {
+        const result =
+            await query(`SELECT jsonb_pretty(jsonb_agg(js_object)) result
+        FROM (
+        select
+            jsonb_build_object(
+                'job_category_id', job_category_id,
+                'job_category_name', job_category_name,
+                'list_company', jsonb_agg(company)
+            ) js_object
+        from (select jc.*,  jsonb_build_object(
+                                    'company_id', company_id,
+                                    'company_name', company_name
+                                ) company
+        from job_category jc
+        join job_category_company jcc using(job_category_id)
+        join company c using(company_id)
+        where job_category_id IN (${listCategoryId})
+        ) l
+        group by job_category_id, job_category_name
+        ) l`);
+
+        return {
+            statusCode: HttpStatusCode.OK,
+            message: "Get List Company OK",
+            data: {
+                list_job_category: !!result.rows[0].result
+                    ? JSON.parse(result.rows[0].result)
+                    : [],
+            },
+        };
+    }
+
+    // apply service pack to job category and company
+
     //user don't login
     async getJobSimulationByCategoryId(job_category_name, page, limit) {
         const offset = (page - 1) * limit;
@@ -144,7 +179,11 @@ class JobSimulationService {
 
     async getTaskByJobId(jobId) {
         const result = await query(
-            `select * from task where job_simulation_id = $1 order by task_number`,
+            `select task.*, count(requirement_id) number_of_requirement from task 
+            join requirement using(task_id)
+            where job_simulation_id = $1
+            group by task_id
+            order by task_number`,
             [jobId]
         );
 
@@ -177,7 +216,27 @@ class JobSimulationService {
         };
     }
 
-    async registerJobSimulationById(job_simulation_id, user_id) {
+    async registerJobSimulationById(
+        job_category_id,
+        company_id,
+        job_simulation_id,
+        user_id
+    ) {
+        // kiểm tra xem user này đã đăng ký goi dịch vụ chưa
+        const checkBuyServicePack = await query(
+            `select a.*, b.user_id from apply_service_pack_job_category_company a
+            join user_buy_service_pack b using(user_buy_service_pack_id)
+            where (a.job_category_id = $1 and a.company_id = $2) and user_id = $3`,
+            [job_category_id, company_id, user_id]
+        );
+
+        if (!checkBuyServicePack.rowCount) {
+            return {
+                statusCode: HttpStatusCode.FORBIDDEN,
+                message: "Hãy đăng ký dịch vụ để trải nghiệm nhé",
+            };
+        }
+
         const jobRegistration = await query(
             `SELECT * FROM user_enroll_job_simulation WHERE job_simulation_id = $1 AND user_id = $2`,
             [job_simulation_id, user_id]
@@ -191,8 +250,13 @@ class JobSimulationService {
         }
 
         const results = await query(
-            `INSERT INTO user_enroll_job_simulation VALUES ($1, $2, '1') RETURNING *`,
-            [user_id, job_simulation_id]
+            `INSERT INTO user_enroll_job_simulation VALUES (DEFAULT, $1, $2, $3, '1', now(), now()) RETURNING *`,
+            [
+                user_id,
+                job_simulation_id,
+                checkBuyServicePack.rows[0]
+                    .apply_service_pack_job_category_company_id,
+            ]
         );
 
         if (!results.rowCount) {
@@ -220,6 +284,91 @@ class JobSimulationService {
             data: {
                 requirement: result.rows[0],
             },
+        };
+    }
+
+    async registerPackService(servicePackId, userId) {
+        const result = await query(
+            `INSERT INTO user_buy_service_pack VALUES (DEFAULT, $1, $2, now(), now()) RETURNING *`,
+            [servicePackId, userId]
+        );
+
+        return {
+            statusCode: HttpStatusCode.OK,
+            message: "Register Service Pack Ok",
+            data: {
+                user_buy_service_pack: result.rows[0],
+            },
+        };
+    }
+
+    async getUserBuyServicePackById(user_buy_service_pack_id) {
+        const result = await query(`SELECT * FROM user_buy_service_pack`, [
+            user_buy_service_pack_id,
+        ]);
+
+        if (!result.rowCount) {
+            return {
+                statusCode: HttpStatusCode.OK,
+                message: "Ban chua dang ky goi dich vu nay",
+            };
+        }
+
+        let job_category_number = 0;
+        let company_number = 0;
+
+        switch (result.rows[0].service_pack_id) {
+            case 1:
+                job_category_number = 1;
+                company_number = 1;
+                break;
+            case 2:
+                job_category_number = 1;
+                company_number = 2;
+                break;
+            case 3:
+                job_category_number = 2;
+                company_number = 2;
+                break;
+        }
+
+        return {
+            statusCode: HttpStatusCode.OK,
+            message: "Register Service Pack Ok",
+            data: {
+                user_buy_service_pack: {
+                    ...result.rows[0],
+                    job_category_number,
+                    company_number,
+                },
+            },
+        };
+    }
+
+    async applyServicePackJobCategoryCompany(
+        user_buy_service_pack_id,
+        payload
+    ) {
+        let q = "INSERT INTO apply_service_pack_job_category_company VALUES ";
+        payload.map((item) => {
+            q += `(DEFAULT, ${item.job_category_id}, ${item.company_id}, ${user_buy_service_pack_id}, now(), now()),`;
+        });
+
+        q = q.slice(0, q.length - 1);
+
+        const result = await query(q);
+
+        if (!result.rowCount) {
+            return {
+                statusCode: HttpStatusCode.BAD_REQUEST,
+                message: "Áp dụng không thành công",
+            };
+        }
+
+        return {
+            statusCode: HttpStatusCode.OK,
+            message: "Áp dụng thành công",
+            data: result.rows,
         };
     }
 }
