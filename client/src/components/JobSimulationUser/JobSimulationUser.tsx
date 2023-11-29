@@ -10,6 +10,7 @@ import {
     Tabs,
     Image,
     Pagination,
+    Center,
 } from "@mantine/core";
 import {
     IconClockHour1,
@@ -23,12 +24,13 @@ import {
 } from "@tabler/icons-react";
 import { useParams } from "react-router-dom";
 import { useEffect, useState } from "react";
+import { notifications } from "@mantine/notifications";
 
 import { ReadMore } from "../ReadMore";
 import { jobSimulationService } from "../../services/job_simulation.service";
 import { JobSimulation } from "../JobSimualtion";
 import { Requirement } from "../Requirement";
-import { notifications } from "@mantine/notifications";
+import { Loading } from "../Loading";
 
 interface ITask {
     task_id: number;
@@ -74,6 +76,7 @@ export const JobSimulationUser = () => {
         requirement_name: "",
         requirement_des: "",
     });
+    const [loading, setLoading] = useState(false);
 
     const handleGetJobSimulationDetail = async () => {
         const res =
@@ -107,11 +110,13 @@ export const JobSimulationUser = () => {
     ) => {
         if (pageNumber === 1) return setPageNumber(pageNumber);
 
+        setLoading(true);
         const res = await jobSimulationService.getTaskRequirement(
             Number(job_simulation_id),
             taskId,
             pageNumber - 1
         );
+        setLoading(false);
 
         if (res.statusCode === 200) {
             setPageNumber(pageNumber);
@@ -397,9 +402,13 @@ export const JobSimulationUser = () => {
 
                                                 <Pagination
                                                     total={
-                                                        tasks[
-                                                            seletectedTasks - 1
-                                                        ].number_of_requirement
+                                                        Number(
+                                                            tasks[
+                                                                seletectedTasks -
+                                                                    1
+                                                            ]
+                                                                .number_of_requirement
+                                                        ) + 1
                                                     }
                                                     value={pageNumber}
                                                     onChange={
@@ -552,6 +561,16 @@ export const JobSimulationUser = () => {
                                                         ></video>
                                                     </Box>
                                                 </>
+                                            ) : loading ? (
+                                                <Center
+                                                    style={{
+                                                        background:
+                                                            "rgba(0, 0, 0, 0.5)",
+                                                    }}
+                                                    h={400}
+                                                >
+                                                    <Loading />
+                                                </Center>
                                             ) : (
                                                 <Requirement
                                                     requirement={requirement}
