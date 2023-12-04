@@ -36,6 +36,13 @@
     margin-top: 60px;
 }
 
+.aboutContent {
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    flex-wrap: wrap;
+}
+
 .aboutContentText {
     max-width: 667px;
 }
@@ -45,6 +52,7 @@
 }
 
 .aboutOptions {
+    width: 100%;
     display: flex;
     flex-direction: column;
     align-items: center;
@@ -155,6 +163,7 @@
 }
 
 .adviser {
+    width: 100%;
     display: flex;
     justify-content: center;
     margin-top: 50px;
@@ -197,6 +206,7 @@
 }
 
 .adviserItemAvatar img {
+    width: 100%;
     height: 100%;
 }
 
@@ -266,4 +276,124 @@
     font-size: 20px;
     font-weight: 700;
     white-space: wrap;
+}
+
+@media screen and (max-width: 992px) {
+    .aboutOptionsList {
+        width: 100%;
+        margin-top: 10px;
+        display: flex;
+        justify-content: center;
+        padding: 0 10px;
+    }
+
+    .aboutOptionsItem {
+        width: 200px;
+        height: 50px;
+        margin-left: 0;
+    }
+
+    .aboutOptionsItem:last-child {
+        margin-left: 10px;
+    }
+
+    .aboutOptionsItem button {
+        font-size: 16px;
+    }
+
+    .footer {
+        padding: 0;
+    }
+
+    .title {
+        font-size: 16px;
+        text-align: center;
+    }
+
+    .version {
+        flex-wrap: wrap;
+        margin-top: 40px;
+    }
+
+    .versionAvatar {
+        flex-basis: 100%;
+    }
+
+    .versionAbout {
+        flex-basis: 100%;
+    }
+
+    .versionAbout h1 {
+        font-size: 30px;
+    }
+
+    .versionAbout p {
+        margin-top: 20px;
+    }
+
+    .mission {
+        flex-wrap: wrap-reverse;
+        margin-top: 20px;
+    }
+
+    .missionAbout {
+        flex-basis: 100%;
+    }
+
+    .missionAvatar {
+        flex-basis: 100%;
+    }
+
+    .missionAboutContentTitle {
+        font-size: 30px;
+    }
+
+    .missionAboutContentList {
+        margin-top: 20px;
+    }
+
+    .adviserContent h1 {
+        font-size: 30px;
+    }
+
+    .adviserContent {
+        width: 100%;
+    }
+
+    .adviserList {
+        width: 100%;
+        margin-top: 20px;
+        grid-template-columns: auto;
+        grid-template-rows: auto;
+        margin-left: auto;
+        margin-right: auto;
+        gap: 20px;
+        padding: 0;
+    }
+
+    .adviserItem {
+        width: 100%;
+        background-color: rgba(201, 214, 237, 0.8);
+    }
+
+    .adviserItemAvatar {
+        width: 100%;
+    }
+
+    .adviserItemAvatar img {
+        object-fit: cover;
+    }
+
+    .baseValue h1 {
+        font-size: 36px;
+    }
+
+    .baseValueContentList {
+        display: flex;
+        flex-wrap: wrap;
+    }
+
+    .baseValueContentItem {
+        width: 100%;
+    }
 }

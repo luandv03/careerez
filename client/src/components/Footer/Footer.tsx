@@ -23,10 +23,20 @@ export const Footer = () => {
                     <div className={styles.socialMedia}>
                         <ul className={styles.socialMediaList}>
                             <li>
-                                <IconBrandFacebook />
+                                <a
+                                    href="https://www.facebook.com/careerez"
+                                    target="_blank"
+                                >
+                                    <IconBrandFacebook />
+                                </a>
                             </li>
                             <li>
-                                <IconBrandInstagram />
+                                <a
+                                    href="https://www.instagram.com/us.studyez"
+                                    target="_blank"
+                                >
+                                    <IconBrandInstagram />
+                                </a>
                             </li>
                             <li>
                                 <IconBrandYoutube />

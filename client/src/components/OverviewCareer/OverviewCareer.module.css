@@ -175,3 +175,27 @@
     box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
     cursor: pointer;
 }
+
+.footerCourseListGrid {
+    width: 100%;
+    padding: 20px;
+
+    @media (max-width: em(992px)) {
+        padding: 0;
+    }
+}
+
+@media screen and (max-width: 992px) {
+    .footer {
+        padding: 0;
+    }
+
+    .title {
+        font-size: 16px;
+        text-align: center;
+    }
+
+    .footerCourse {
+        padding: 0 10px;
+    }
+}

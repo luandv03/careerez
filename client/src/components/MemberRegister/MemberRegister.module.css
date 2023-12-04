@@ -25,3 +25,10 @@
 .scrollbarY::-webkit-scrollbar {
     display: none;
 }
+
+.packageServiceList {
+    padding: 50px;
+    @media (max-width: em(992px)) {
+        padding: 10px;
+    }
+}

@@ -379,7 +379,11 @@ export const OnlineInternShip = () => {
                         </Text>
 
                         <Center>
-                            <Flex gap={10}>
+                            <Flex
+                                gap={10}
+                                className={styles.comboBoxList}
+                                justify="center"
+                            >
                                 <Combobox
                                     store={comboboxJobCategory}
                                     onOptionSubmit={(val) => {
@@ -387,9 +391,7 @@ export const OnlineInternShip = () => {
                                             val
                                         );
                                     }}
-                                    style={{
-                                        width: "200px",
-                                    }}
+                                    className={styles.comboBoxItem}
                                 >
                                     <Combobox.Target>
                                         <InputBase
@@ -422,9 +424,7 @@ export const OnlineInternShip = () => {
                                             val
                                         );
                                     }}
-                                    style={{
-                                        width: "200px",
-                                    }}
+                                    className={styles.comboBoxItem}
                                 >
                                     <Combobox.Target>
                                         <InputBase
@@ -452,7 +452,11 @@ export const OnlineInternShip = () => {
                             </Flex>
                         </Center>
 
-                        <SimpleGrid cols={3} p={20} spacing={50}>
+                        <SimpleGrid
+                            cols={{ base: 1, sm: 2, lg: 3 }}
+                            p={20}
+                            spacing={50}
+                        >
                             {loadingJob
                                 ? JOB_INIT.map((item) => (
                                       <Card
@@ -578,6 +582,7 @@ export const OnlineInternShip = () => {
                                               />
                                               <Box
                                                   h={40}
+                                                  bg="#fff"
                                                   style={{
                                                       position: "absolute",
                                                       bottom: 0,

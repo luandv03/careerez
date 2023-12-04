@@ -125,10 +125,9 @@ export const OverviewCareer = () => {
                     <div className={styles.footerCourse}>
                         <div className={styles.footerCourseList}>
                             <SimpleGrid
-                                cols={2}
-                                p={20}
+                                cols={{ base: 1, sm: 2, lg: 2 }}
                                 spacing={50}
-                                style={{ width: "100%" }}
+                                className={styles.footerCourseListGrid}
                             >
                                 {COURSE_INIT.map((item) => (
                                     <Card

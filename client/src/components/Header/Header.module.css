@@ -1,8 +1,8 @@
 .container {
     width: 100%;
+    height: 100%;
     display: flex;
     flex-direction: column;
-    height: 165px;
 }
 
 .header {
@@ -68,6 +68,7 @@
 .signin a {
     align-self: flex-end;
     display: flex;
+    color: inherit;
 }
 
 .signin svg {
@@ -100,4 +101,28 @@
 
 .pending {
     color: red;
+}
+
+.authenticationMobile {
+    display: none;
+}
+
+@media screen and (max-width: 992px) {
+    .header {
+        padding: 0;
+    }
+
+    .footer {
+        display: none;
+    }
+
+    .authentication {
+        display: none;
+    }
+
+    .authenticationMobile {
+        display: flex;
+        align-items: flex-end;
+        cursor: pointer;
+    }
 }

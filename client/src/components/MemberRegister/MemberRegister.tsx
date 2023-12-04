@@ -163,7 +163,7 @@ export const MemberRegister = () => {
                 </Stack>
             </Modal>
             <Center>
-                <Text fw={700} size="30px">
+                <Text fw={700} size="30px" style={{ textAlign: "center" }}>
                     ĐĂNG KÍ THÀNH VIÊN
                 </Text>
             </Center>
@@ -177,8 +177,12 @@ export const MemberRegister = () => {
             </Center>
 
             <Center>
-                <Grid style={{ width: "100%" }} gutter="xl" p={50}>
-                    <Grid.Col span={4} h={600}>
+                <Grid
+                    style={{ width: "100%" }}
+                    gutter="xl"
+                    className={classes.packageServiceList}
+                >
+                    <Grid.Col span={{ base: 12, md: 6, lg: 4 }} h={600}>
                         <Box
                             h={500}
                             style={{
@@ -249,7 +253,7 @@ export const MemberRegister = () => {
                         </Box>
                     </Grid.Col>
 
-                    <Grid.Col span={4} h={600}>
+                    <Grid.Col span={{ base: 12, md: 6, lg: 4 }} h={600}>
                         <Box
                             h={500}
                             style={{
@@ -335,7 +339,7 @@ export const MemberRegister = () => {
                         </Box>
                     </Grid.Col>
 
-                    <Grid.Col span={4} h={600}>
+                    <Grid.Col span={{ base: 12, md: 6, lg: 4 }} h={600}>
                         <Box
                             h={500}
                             style={{

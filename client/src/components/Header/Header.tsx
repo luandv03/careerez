@@ -4,15 +4,52 @@ import {
     IconCertificate2,
     IconTrash,
     IconArrowsLeftRight,
+    IconMenu2,
 } from "@tabler/icons-react";
-import { Menu, rem, Text, Group } from "@mantine/core";
+import { Menu, rem, Text, Group, Drawer, Divider, Stack } from "@mantine/core";
 import { useContext } from "react";
 
 import styles from "./Header.module.css";
 import { AuthContext } from "../../providers/AuthProvider";
 import { authService } from "../../services/auth.service";
+import { useDisclosure } from "@mantine/hooks";
+
+const listOptionHeaders = [
+    {
+        id: 1,
+        title: "Trang chủ",
+        link: "/",
+    },
+    { id: 2, title: "Về CareerEZ", link: "/about" },
+    {
+        id: 3,
+        title: "Bài kiểm tra tính cách",
+        link: "/personality_test",
+    },
+    {
+        id: 4,
+        title: "Tổng quan ngành nghề",
+        link: "/career_overview",
+    },
+    {
+        id: 5,
+        title: "Trải nghiệm ngành nghề",
+        link: "/internship_online",
+    },
+    {
+        id: 6,
+        title: "Đăng ký thành viên",
+        link: "/member_register",
+    },
+    {
+        id: 7,
+        title: "FAQs",
+        link: "/faqs",
+    },
+];
 
 export const Header = () => {
+    const [opened, { open, close }] = useDisclosure(false);
     const { profile, setProfile } = useContext(AuthContext);
 
     const handleLogout = async () => {
@@ -51,7 +88,7 @@ export const Header = () => {
                         <p>Your path to success</p>
                     </div>
                 </div>
-                <div className={styles.authentication}>
+                <div className={`${styles.authentication}`}>
                     {!profile.user_id ? (
                         <>
                             {" "}
@@ -135,6 +172,121 @@ export const Header = () => {
                         </Menu>
                     )}
                 </div>
+
+                <div className={`${styles.authenticationMobile}`}>
+                    <IconMenu2 onClick={open} />
+                </div>
+
+                <Drawer
+                    opened={opened}
+                    onClose={close}
+                    position="right"
+                    style={{ color: "rgb(40, 89, 182)" }}
+                >
+                    {!profile.user_id ? (
+                        <Group justify="center">
+                            <div className={styles.signup}>
+                                <Link to="/signin">
+                                    <button>
+                                        <h4>Đăng ký</h4>
+                                    </button>
+                                </Link>
+                            </div>
+                            <div className={styles.signin}>
+                                <Link to="/signin">
+                                    <IconUserCircle size="40px" />
+                                </Link>
+                            </div>
+                        </Group>
+                    ) : (
+                        <Menu trigger="hover" openDelay={100} closeDelay={400}>
+                            <Menu.Target>
+                                <Group gap={0} justify="center">
+                                    <Text>{profile.username}</Text>
+                                    <IconUserCircle size="40px" />
+                                </Group>
+                            </Menu.Target>
+
+                            <Menu.Dropdown>
+                                <Menu.Item
+                                    leftSection={
+                                        <IconUserCircle
+                                            style={{
+                                                width: rem(14),
+                                                height: rem(14),
+                                            }}
+                                        />
+                                    }
+                                >
+                                    Thông tin cá nhân
+                                </Menu.Item>
+                                <Menu.Item
+                                    leftSection={
+                                        <IconCertificate2
+                                            style={{
+                                                width: rem(14),
+                                                height: rem(14),
+                                            }}
+                                        />
+                                    }
+                                >
+                                    Hoạt động
+                                </Menu.Item>
+
+                                <Menu.Divider />
+
+                                <Menu.Item
+                                    leftSection={
+                                        <IconArrowsLeftRight
+                                            style={{
+                                                width: rem(14),
+                                                height: rem(14),
+                                            }}
+                                        />
+                                    }
+                                >
+                                    Chuyển tài khoản
+                                </Menu.Item>
+                                <Menu.Item
+                                    color="red"
+                                    leftSection={
+                                        <IconTrash
+                                            style={{
+                                                width: rem(14),
+                                                height: rem(14),
+                                            }}
+                                        />
+                                    }
+                                    onClick={() => handleLogout()}
+                                >
+                                    Đăng xuất
+                                </Menu.Item>
+                            </Menu.Dropdown>
+                        </Menu>
+                    )}
+
+                    <Divider></Divider>
+
+                    <Stack>
+                        {listOptionHeaders.map((item) => (
+                            <>
+                                <NavLink
+                                    to={item.link}
+                                    className={({ isActive, isPending }) =>
+                                        isPending
+                                            ? styles.pending
+                                            : isActive
+                                            ? styles.active
+                                            : ""
+                                    }
+                                >
+                                    <h4>{item.title}</h4>
+                                </NavLink>
+                                <Divider></Divider>
+                            </>
+                        ))}
+                    </Stack>
+                </Drawer>
             </div>
             <div className={styles.footer}>
                 <ul className={styles.menu}>

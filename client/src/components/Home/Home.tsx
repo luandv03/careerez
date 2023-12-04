@@ -63,7 +63,7 @@ export const Home = () => {
 
     return (
         <div className={styles.container}>
-            <div>
+            <div className={styles.content}>
                 <motion.div
                     className={styles.avatar}
                     initial={{ opacity: 0, scale: 0.5 }}
@@ -347,30 +347,36 @@ export const Home = () => {
                         </h1>
                         <div className={styles.achievementList}>
                             <div className={styles.achievementItem}>
-                                <ScrollCountUp
-                                    number={10}
-                                    decimal="."
-                                    decimals={3}
-                                    suffix="+"
-                                />
-                                <div
-                                    className={styles.achievementItemDivide}
-                                ></div>
-                                <h2>Lượng người dùng</h2>
+                                <div>
+                                    <ScrollCountUp
+                                        number={10}
+                                        decimal="."
+                                        decimals={3}
+                                        suffix="+"
+                                    />
+                                    <div
+                                        className={styles.achievementItemDivide}
+                                    ></div>
+                                    <h2>Lượng người dùng</h2>
+                                </div>
                             </div>
                             <div className={styles.achievementItem}>
-                                <ScrollCountUp number={50} suffix="+" />
-                                <div
-                                    className={styles.achievementItemDivide}
-                                ></div>
-                                <h2>Cơ hội thực tập</h2>
+                                <div>
+                                    <ScrollCountUp number={50} suffix="+" />
+                                    <div
+                                        className={styles.achievementItemDivide}
+                                    ></div>
+                                    <h2>Cơ hội thực tập</h2>
+                                </div>
                             </div>
                             <div className={styles.achievementItem}>
-                                <ScrollCountUp number={50} suffix="+" />
-                                <div
-                                    className={styles.achievementItemDivide}
-                                ></div>
-                                <h2>Khóa học</h2>
+                                <div>
+                                    <ScrollCountUp number={50} suffix="+" />
+                                    <div
+                                        className={styles.achievementItemDivide}
+                                    ></div>
+                                    <h2>Khóa học</h2>
+                                </div>
                             </div>
                         </div>
                     </div>

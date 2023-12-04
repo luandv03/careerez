@@ -16,7 +16,7 @@
     transition: ease 1000ms;
 }
 
-.slide__content {
+.slide-content {
     width: 630px;
 }
 
@@ -74,4 +74,27 @@
 
 .indicator-inactive {
     background-color: grey;
+}
+
+@media screen and (max-width: 993px) {
+    .slide {
+        padding: 0 30px;
+    }
+
+    .slide span {
+        font-size: 20px;
+        font-weight: 500;
+    }
+
+    .arrow-left {
+        left: 0;
+    }
+
+    .arrow-right {
+        right: 0;
+    }
+
+    .slide-content {
+        width: 100%;
+    }
 }

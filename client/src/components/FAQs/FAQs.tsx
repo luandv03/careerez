@@ -90,7 +90,7 @@ export const FAQs = () => {
                 </div>
             </motion.div>
 
-            <Flex style={{ width: "100%" }} px={140}>
+            <Flex style={{ width: "100%" }} className={styles.faqList}>
                 <Stack>
                     {FAQS_INIT.map((item) => (
                         <DropdownText faq={item} />

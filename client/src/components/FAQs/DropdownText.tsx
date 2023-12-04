@@ -19,7 +19,7 @@ export const DropdownText = ({ faq }: { faq: FAQ }) => {
                 style={{ width: "100%", cursor: "pointer" }}
                 onClick={toggle}
             >
-                <Text size="20px" fw={700}>
+                <Text size="20px" fw={700} style={{ flex: 1 }}>
                     {faq.question_text}
                 </Text>
                 {opened ? <IconChevronUp /> : <IconChevronDown />}

@@ -44,7 +44,7 @@ export const Carousel = ({
                             slide === idx ? "slide" : "slide slide-hidden"
                         }
                     >
-                        <div className="slide__content">
+                        <div className="slide-content">
                             <span>{item.feedback}</span>
                             <p>{item.feedback_creator}</p>
                         </div>
