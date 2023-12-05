@@ -30,6 +30,7 @@ import { notifications } from "@mantine/notifications";
 import { ReadMore } from "../ReadMore";
 import { Loading } from "../Loading";
 import { jobSimulationService } from "../../services/job_simulation.service";
+import styles from "./JobSimulation.module.css";
 
 const JOB_DETAIL_INIT = {
     job_simulation_id: 0,
@@ -331,9 +332,9 @@ export const JobSimulation = () => {
                                     "rgba(100, 100, 111, 0.2) 0px 7px 29px 0px",
                             }}
                         >
-                            <Group h={560}>
+                            <Group h={560} className={styles.task}>
                                 <ScrollArea
-                                    style={{ height: "100%" }}
+                                    className={styles.taskLeft}
                                     w={300}
                                     p={10}
                                 >

@@ -101,4 +101,10 @@ jobSimulationRoutes.post(
     jobSimulationController.applyServicePackJobCategoryCompany
 );
 
+// create task by job id
+jobSimulationRoutes.post(
+    "/task/create",
+    jobSimulationController.createTaskByJobId
+);
+
 export default jobSimulationRoutes;

@@ -296,4 +296,20 @@ export class JobSimulationController {
             });
         }
     }
+
+    async createTaskByJobId(req, res) {
+        try {
+            const { payload } = req.body;
+
+            const data = await jobSimulationService.createTaskByJobId(payload);
+
+            return res.status(data.statusCode).json(data);
+        } catch (error) {
+            return res.status(HttpStatusCode.INTERNAL_SERVER_ERROR).json({
+                statusCode: HttpStatusCode.INTERNAL_SERVER_ERROR,
+                message: "Internal Server Error",
+                error,
+            });
+        }
+    }
 }

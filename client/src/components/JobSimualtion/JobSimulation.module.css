@@ -1,0 +1,14 @@
+.task {
+    @media (max-width: em(992px)) {
+        flex-wrap: wrap;
+        width: 100%;
+    }
+}
+
+.taskLeft {
+    height: 100%;
+
+    @media (max-width: em(992px)) {
+        display: none;
+    }
+}

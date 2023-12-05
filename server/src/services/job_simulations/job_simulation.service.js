@@ -371,6 +371,47 @@ class JobSimulationService {
             data: result.rows,
         };
     }
+
+    async createTaskByJobId(payload) {
+        const {
+            job_simulation_id,
+            task_name,
+            task_time_spaced,
+            task_des,
+            task_what_learn,
+            task_what_do,
+            task_video_intro,
+            task_number,
+            task_level,
+        } = payload;
+
+        const result = await query(
+            `INSERT INTO task VALUES (DEFAULT, $1, $2, $3, $4, $5, $6, $7, $8, $9)`,
+            [
+                job_simulation_id,
+                task_name,
+                task_time_spaced,
+                task_des,
+                task_what_learn,
+                task_what_do,
+                task_video_intro,
+                task_number,
+                task_level,
+            ]
+        );
+
+        if (!result.rowCount) {
+            return {
+                statusCode: HttpStatusCode.BAD_REQUEST,
+                message: "Create task failed!",
+            };
+        }
+
+        return {
+            statusCode: HttpStatusCode.OK,
+            message: "Create Task Successfull",
+        };
+    }
 }
 
 export const jobSimulationService = new JobSimulationService();

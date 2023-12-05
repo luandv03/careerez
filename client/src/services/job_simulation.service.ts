@@ -214,6 +214,20 @@ class JobSimulationService extends BaseService {
             return error;
         }
     }
+
+    // create task
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
+    async createTaskByJobId(payload: any) {
+        try {
+            const res = await this.httpClientPublic.post(`/task/create`, {
+                payload,
+            });
+
+            return res.data;
+        } catch (error) {
+            return error;
+        }
+    }
 }
 
 export const jobSimulationService = new JobSimulationService();

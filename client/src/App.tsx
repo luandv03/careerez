@@ -8,10 +8,8 @@ import { Home } from "./components/Home";
 import { About } from "./components/About";
 import { Personality, MBTITest, MBTIResult } from "./components/Personality";
 import { Signin } from "./components/Signin/Signin";
-// import { CareerExperience } from "./components/CareerExperience";
 import { OverviewCareer } from "./components/OverviewCareer";
 import { OverviewCareerDetail } from "./components/OverviewCareerDetail";
-// import { CourseDetail } from "./components/Course/CourseDetail";
 import { OnlineInternShip } from "./components/OnlineInternShip";
 import { JobSimulation } from "./components/JobSimualtion";
 import { JobSimulationUser } from "./components/JobSimulationUser";
@@ -20,6 +18,7 @@ import { MemberRegister } from "./components/MemberRegister";
 import { Editor } from "./components/Editor";
 import { JobDetail } from "./components/JobDetail";
 import { MemberRegisterSuccess } from "./components/MemberRegister/MemberRegisterSuccess";
+import { CreateTask } from "./components/Task";
 
 export default function App() {
     const location = useLocation();
@@ -70,6 +69,8 @@ export default function App() {
                         path="/job_detail/:job_simulation_id"
                         element={<JobDetail />}
                     />
+
+                    <Route path="/create_task" element={<CreateTask />} />
                 </Route>
                 <Route path="/signin" element={<AuthLayout />}>
                     <Route path="/signin" element={<Signin />} />

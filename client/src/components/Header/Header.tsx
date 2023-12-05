@@ -174,7 +174,7 @@ export const Header = () => {
                 </div>
 
                 <div className={`${styles.authenticationMobile}`}>
-                    <IconMenu2 onClick={open} />
+                    <IconMenu2 onClick={open} size={36} />
                 </div>
 
                 <Drawer
