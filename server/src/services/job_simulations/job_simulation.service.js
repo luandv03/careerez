@@ -180,7 +180,7 @@ class JobSimulationService {
     async getTaskByJobId(jobId) {
         const result = await query(
             `select task.*, count(requirement_id) number_of_requirement from task 
-            join requirement using(task_id)
+            left join requirement using(task_id)
             where job_simulation_id = $1
             group by task_id
             order by task_number`,
